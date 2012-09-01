@@ -11,9 +11,16 @@
 # generated files
 bin/*
 gen/*
+target/*
 
 # Local configuration file (sdk path, etc)
 local.properties
+
+# eclipse files
+.classpath
+.project
+.settings/*
+.apt_generated/*
 
 # emacs temp / backup files
 *~
