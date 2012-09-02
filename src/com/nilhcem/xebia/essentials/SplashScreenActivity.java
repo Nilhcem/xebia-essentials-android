@@ -1,6 +1,7 @@
 package com.nilhcem.xebia.essentials;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
@@ -21,8 +22,8 @@ import com.googlecode.androidannotations.annotations.ViewById;
 import com.googlecode.androidannotations.annotations.res.StringRes;
 import com.nilhcem.xebia.essentials.bo.CardService;
 import com.nilhcem.xebia.essentials.bo.CategoryService;
-import com.nilhcem.xebia.essentials.dao.CardDao;
-import com.nilhcem.xebia.essentials.dao.CategoryDao;
+import com.nilhcem.xebia.essentials.core.InMemoryCategoryFinder;
+import com.nilhcem.xebia.essentials.model.Category;
 import com.nilhcem.xebia.essentials.model.XmlData;
 
 @EActivity(R.layout.splash_screen)
@@ -39,6 +40,9 @@ public class SplashScreenActivity extends Activity {
 	@Bean
 	protected CardService mCardService;
 
+	@Bean
+	protected InMemoryCategoryFinder mCategoryFinder;
+
 	@StringRes(R.string.splash_error)
 	protected String mErrorMessage;
 
@@ -46,7 +50,7 @@ public class SplashScreenActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 		if (isDbInitialized()) {
-			redirectToMainActivity();
+			initCategoriesThenRedirect();
 		} else {
 			// Display loading - Import data - Redirect to main activity
 			mLoadingLayout.setVisibility(View.VISIBLE);
@@ -60,20 +64,20 @@ public class SplashScreenActivity extends Activity {
 		Serializer serializer = new Persister();
 		try {
 			XmlData xml = serializer.read(XmlData.class, getAssets().open(SplashScreenActivity.XML_FILE));
-			((CategoryDao) mCategoryService.getDao()).insertAll(xml.getCategories());
-			((CardDao) mCardService.getDao()).insertAll(xml.getCards());
-			redirectToMainActivity();
+			mCategoryService.getDao().insertAll(xml.getCategories());
+			mCardService.getDao().insertAll(xml.getCards());
+			initCategoriesThenRedirect();
 		} catch (Exception e) {
 			LOG.error("Error importing data", e);
-			displayError(e.getMessage());
-			finish();
+			finishWithToastError(e.getMessage());
 		}
 	}
 
 	@UiThread
-	protected void displayError(String errorMsg) {
+	protected void finishWithToastError(String errorMsg) {
 		Toast.makeText(this, String.format(mErrorMessage, errorMsg),
 				Toast.LENGTH_SHORT).show();
+		finish();
 	}
 
 	private boolean isDbInitialized() {
@@ -85,6 +89,18 @@ public class SplashScreenActivity extends Activity {
 			// Do nothing
 		}
 		return databaseInitialized;
+	}
+
+	@Background
+	protected void initCategoriesThenRedirect() {
+		try {
+			List<Category> categories = mCategoryService.getDao().queryForAll();
+			mCategoryFinder.initCategories(categories);
+		} catch (SQLException e) {
+			LOG.error("Error getting categories", e);
+			finishWithToastError(e.getMessage());
+		}
+		redirectToMainActivity();
 	}
 
 	private void redirectToMainActivity() {

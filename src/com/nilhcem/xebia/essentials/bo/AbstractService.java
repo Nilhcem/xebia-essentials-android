@@ -12,12 +12,13 @@ import com.j256.ormlite.dao.Dao;
 import com.j256.ormlite.dao.DaoManager;
 import com.nilhcem.xebia.essentials.core.DatabaseHelper;
 
-public abstract class AbstractService<T> {
+public abstract class AbstractService<T, T2 extends Dao<T, Long>> {
 	private static final Logger LOG = LoggerFactory.getLogger(AbstractService.class);
 	protected Dao<T, Long> mDao;
 
-	public Dao<T, Long> getDao() {
-		return mDao;
+	@SuppressWarnings("unchecked")
+	public T2 getDao() {
+		return (T2) mDao;
 	}
 
 	protected void setDao(Context context, Class<T> clazz) {
