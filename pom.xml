@@ -84,6 +84,21 @@
 			<artifactId>logback-android-classic</artifactId>
 			<version>${com.github.tony19.logback.version}</version>
 		</dependency>
+
+		<!-- Support API -->
+		<dependency>
+			<groupId>com.google.android</groupId>
+			<artifactId>support-v4</artifactId>
+			<version>r10</version>
+		</dependency>
+
+		<!-- ViewPagerIndicator -->
+		<dependency>
+			<groupId>com.viewpagerindicator</groupId>
+			<artifactId>library</artifactId>
+			<version>2.3.1</version>
+			<type>apklib</type>
+		</dependency>
 	</dependencies>
 
 	<build>

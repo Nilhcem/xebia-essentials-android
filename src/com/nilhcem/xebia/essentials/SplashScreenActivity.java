@@ -22,6 +22,7 @@ import com.googlecode.androidannotations.annotations.ViewById;
 import com.googlecode.androidannotations.annotations.res.StringRes;
 import com.nilhcem.xebia.essentials.bo.CardService;
 import com.nilhcem.xebia.essentials.bo.CategoryService;
+import com.nilhcem.xebia.essentials.cards.CardsListActivity_;
 import com.nilhcem.xebia.essentials.core.InMemoryCategoryFinder;
 import com.nilhcem.xebia.essentials.model.Category;
 import com.nilhcem.xebia.essentials.model.XmlData;
@@ -105,7 +106,7 @@ public class SplashScreenActivity extends Activity {
 
 	private void redirectToMainActivity() {
 		LOG.debug("Redirect to main activity");
-		Intent intent = new Intent(this, MainActivity_.class);
+		Intent intent = new Intent(this, CardsListActivity_.class);
 		intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 		startActivity(intent);
 	}

@@ -5,4 +5,7 @@
     <!-- Splash screen -->
     <string name="splash_loading">Loading…</string>
     <string name="splash_error">Error, couldn\'t import XML data: %s</string>
+
+	<!-- Cards list -->
+	<string name="cards_list_all">All</string>
 </resources>

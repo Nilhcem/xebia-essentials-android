@@ -27,7 +27,7 @@ public class InMemoryCategoryFinder {
 		return new ArrayList<Category>(mCategories.values());
 	}
 
-	public Category getById(Long id) {
-		return mCategories.get(id);
+	public Category getById(long id) {
+		return mCategories.get(Long.valueOf(id));
 	}
 }

@@ -17,7 +17,7 @@ public final class Card {
 	private static final String COL_URL = "url";
 	private static final String COL_SUMMARY = "summary";
 	private static final String COL_CONTENT = "content";
-	private static final String COL_CATEGORY = "category_id";
+	public static final String COL_CATEGORY = "category_id";
 
 	@DatabaseField(columnName = Card.COL_ID, generatedId = true)
 	private long id;
