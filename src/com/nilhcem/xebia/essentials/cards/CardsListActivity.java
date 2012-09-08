@@ -15,7 +15,7 @@ import com.googlecode.androidannotations.annotations.ViewById;
 import com.googlecode.androidannotations.annotations.res.StringRes;
 import com.nilhcem.xebia.essentials.R;
 import com.nilhcem.xebia.essentials.core.InMemoryCategoryFinder;
-import com.nilhcem.xebia.essentials.model.Category;
+import com.nilhcem.xebia.essentials.core.model.Category;
 import com.viewpagerindicator.TabPageIndicator;
 
 @EActivity(R.layout.cards_list)
@@ -32,7 +32,7 @@ public class CardsListActivity extends FragmentActivity {
 	protected InMemoryCategoryFinder mMemoryFinder;
 
 	@StringRes(R.string.cards_list_all)
-	protected String mAll;
+	protected String mAllCategories;
 
 	@AfterViews
 	protected void createViewPagerAdapter() {
@@ -69,7 +69,7 @@ public class CardsListActivity extends FragmentActivity {
 		@Override
 		public CharSequence getPageTitle(int position) {
 			if (position == 0) {
-				return mAll;
+				return mAllCategories;
 			} else {
 				return mCategories.get(position - 1).getName();
 			}

@@ -1,4 +1,4 @@
-package com.nilhcem.xebia.essentials.model;
+package com.nilhcem.xebia.essentials.core.model;
 
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
@@ -6,7 +6,7 @@ import org.simpleframework.xml.Root;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
-import com.nilhcem.xebia.essentials.dao.CategoryDao;
+import com.nilhcem.xebia.essentials.core.dao.CategoryDao;
 
 @Root
 @DatabaseTable(daoClass = CategoryDao.class, tableName = Category.TABLE_NAME)

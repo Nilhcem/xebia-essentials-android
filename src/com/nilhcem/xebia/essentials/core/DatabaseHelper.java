@@ -11,8 +11,8 @@ import android.database.sqlite.SQLiteDatabase;
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.TableUtils;
-import com.nilhcem.xebia.essentials.model.Card;
-import com.nilhcem.xebia.essentials.model.Category;
+import com.nilhcem.xebia.essentials.core.model.Card;
+import com.nilhcem.xebia.essentials.core.model.Category;
 
 public final class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 	private static final Logger LOG = LoggerFactory.getLogger(DatabaseHelper.class);

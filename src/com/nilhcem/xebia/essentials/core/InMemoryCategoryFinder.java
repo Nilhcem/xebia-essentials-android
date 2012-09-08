@@ -7,7 +7,7 @@ import java.util.Map;
 
 import com.googlecode.androidannotations.annotations.EBean;
 import com.googlecode.androidannotations.api.Scope;
-import com.nilhcem.xebia.essentials.model.Category;
+import com.nilhcem.xebia.essentials.core.model.Category;
 
 @EBean(scope = Scope.Singleton)
 public class InMemoryCategoryFinder {

@@ -11,8 +11,8 @@ import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EBean;
 import com.googlecode.androidannotations.annotations.RootContext;
 import com.nilhcem.xebia.essentials.R;
-import com.nilhcem.xebia.essentials.bo.CardService;
-import com.nilhcem.xebia.essentials.model.Card;
+import com.nilhcem.xebia.essentials.core.bo.CardService;
+import com.nilhcem.xebia.essentials.core.model.Card;
 
 @EBean
 public class CardsListAdapter extends BaseAdapter {
@@ -55,7 +55,7 @@ public class CardsListAdapter extends BaseAdapter {
 		return cardItem;
 	}
 
-	/* package */ void setCategoryId(long id) {
-		cards = mCardService.getDao().getAllCardsFromCategory(id);
+	/* package */ void init(long categoryId) {
+		cards = mCardService.getDao().getAllCardsFromCategory(categoryId);
 	}
 }

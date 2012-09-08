@@ -1,4 +1,4 @@
-package com.nilhcem.xebia.essentials.dao;
+package com.nilhcem.xebia.essentials.core.dao;
 
 import java.sql.SQLException;
 import java.util.List;

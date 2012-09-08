@@ -1,4 +1,4 @@
-package com.nilhcem.xebia.essentials.model;
+package com.nilhcem.xebia.essentials.core.model;
 
 import java.util.List;
 

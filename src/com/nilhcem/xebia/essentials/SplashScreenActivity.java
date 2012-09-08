@@ -20,12 +20,12 @@ import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
 import com.googlecode.androidannotations.annotations.res.StringRes;
-import com.nilhcem.xebia.essentials.bo.CardService;
-import com.nilhcem.xebia.essentials.bo.CategoryService;
-import com.nilhcem.xebia.essentials.cards.CardsListActivity_;
+import com.nilhcem.xebia.essentials.cards.*;
 import com.nilhcem.xebia.essentials.core.InMemoryCategoryFinder;
-import com.nilhcem.xebia.essentials.model.Category;
-import com.nilhcem.xebia.essentials.model.XmlData;
+import com.nilhcem.xebia.essentials.core.bo.CardService;
+import com.nilhcem.xebia.essentials.core.bo.CategoryService;
+import com.nilhcem.xebia.essentials.core.model.Category;
+import com.nilhcem.xebia.essentials.core.model.XmlData;
 
 @EActivity(R.layout.splash_screen)
 public class SplashScreenActivity extends Activity {

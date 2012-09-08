@@ -31,7 +31,7 @@ public class CardsListFragment extends ListFragment {
 
 	@AfterViews
 	protected void bindAdapter() {
-		mAdapter.setCategoryId(mCategoryId);
+		mAdapter.init(mCategoryId);
 		setListAdapter(mAdapter);
 	}
 

@@ -1,11 +1,11 @@
-package com.nilhcem.xebia.essentials.model;
+package com.nilhcem.xebia.essentials.core.model;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
-import com.nilhcem.xebia.essentials.dao.CardDao;
+import com.nilhcem.xebia.essentials.core.dao.CardDao;
 
 @Root
 @DatabaseTable(daoClass = CardDao.class, tableName = Card.TABLE_NAME)

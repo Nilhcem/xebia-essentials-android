@@ -1,4 +1,4 @@
-package com.nilhcem.xebia.essentials.bo;
+package com.nilhcem.xebia.essentials.core.bo;
 
 import java.sql.SQLException;
 

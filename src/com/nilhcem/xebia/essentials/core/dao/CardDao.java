@@ -1,4 +1,4 @@
-package com.nilhcem.xebia.essentials.dao;
+package com.nilhcem.xebia.essentials.core.dao;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -10,7 +10,7 @@ import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.DatabaseTableConfig;
-import com.nilhcem.xebia.essentials.model.Card;
+import com.nilhcem.xebia.essentials.core.model.Card;
 
 public class CardDao extends AbstractDao<Card> {
 	protected static final Logger LOG = LoggerFactory.getLogger(CardDao.class);
