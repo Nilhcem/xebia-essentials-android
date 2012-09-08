@@ -14,7 +14,8 @@
         android:theme="@style/XebiaTheme" >
         <activity
             android:name="SplashScreenActivity_"
-            android:noHistory="true" >
+            android:noHistory="true"
+            android:theme="@android:style/Theme.NoTitleBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

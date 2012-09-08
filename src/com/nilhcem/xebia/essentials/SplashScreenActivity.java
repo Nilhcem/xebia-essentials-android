@@ -8,21 +8,20 @@ import org.simpleframework.xml.core.Persister;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.SherlockActivity;
-import com.actionbarsherlock.view.Window;
 import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
 import com.googlecode.androidannotations.annotations.res.StringRes;
-import com.nilhcem.xebia.essentials.cards.*;
+import com.nilhcem.xebia.essentials.cards.CardsListActivity_;
 import com.nilhcem.xebia.essentials.core.InMemoryCategoryFinder;
 import com.nilhcem.xebia.essentials.core.bo.CardService;
 import com.nilhcem.xebia.essentials.core.bo.CategoryService;
@@ -30,7 +29,7 @@ import com.nilhcem.xebia.essentials.core.model.Category;
 import com.nilhcem.xebia.essentials.core.model.XmlData;
 
 @EActivity(R.layout.splash_screen)
-public class SplashScreenActivity extends SherlockActivity {
+public class SplashScreenActivity extends Activity {
 	private static final Logger LOG = LoggerFactory.getLogger(SplashScreenActivity.class);
 	private static final String XML_FILE = "data.xml";
 
@@ -52,7 +51,6 @@ public class SplashScreenActivity extends SherlockActivity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
 	}
 
 	@Override
