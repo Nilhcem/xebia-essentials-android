@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <!-- Licenses -->
+    <Preference
+        android:icon="@drawable/notepad"
+        android:key="licenses"
+        android:title="@string/settings_licenses" />
+
+    <!-- GitHub -->
+    <Preference
+        android:icon="@drawable/wrench"
+        android:key="github"
+        android:title="@string/settings_github" />
+
+</PreferenceScreen>

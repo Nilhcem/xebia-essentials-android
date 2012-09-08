@@ -8,10 +8,10 @@
         android:targetSdkVersion="15" />
 
     <application
+        android:hardwareAccelerated="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/XebiaTheme"
-        android:hardwareAccelerated="true" >
+        android:theme="@style/XebiaTheme" >
         <activity
             android:name="SplashScreenActivity_"
             android:noHistory="true" >
@@ -21,8 +21,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".cards.CardsListActivity_" />
         <activity
-            android:name=".cards.CardsListActivity_" />
+            android:name=".settings.SettingsActivity_"
+            android:noHistory="true" />
     </application>
 
 </manifest>

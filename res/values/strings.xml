@@ -6,6 +6,15 @@
     <string name="splash_loading">Loading…</string>
     <string name="splash_error">Error, couldn\'t import XML data: %s</string>
 
-	<!-- Cards list -->
-	<string name="cards_list_all">All</string>
+    <!-- Main menu -->
+    <string name="menu_settings">Settings</string>
+
+    <!-- Settings -->
+    <string name="settings_licenses">Licenses</string>
+    <string name="settings_close">Close</string>
+    <string name="settings_github">Fork me on GitHub</string>
+
+    <!-- Cards list -->
+    <string name="cards_list_all">All</string>
+
 </resources>
