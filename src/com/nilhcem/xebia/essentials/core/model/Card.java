@@ -20,7 +20,7 @@ public final class Card {
 	public static final String COL_CATEGORY = "category_id";
 
 	@DatabaseField(columnName = Card.COL_ID, generatedId = true)
-	private long id;
+	private Long id;
 
 	@Element
 	@DatabaseField(columnName = Card.COL_TITLE)
@@ -46,7 +46,7 @@ public final class Card {
 	@DatabaseField(columnName = Card.COL_CONTENT)
 	private String content;
 
-	public long getId() {
+	public Long getId() {
 		return id;
 	}
 

@@ -21,7 +21,7 @@ import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
 import com.googlecode.androidannotations.annotations.res.StringRes;
-import com.nilhcem.xebia.essentials.cards.CardsListActivity_;
+import com.nilhcem.xebia.essentials.cards.list.*;
 import com.nilhcem.xebia.essentials.core.InMemoryCategoryFinder;
 import com.nilhcem.xebia.essentials.core.bo.CardService;
 import com.nilhcem.xebia.essentials.core.bo.CategoryService;

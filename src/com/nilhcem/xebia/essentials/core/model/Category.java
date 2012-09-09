@@ -4,6 +4,8 @@ import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
+import android.graphics.Color;
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import com.nilhcem.xebia.essentials.core.dao.CategoryDao;
@@ -38,5 +40,9 @@ public final class Category {
 
 	public String getColor() {
 		return color;
+	}
+
+	public int getIntColor() {
+		return Color.parseColor(getColor());
 	}
 }

@@ -29,6 +29,17 @@ public class CardDao extends AbstractDao<Card> {
 		super(connectionSource, tableConfig);
 	}
 
+	public Card getById(Long cardId) {
+		Card card;
+		try {
+			card = queryForId(cardId);
+		} catch (SQLException e) {
+			LOG.error("Error getting card {}", cardId, e);
+			card = null;
+		}
+		return card;
+	}
+
 	public List<Card> getAllCardsFromCategory(long catId) {
 		QueryBuilder<Card, Long> queryBuilder = queryBuilder();
 

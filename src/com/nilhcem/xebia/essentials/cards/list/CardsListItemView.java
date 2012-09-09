@@ -1,7 +1,6 @@
-package com.nilhcem.xebia.essentials.cards;
+package com.nilhcem.xebia.essentials.cards.list;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -34,7 +33,7 @@ public class CardsListItemView extends LinearLayout {
 
 		// Category color
 		Category category = mCategoryFinder.getById(card.getCategoryId());
-		int color = Color.parseColor(category.getColor());
+		int color = category.getIntColor();
 		mCategoryColor.setBackgroundColor(color);
 	}
 }

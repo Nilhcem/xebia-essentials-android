@@ -1,7 +1,8 @@
-package com.nilhcem.xebia.essentials.cards;
+package com.nilhcem.xebia.essentials.cards.list;
 
 import java.util.List;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -13,17 +14,18 @@ import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.ViewById;
 import com.googlecode.androidannotations.annotations.res.StringRes;
 import com.nilhcem.xebia.essentials.R;
+import com.nilhcem.xebia.essentials.cards.html.*;
 import com.nilhcem.xebia.essentials.core.BaseActivity;
 import com.nilhcem.xebia.essentials.core.InMemoryCategoryFinder;
 import com.nilhcem.xebia.essentials.core.model.Category;
 import com.viewpagerindicator.TabPageIndicator;
 
 @EActivity(R.layout.cards_list)
-public class CardsListActivity extends BaseActivity {
-	@ViewById(R.id.mainViewPager)
+public class CardsListActivity extends BaseActivity implements IOnCardItemSelected {
+	@ViewById(R.id.cardsListViewPager)
 	protected ViewPager mViewPager;
 
-	@ViewById(R.id.mainViewIndicator)
+	@ViewById(R.id.cardsListIndicator)
 	protected TabPageIndicator mViewPagerIndicator;
 
 	private CategoriesPagerAdapter mViewPagerAdapter;
@@ -74,5 +76,12 @@ public class CardsListActivity extends BaseActivity {
 				return mCategories.get(position - 1).getName();
 			}
 		}
+	}
+
+	@Override
+	public void onCardsListItemSelected(Long cardId) {
+		Intent intent = new Intent(this, CardsHtmlActivity_.class);
+		intent.putExtra(CardsHtmlActivity.INTENT_CARD_ID, cardId);
+		startActivity(intent);
 	}
 }

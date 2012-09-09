@@ -1,8 +1,9 @@
-package com.nilhcem.xebia.essentials.cards;
+package com.nilhcem.xebia.essentials.cards.list;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.ListFragment;
 import android.view.View;
@@ -19,6 +20,7 @@ public class CardsListFragment extends ListFragment {
 	private static final String KEY_CATEGORY = "CardsListFragment:mCategoryId";
 
 	private long mCategoryId;
+	private IOnCardItemSelected mCardSelectedListener = null;
 
 	@Bean
 	protected CardsListAdapter mAdapter;
@@ -36,9 +38,20 @@ public class CardsListFragment extends ListFragment {
 	}
 
 	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		mCardSelectedListener = (IOnCardItemSelected) activity;
+	}
+
+	@Override
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
-		LOG.info("Card clicked: {}", (Long) v.getTag(R.id.cardsListItemCategoryColor));
+
+		Long cardId = (Long) v.getTag(R.id.cardsListItemCategoryColor);
+		LOG.info("Card clicked: {}", cardId);
+		if (mCardSelectedListener != null) {
+			mCardSelectedListener.onCardsListItemSelected(cardId);
+		}
 	}
 
 	@Override

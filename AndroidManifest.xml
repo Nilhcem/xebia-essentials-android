@@ -22,7 +22,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".cards.CardsListActivity_" />
+        <activity android:name=".cards.list.CardsListActivity_" />
+        <activity android:name=".cards.html.CardsHtmlActivity_" />
         <activity
             android:name=".settings.SettingsActivity_"
             android:noHistory="true" />

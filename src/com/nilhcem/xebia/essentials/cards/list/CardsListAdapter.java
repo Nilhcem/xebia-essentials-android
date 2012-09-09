@@ -1,4 +1,4 @@
-package com.nilhcem.xebia.essentials.cards;
+package com.nilhcem.xebia.essentials.cards.list;
 
 import java.util.List;
 
@@ -11,6 +11,7 @@ import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EBean;
 import com.googlecode.androidannotations.annotations.RootContext;
 import com.nilhcem.xebia.essentials.R;
+import com.nilhcem.xebia.essentials.cards.list.CardsListItemView_;
 import com.nilhcem.xebia.essentials.core.bo.CardService;
 import com.nilhcem.xebia.essentials.core.model.Card;
 
