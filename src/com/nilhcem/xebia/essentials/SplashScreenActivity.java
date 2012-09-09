@@ -10,6 +10,7 @@ import org.slf4j.LoggerFactory;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -21,10 +22,12 @@ import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
 import com.googlecode.androidannotations.annotations.res.StringRes;
+import com.nilhcem.xebia.essentials.cards.html.*;
 import com.nilhcem.xebia.essentials.cards.list.*;
 import com.nilhcem.xebia.essentials.core.InMemoryCategoryFinder;
 import com.nilhcem.xebia.essentials.core.bo.CardService;
 import com.nilhcem.xebia.essentials.core.bo.CategoryService;
+import com.nilhcem.xebia.essentials.core.model.Card;
 import com.nilhcem.xebia.essentials.core.model.Category;
 import com.nilhcem.xebia.essentials.core.model.XmlData;
 
@@ -107,12 +110,31 @@ public class SplashScreenActivity extends Activity {
 			LOG.error("Error getting categories", e);
 			finishWithToastError(e.getMessage());
 		}
-		redirectToMainActivity();
+		processRedirect();
 	}
 
-	private void redirectToMainActivity() {
-		LOG.debug("Redirect to main activity");
-		Intent intent = new Intent(this, CardsListActivity_.class);
+	private void processRedirect() {
+		// Check intent filters (ie: http://essentials.xebia.com/have-fun)
+		Card card = null;
+		Uri data = getIntent().getData();
+		if (data != null) {
+			List<String> params = data.getPathSegments();
+			if (params != null && params.size() == 1) {
+				String cardUrl = params.get(0);
+				card = mCardService.getDao().getByUrl(cardUrl);
+			}
+		}
+
+		// Start activity
+		Intent intent;
+		if (card == null) {
+			LOG.debug("Redirect to main activity");
+			intent = new Intent(this, CardsListActivity_.class);
+		} else {
+			LOG.debug("Redirect to card activity");
+			intent = new Intent(this, CardsHtmlActivity_.class);
+			intent.putExtra(CardsHtmlActivity.INTENT_CARD_ID, card.getId());
+		}
 		intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
 		startActivity(intent);
 	}

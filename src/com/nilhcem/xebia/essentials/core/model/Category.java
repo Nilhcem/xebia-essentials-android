@@ -13,10 +13,10 @@ import com.nilhcem.xebia.essentials.core.dao.CategoryDao;
 @Root
 @DatabaseTable(daoClass = CategoryDao.class, tableName = Category.TABLE_NAME)
 public final class Category {
-	/*package*/ static final String TABLE_NAME = "categories";
-	private static final String COL_ID = "_id";
-	private static final String COL_NAME = "name";
-	private static final String COL_COLOR = "color";
+	public static final String TABLE_NAME = "categories";
+	public static final String COL_ID = "_id";
+	public static final String COL_NAME = "name";
+	public static final String COL_COLOR = "color";
 
 	@Attribute
 	@DatabaseField(columnName = Category.COL_ID, id = true)

@@ -3,6 +3,7 @@ package com.nilhcem.xebia.essentials.cards.html;
 import android.support.v4.app.Fragment;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.googlecode.androidannotations.annotations.Background;
@@ -18,6 +19,9 @@ import com.nilhcem.xebia.essentials.core.model.Category;
 
 @EFragment(R.layout.cards_html_fragment)
 public class CardsHtmlFragment extends Fragment {
+	@ViewById(R.id.cardsHtmlScroll)
+	protected ScrollView mScroll;
+
 	@ViewById(R.id.cardsHtmlTitle)
 	protected TextView mTitle;
 
@@ -43,5 +47,6 @@ public class CardsHtmlFragment extends Fragment {
 		mTitle.setBackgroundColor(category.getIntColor());
 		mContent.setText(Html.fromHtml(card.getContent()));
 		mContent.setMovementMethod(LinkMovementMethod.getInstance()); // make links clickable
+		mScroll.smoothScrollTo(0, 0);
 	}
 }

@@ -6,6 +6,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import android.text.TextUtils;
+
 import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.support.ConnectionSource;
@@ -36,6 +38,25 @@ public class CardDao extends AbstractDao<Card> {
 		} catch (SQLException e) {
 			LOG.error("Error getting card {}", cardId, e);
 			card = null;
+		}
+		return card;
+	}
+
+	public Card getByUrl(String url) {
+		Card card = null;
+
+		if (!TextUtils.isEmpty(url)) {
+			QueryBuilder<Card, Long> queryBuilder = queryBuilder();
+			try {
+				queryBuilder.where().eq(Card.COL_URL, url);
+				PreparedQuery<Card> preparedQuery = queryBuilder.prepare();
+				List<Card> cards = query(preparedQuery);
+				if (cards.size() == 1) {
+					card = cards.get(0);
+				}
+			} catch (SQLException e) {
+				LOG.error("Error getting card for URL {}", url, e);
+			}
 		}
 		return card;
 	}

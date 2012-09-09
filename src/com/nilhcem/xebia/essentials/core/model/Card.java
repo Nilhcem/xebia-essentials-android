@@ -10,13 +10,13 @@ import com.nilhcem.xebia.essentials.core.dao.CardDao;
 @Root
 @DatabaseTable(daoClass = CardDao.class, tableName = Card.TABLE_NAME)
 public final class Card {
-	/*package*/ static final String TABLE_NAME = "cards";
-	private static final String COL_ID = "_id";
-	private static final String COL_TITLE = "title";
-	private static final String COL_QRCODE = "qrcode";
-	private static final String COL_URL = "url";
-	private static final String COL_SUMMARY = "summary";
-	private static final String COL_CONTENT = "content";
+	public static final String TABLE_NAME = "cards";
+	public static final String COL_ID = "_id";
+	public static final String COL_TITLE = "title";
+	public static final String COL_QRCODE = "qrcode";
+	public static final String COL_URL = "url";
+	public static final String COL_SUMMARY = "summary";
+	public static final String COL_CONTENT = "content";
 	public static final String COL_CATEGORY = "category_id";
 
 	@DatabaseField(columnName = Card.COL_ID, generatedId = true)
