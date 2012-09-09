@@ -6,6 +6,7 @@ import android.text.method.LinkMovementMethod;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
+import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EFragment;
@@ -47,6 +48,12 @@ public class CardsHtmlFragment extends Fragment {
 		mTitle.setBackgroundColor(category.getIntColor());
 		mContent.setText(Html.fromHtml(card.getContent()));
 		mContent.setMovementMethod(LinkMovementMethod.getInstance()); // make links clickable
+	}
+
+	@AfterViews
+	protected void initScroll() {
+		// FIX - For an unknown reason, when loading the fragment,
+		// the scroll is set sometimes at the beginning of the content instead of the title.
 		mScroll.smoothScrollTo(0, 0);
 	}
 }
