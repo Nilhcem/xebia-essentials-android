@@ -2,6 +2,9 @@
 <resources>
     <string name="app_name">Xebia Essentials</string>
 
+    <!-- Explicitly tell OrmLite the name of our DatabaseHelper class -->
+    <string name="open_helper_classname">com.nilhcem.xebia.essentials.core.DatabaseHelper</string>
+
     <!-- Splash screen -->
     <string name="splash_loading">Loading…</string>
     <string name="splash_error">Error, couldn\'t import XML data: %s</string>

@@ -1,0 +1,59 @@
+#
+# generated on 2012/09/10 10:09:40
+#
+# --table-start--
+dataClass=com.nilhcem.xebia.essentials.core.model.Card
+tableName=cards
+# --table-fields-start--
+# --field-start--
+fieldName=id
+columnName=_id
+generatedId=true
+# --field-end--
+# --field-start--
+fieldName=title
+columnName=title
+# --field-end--
+# --field-start--
+fieldName=categoryId
+columnName=category_id
+# --field-end--
+# --field-start--
+fieldName=qrCode
+columnName=qrcode
+# --field-end--
+# --field-start--
+fieldName=url
+columnName=url
+# --field-end--
+# --field-start--
+fieldName=summary
+columnName=summary
+# --field-end--
+# --field-start--
+fieldName=content
+columnName=content
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
+# --table-start--
+dataClass=com.nilhcem.xebia.essentials.core.model.Category
+tableName=categories
+# --table-fields-start--
+# --field-start--
+fieldName=id
+columnName=_id
+id=true
+# --field-end--
+# --field-start--
+fieldName=name
+columnName=name
+# --field-end--
+# --field-start--
+fieldName=color
+columnName=color
+# --field-end--
+# --table-fields-end--
+# --table-end--
+#################################
