@@ -3,8 +3,12 @@ package com.nilhcem.xebia.essentials.cards.html;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.support.v4.view.ViewPager;
 
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.view.MenuItem;
+import com.googlecode.androidannotations.annotations.AfterInject;
 import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.Bean;
@@ -13,6 +17,7 @@ import com.googlecode.androidannotations.annotations.Extra;
 import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
 import com.nilhcem.xebia.essentials.R;
+import com.nilhcem.xebia.essentials.cards.list.*;
 import com.nilhcem.xebia.essentials.core.BaseActivity;
 import com.nilhcem.xebia.essentials.core.bo.CardService;
 import com.nilhcem.xebia.essentials.core.model.Card;
@@ -71,5 +76,25 @@ public class CardsHtmlActivity extends BaseActivity {
 		}
 
 		return cards;
+	}
+
+	@AfterInject
+	protected void initHomeButton() {
+		ActionBar actionBar = getSupportActionBar();
+		actionBar.setHomeButtonEnabled(true);
+		actionBar.setDisplayHomeAsUpEnabled(true);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.getItemId() == android.R.id.home) {
+			Intent intent = new Intent(this, CardsListActivity_.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(intent);
+            finish();
+			return true;
+		} else {
+			return super.onOptionsItemSelected(item);
+		}
 	}
 }

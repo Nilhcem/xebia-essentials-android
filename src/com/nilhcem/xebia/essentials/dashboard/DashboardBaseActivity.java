@@ -47,6 +47,7 @@ public abstract class DashboardBaseActivity extends BaseActivity {
 	@AfterInject
 	protected void initActionBar() {
 		mActionBar = getSupportActionBar();
+		mActionBar.setHomeButtonEnabled(true);
 		mActionBar.setDisplayHomeAsUpEnabled(true);
 	}
 
