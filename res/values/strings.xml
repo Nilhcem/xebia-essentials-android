@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Xebia Essentials</string>
+    <string name="cards_url_prefix">http://essentials.xebia.com/</string>
 
     <!-- Explicitly tell OrmLite the name of our DatabaseHelper class -->
     <string name="open_helper_classname">com.nilhcem.xebia.essentials.core.DatabaseHelper</string>

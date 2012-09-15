@@ -1,5 +1,6 @@
 package com.nilhcem.xebia.essentials.cards.html;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
@@ -7,10 +8,14 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.actionbarsherlock.app.SherlockFragment;
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.widget.ShareActionProvider;
 import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EFragment;
 import com.googlecode.androidannotations.annotations.ViewById;
+import com.googlecode.androidannotations.annotations.res.StringRes;
 import com.nilhcem.xebia.essentials.R;
 import com.nilhcem.xebia.essentials.core.InMemoryCategoryFinder;
 import com.nilhcem.xebia.essentials.core.bo.CardService;
@@ -35,6 +40,9 @@ public class CardsHtmlFragment extends SherlockFragment {
 
 	@Bean
 	protected InMemoryCategoryFinder mCategoryFinder;
+
+	@StringRes(R.string.cards_url_prefix)
+	protected String mUrlPrefix;
 
 	private Card mCard;
 
@@ -62,10 +70,26 @@ public class CardsHtmlFragment extends SherlockFragment {
 
 	@AfterViews
 	protected void initCardData() {
+		setHasOptionsMenu(true);
 		Category category = mCategoryFinder.getById(mCard.getCategoryId());
 		mTitle.setText(mCard.getTitle());
 		mTitle.setBackgroundColor(category.getIntColor());
 		mContent.setText(Html.fromHtml(mCard.getContent()));
 		mContent.setMovementMethod(LinkMovementMethod.getInstance()); // make links clickable
+	}
+
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		super.onCreateOptionsMenu(menu, inflater);
+		inflater.inflate(R.menu.cards_html_menu, menu);
+
+		// Set the share intent
+		ShareActionProvider shareProvider = (ShareActionProvider) menu
+				.findItem(R.id.menu_share).getActionProvider();
+		Intent shareIntent = new Intent(Intent.ACTION_SEND);
+		shareIntent.setType("text/plain");
+		shareIntent.putExtra(Intent.EXTRA_SUBJECT, mCard.getTitle());
+		shareIntent.putExtra(Intent.EXTRA_TEXT, String.format("%s%s", mUrlPrefix, mCard.getUrl()));
+		shareProvider.setShareIntent(shareIntent);
 	}
 }
