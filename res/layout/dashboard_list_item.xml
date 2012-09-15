@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:paddingBottom="14dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="14dp" >
+
+    <View
+        android:id="@+id/dashboardItemColor"
+        android:layout_width="26dp"
+        android:layout_height="26dp"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="10dp" />
+
+    <TextView
+        android:id="@+id/dashboardItemTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/dashboardItemColor"
+        android:textSize="18sp" />
+
+</RelativeLayout>

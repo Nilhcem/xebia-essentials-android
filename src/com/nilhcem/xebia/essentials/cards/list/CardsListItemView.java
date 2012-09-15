@@ -19,7 +19,7 @@ public class CardsListItemView extends LinearLayout {
 	protected InMemoryCategoryFinder mCategoryFinder;
 
 	@ViewById(R.id.cardsListItemText)
-	protected TextView title;
+	protected TextView mTitle;
 
 	@ViewById(R.id.cardsListItemCategoryColor)
 	protected View mCategoryColor;
@@ -29,7 +29,7 @@ public class CardsListItemView extends LinearLayout {
 	}
 
 	public void bind(Card card) {
-		title.setText(card.getTitle());
+		mTitle.setText(card.getTitle());
 
 		// Category color
 		Category category = mCategoryFinder.getById(card.getCategoryId());

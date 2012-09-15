@@ -1,5 +1,6 @@
 package com.nilhcem.xebia.essentials.cards.list;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -11,28 +12,27 @@ import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EBean;
 import com.googlecode.androidannotations.annotations.RootContext;
 import com.nilhcem.xebia.essentials.R;
-import com.nilhcem.xebia.essentials.cards.list.CardsListItemView_;
 import com.nilhcem.xebia.essentials.core.bo.CardService;
 import com.nilhcem.xebia.essentials.core.model.Card;
 
 @EBean
 public class CardsListAdapter extends BaseAdapter {
-	private List<Card> cards;
+	private List<Card> mCards = new ArrayList<Card>();
 
 	@RootContext
-	protected Context context;
+	protected Context mContext;
 
 	@Bean
 	protected CardService mCardService;
 
 	@Override
 	public int getCount() {
-		return cards.size();
+		return mCards.size();
 	}
 
 	@Override
 	public Card getItem(int position) {
-		return cards.get(position);
+		return mCards.get(position);
 	}
 
 	@Override
@@ -45,7 +45,7 @@ public class CardsListAdapter extends BaseAdapter {
 		CardsListItemView cardItem;
 
 		if (convertView == null) {
-			cardItem = CardsListItemView_.build(context);
+			cardItem = CardsListItemView_.build(mContext);
 		} else {
 			cardItem = (CardsListItemView) convertView;
 		}
@@ -56,7 +56,7 @@ public class CardsListAdapter extends BaseAdapter {
 		return cardItem;
 	}
 
-	/* package */ void init(long categoryId) {
-		cards = mCardService.getDao().getAllCardsFromCategory(categoryId);
+	public void init(long categoryId) {
+		mCards = mCardService.getDao().getAllCardsFromCategory(categoryId);
 	}
 }

@@ -3,44 +3,54 @@ package com.nilhcem.xebia.essentials.cards.list;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import android.app.Activity;
 import android.os.Bundle;
-import android.support.v4.app.ListFragment;
 import android.view.View;
 import android.widget.ListView;
 
+import com.actionbarsherlock.app.SherlockListFragment;
 import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EFragment;
+import com.googlecode.androidannotations.annotations.UiThread;
 import com.nilhcem.xebia.essentials.R;
 
 @EFragment
-public class CardsListFragment extends ListFragment {
+public class CardsListFragment extends SherlockListFragment {
 	private static final Logger LOG = LoggerFactory.getLogger(CardsListFragment.class);
-	private static final String KEY_CATEGORY = "CardsListFragment:mCategoryId";
+	private static final String EXTRA_CATEGORY = "CardsListFragment:mCategoryId";
 
-	private long mCategoryId;
-	private IOnCardItemSelected mCardSelectedListener = null;
+	private long mCategoryId = 0;
 
 	@Bean
 	protected CardsListAdapter mAdapter;
 
-	public static CardsListFragment newInstance(long category) {
-		CardsListFragment fragment = new CardsListFragment_();
-		fragment.mCategoryId = category;
-		return fragment;
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+		if (savedInstanceState != null
+				&& savedInstanceState.containsKey(EXTRA_CATEGORY)) {
+			mCategoryId = savedInstanceState.getLong(EXTRA_CATEGORY);
+		}
+	}
+
+	@Override
+	public void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putLong(EXTRA_CATEGORY, mCategoryId);
 	}
 
 	@AfterViews
 	protected void bindAdapter() {
-		mAdapter.init(mCategoryId);
 		setListAdapter(mAdapter);
+		init(mCategoryId);
 	}
 
-	@Override
-	public void onAttach(Activity activity) {
-		super.onAttach(activity);
-		mCardSelectedListener = (IOnCardItemSelected) activity;
+	@UiThread
+	public void init(long categoryId) {
+		mCategoryId = categoryId;
+		mAdapter.init(categoryId);
+		mAdapter.notifyDataSetChanged();
 	}
 
 	@Override
@@ -49,23 +59,10 @@ public class CardsListFragment extends ListFragment {
 
 		Long cardId = (Long) v.getTag(R.id.cardsListItemCategoryColor);
 		LOG.info("Card clicked: {}", cardId);
-		if (mCardSelectedListener != null) {
-			mCardSelectedListener.onCardsListItemSelected(cardId);
+
+		IOnCardItemSelected activity = ((IOnCardItemSelected) getActivity());
+		if (activity != null) {
+			activity.onCardsListItemSelected(cardId);
 		}
-	}
-
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-
-		if ((savedInstanceState != null) && savedInstanceState.containsKey(KEY_CATEGORY)) {
-			mCategoryId = savedInstanceState.getLong(KEY_CATEGORY);
-		}
-	}
-
-	@Override
-	public void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
-		outState.putLong(KEY_CATEGORY, mCategoryId);
 	}
 }

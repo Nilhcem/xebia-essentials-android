@@ -13,6 +13,8 @@ import com.nilhcem.xebia.essentials.core.dao.CategoryDao;
 @Root
 @DatabaseTable(daoClass = CategoryDao.class, tableName = Category.TABLE_NAME)
 public final class Category {
+	public static final long ALL_CATEGORIES_ID = 0;
+
 	public static final String TABLE_NAME = "categories";
 	public static final String COL_ID = "_id";
 	public static final String COL_NAME = "name";
@@ -29,6 +31,15 @@ public final class Category {
 	@Element
 	@DatabaseField(columnName = Category.COL_COLOR)
 	private String color;
+
+	public Category() {
+	}
+
+	public Category(long id, String name, int color) {
+		this.id = id;
+		this.name = name;
+		this.color = String.format("#%x", color);
+	}
 
 	public long getId() {
 		return id;

@@ -7,7 +7,7 @@ import com.googlecode.androidannotations.annotations.FragmentById;
 import com.nilhcem.xebia.essentials.R;
 import com.nilhcem.xebia.essentials.core.BaseActivity;
 
-@EActivity(R.layout.cards_html_activity)
+@EActivity(R.layout.cards_html)
 public class CardsHtmlActivity extends BaseActivity {
 	public static final String INTENT_CARD_ID = "cardId";
 

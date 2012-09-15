@@ -18,6 +18,6 @@
     <string name="settings_github">Fork me on GitHub</string>
 
     <!-- Cards list -->
-    <string name="cards_list_all">All</string>
+    <string name="cards_list_all">All categories</string>
 
 </resources>
