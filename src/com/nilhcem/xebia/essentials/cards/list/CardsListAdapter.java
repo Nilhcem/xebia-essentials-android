@@ -11,7 +11,6 @@ import android.widget.BaseAdapter;
 import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EBean;
 import com.googlecode.androidannotations.annotations.RootContext;
-import com.nilhcem.xebia.essentials.R;
 import com.nilhcem.xebia.essentials.core.bo.CardService;
 import com.nilhcem.xebia.essentials.core.model.Card;
 
@@ -52,7 +51,6 @@ public class CardsListAdapter extends BaseAdapter {
 
 		Card card = getItem(position);
 		cardItem.bind(card);
-		cardItem.setTag(R.id.cardsListItemCategoryColor, card.getId());
 		return cardItem;
 	}
 

@@ -11,7 +11,7 @@
 
         <TextView
             android:id="@+id/cardsHtmlTitle"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:paddingBottom="28dp"
             android:paddingLeft="18dp"
@@ -23,7 +23,7 @@
 
         <TextView
             android:id="@+id/cardsHtmlContent"
-            android:layout_width="match_parent"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="10dp"
             android:paddingRight="10dp"

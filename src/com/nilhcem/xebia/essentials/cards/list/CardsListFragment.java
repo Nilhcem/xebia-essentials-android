@@ -1,8 +1,6 @@
 package com.nilhcem.xebia.essentials.cards.list;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
@@ -12,17 +10,22 @@ import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EFragment;
 import com.googlecode.androidannotations.annotations.UiThread;
-import com.nilhcem.xebia.essentials.R;
 
 @EFragment
 public class CardsListFragment extends SherlockListFragment {
-	private static final Logger LOG = LoggerFactory.getLogger(CardsListFragment.class);
 	private static final String EXTRA_CATEGORY = "CardsListFragment:mCategoryId";
 
 	private long mCategoryId = 0;
+	private IOnCardItemSelected mOnItemSelected;
 
 	@Bean
 	protected CardsListAdapter mAdapter;
+
+	@Override
+	public void onAttach(Activity activity) {
+		super.onAttach(activity);
+		mOnItemSelected = (IOnCardItemSelected) activity;
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -57,12 +60,12 @@ public class CardsListFragment extends SherlockListFragment {
 	public void onListItemClick(ListView l, View v, int position, long id) {
 		super.onListItemClick(l, v, position, id);
 
-		Long cardId = (Long) v.getTag(R.id.cardsListItemCategoryColor);
-		LOG.info("Card clicked: {}", cardId);
-
-		IOnCardItemSelected activity = ((IOnCardItemSelected) getActivity());
-		if (activity != null) {
-			activity.onCardsListItemSelected(cardId);
+		if (mOnItemSelected != null) {
+			mOnItemSelected.onCardsListItemSelected(position);
 		}
+	}
+
+	public long getCategoryId() {
+		return mCategoryId;
 	}
 }

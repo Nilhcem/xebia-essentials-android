@@ -14,7 +14,7 @@ import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.DatabaseTableConfig;
 import com.nilhcem.xebia.essentials.core.model.Card;
 
-public class CardDao extends AbstractDao<Card> {
+public final class CardDao extends AbstractDao<Card> {
 	protected static final Logger LOG = LoggerFactory.getLogger(CardDao.class);
 
 	public CardDao(Class<Card> dataClass) throws SQLException {

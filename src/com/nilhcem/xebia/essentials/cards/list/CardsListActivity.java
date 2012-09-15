@@ -14,9 +14,13 @@ public class CardsListActivity extends DashboardBaseActivity_ implements IOnCard
 	protected CardsListFragment mListFragment;
 
 	@Override
-	public void onCardsListItemSelected(Long cardId) {
+	public void onCardsListItemSelected(int position) {
 		Intent intent = new Intent(this, CardsHtmlActivity_.class);
-		intent.putExtra(CardsHtmlActivity.INTENT_CARD_ID, cardId);
+		intent.putExtra(CardsHtmlActivity.INTENT_CARD_POSITION, position);
+		intent.putExtra(CardsHtmlActivity.INTENT_DISPLAY_TYPE,
+				CardsHtmlActivity.DISPLAY_FROM_CATEGORY);
+		intent.putExtra(CardsHtmlActivity.INTENT_ITEM_ID,
+				mListFragment.getCategoryId());
 		startActivity(intent);
 	}
 

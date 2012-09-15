@@ -28,8 +28,8 @@ public class DashboardListItemView extends LinearLayout {
 	public void bind(Category category) {
 		mTitle.setText(category.getName());
 
-		RoundRectShape rect = new RoundRectShape(new float[] { 6, 6, 6, 6, 6,
-				6, 6, 6 }, null, null);
+		float[] outerRadii = new float[] { 6, 6, 6, 6, 6, 6, 6, 6 };
+		RoundRectShape rect = new RoundRectShape(outerRadii, null, null);
 		ShapeDrawable bg = new ShapeDrawable(rect);
 		bg.getPaint().setColor(category.getIntColor());
 		Compatibility.setDrawableToView(mView, bg);
