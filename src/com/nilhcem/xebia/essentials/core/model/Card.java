@@ -16,7 +16,7 @@ public final class Card implements Parcelable {
 	public static final String TABLE_NAME = "cards";
 	public static final String COL_ID = "_id";
 	public static final String COL_TITLE = "title";
-	public static final String COL_QRCODE = "qrcode";
+	public static final String COL_BITLY = "bitly";
 	public static final String COL_URL = "url";
 	public static final String COL_SUMMARY = "summary";
 	public static final String COL_CONTENT = "content";
@@ -33,9 +33,9 @@ public final class Card implements Parcelable {
 	@DatabaseField(columnName = Card.COL_CATEGORY)
 	private long categoryId;
 
-	@Element(name = "qrcode")
-	@DatabaseField(columnName = Card.COL_QRCODE)
-	private String qrCode;
+	@Element
+	@DatabaseField(columnName = Card.COL_BITLY)
+	private String bitly;
 
 	@Element
 	@DatabaseField(columnName = Card.COL_URL)
@@ -61,8 +61,8 @@ public final class Card implements Parcelable {
 		return categoryId;
 	}
 
-	public String getQrCode() {
-		return qrCode;
+	public String getBitly() {
+		return bitly;
 	}
 
 	public String getUrl() {
@@ -96,7 +96,7 @@ public final class Card implements Parcelable {
 		id = in.readLong();
 		title = in.readString();
 		categoryId = in.readLong();
-		qrCode = in.readString();
+		bitly = in.readString();
 		url = in.readString();
 		summary = in.readString();
 		content = in.readString();
@@ -107,7 +107,7 @@ public final class Card implements Parcelable {
 		dest.writeLong(id);
 		dest.writeString(title);
 		dest.writeLong(categoryId);
-		dest.writeString(qrCode);
+		dest.writeString(bitly);
 		dest.writeString(url);
 		dest.writeString(summary);
 		dest.writeString(content);
