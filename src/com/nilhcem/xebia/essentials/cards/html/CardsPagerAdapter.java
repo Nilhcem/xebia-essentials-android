@@ -2,13 +2,13 @@ package com.nilhcem.xebia.essentials.cards.html;
 
 import java.util.List;
 
-import com.nilhcem.xebia.essentials.core.model.Card;
-
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
-public class CardsPagerAdapter extends FragmentPagerAdapter {
+import com.nilhcem.xebia.essentials.core.model.Card;
+
+public class CardsPagerAdapter extends FragmentStatePagerAdapter {
 	private List<Card> mCards;
 
 	public CardsPagerAdapter(FragmentManager fm, List<Card> cards) {
@@ -24,5 +24,15 @@ public class CardsPagerAdapter extends FragmentPagerAdapter {
 	@Override
 	public int getCount() {
 		return mCards.size();
+	}
+
+	/**
+	 * Forces item to be destroyed and recreated, so that ViewPager can be updated dynamically.
+	 *
+	 * @see http://stackoverflow.com/questions/10849552/android-viewpager-cant-update-dynamically
+	 */
+	@Override
+	public int getItemPosition(Object object) {
+		return POSITION_NONE;
 	}
 }

@@ -81,6 +81,9 @@ public class CardsHtmlFragment extends SherlockFragment {
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
+
+		menu.clear();
+		inflater.inflate(R.menu.main_menu, menu);
 		inflater.inflate(R.menu.cards_html_menu, menu);
 
 		// Set the share intent

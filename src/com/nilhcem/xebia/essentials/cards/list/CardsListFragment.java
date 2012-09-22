@@ -1,5 +1,9 @@
 package com.nilhcem.xebia.essentials.cards.list;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -10,16 +14,23 @@ import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EFragment;
 import com.googlecode.androidannotations.annotations.UiThread;
+import com.nilhcem.xebia.essentials.core.bo.CardService;
+import com.nilhcem.xebia.essentials.core.model.Card;
+import com.nilhcem.xebia.essentials.core.model.Category;
 
 @EFragment
 public class CardsListFragment extends SherlockListFragment {
-	private static final String EXTRA_CATEGORY = "CardsListFragment:mCategoryId";
+	public static final String EXTRA_CATEGORY = "CardsListFragment:mCategoryId";
 
-	private long mCategoryId = 0;
+	private List<Card> mCards = Collections.synchronizedList(new ArrayList<Card>());
+	private long mCategoryId = Category.ALL_CATEGORIES_ID;
 	private IOnCardItemSelected mOnItemSelected;
 
 	@Bean
 	protected CardsListAdapter mAdapter;
+
+	@Bean
+	protected CardService mCardService;
 
 	@Override
 	public void onAttach(Activity activity) {
@@ -30,6 +41,7 @@ public class CardsListFragment extends SherlockListFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		setRetainInstance(true);
 
 		if (savedInstanceState != null
 				&& savedInstanceState.containsKey(EXTRA_CATEGORY)) {
@@ -52,8 +64,15 @@ public class CardsListFragment extends SherlockListFragment {
 	@UiThread
 	public void init(long categoryId) {
 		mCategoryId = categoryId;
-		mAdapter.init(categoryId);
+		mCards.clear();
+		List<Card> cards = mCardService.getDao().getAllCardsFromCategory(mCategoryId);
+		mCards.addAll(cards);
+		mAdapter.init(mCards);
 		mAdapter.notifyDataSetChanged();
+
+		if (mOnItemSelected != null) {
+			mOnItemSelected.onCardsFinishedLoading();
+		}
 	}
 
 	@Override
@@ -67,5 +86,9 @@ public class CardsListFragment extends SherlockListFragment {
 
 	public long getCategoryId() {
 		return mCategoryId;
+	}
+
+	public List<Card> getCards() {
+		return mCards;
 	}
 }

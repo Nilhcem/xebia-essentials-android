@@ -39,7 +39,7 @@ public abstract class DashboardBaseActivity extends BaseActivity {
 	}
 
 	@Override
-	public void onSaveInstanceState(Bundle outState) {
+	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		outState.putBoolean(EXTRA_SHOW_DASH, mDrawerGarment.isDrawerOpened());
 	}
