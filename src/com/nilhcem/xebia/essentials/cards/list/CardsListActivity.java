@@ -13,11 +13,13 @@ import android.support.v4.view.ViewPager;
 import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.FragmentById;
+import com.googlecode.androidannotations.annotations.InstanceState;
 import com.googlecode.androidannotations.annotations.ViewById;
 import com.googlecode.androidannotations.annotations.res.BooleanRes;
 import com.nilhcem.xebia.essentials.R;
 import com.nilhcem.xebia.essentials.cards.html.*;
 import com.nilhcem.xebia.essentials.core.model.Card;
+import com.nilhcem.xebia.essentials.core.model.Category;
 import com.nilhcem.xebia.essentials.dashboard.*;
 
 @EActivity(R.layout.main_layout)
@@ -34,7 +36,8 @@ public class CardsListActivity extends DashboardBaseActivity_ implements IOnCard
 	@BooleanRes(R.bool.multipaned)
 	protected boolean mIsMultipaned;
 
-	protected boolean mRefreshActivity;
+	@InstanceState
+	protected boolean mOverrideBackButton = false;
 
 	@Override
 	public void onCardsListItemSelected(int position) {
@@ -60,8 +63,9 @@ public class CardsListActivity extends DashboardBaseActivity_ implements IOnCard
 
 	@Override
 	protected void onDashboardItemSelected(long id) {
-		LOGGER.debug("Item #{} selected", id);
+		LOGGER.debug("Category #{} selected", id);
 		mListFragment.init(id);
+		mOverrideBackButton = (id != Category.ALL_CATEGORIES_ID);
 	}
 
 	@AfterViews
@@ -79,4 +83,12 @@ public class CardsListActivity extends DashboardBaseActivity_ implements IOnCard
 	    super.onSaveInstanceState(outState);
 	}
 
+	@Override
+	public void onBackPressed() {
+		if (!mDrawerGarment.isDrawerOpened() && mOverrideBackButton) {
+			onDashboardItemSelected(Category.ALL_CATEGORIES_ID);
+		} else {
+			super.onBackPressed();
+		}
+	}
 }

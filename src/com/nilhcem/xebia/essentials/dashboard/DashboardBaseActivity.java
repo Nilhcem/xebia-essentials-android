@@ -21,8 +21,8 @@ public abstract class DashboardBaseActivity extends BaseActivity {
 	private static final String EXTRA_SHOW_DASH = "DashboardBaseActivity:showDashboard";
 
 	private ActionBar mActionBar;
-	private DrawerGarment mDrawerGarment;
 	private ListView mDashboardListView;
+	protected DrawerGarment mDrawerGarment;
 
 	@Bean
 	protected DashboardListAdapter mDashboardListAdapter;

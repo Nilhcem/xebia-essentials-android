@@ -13,7 +13,6 @@ import com.actionbarsherlock.app.SherlockListFragment;
 import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EFragment;
-import com.googlecode.androidannotations.annotations.UiThread;
 import com.nilhcem.xebia.essentials.core.bo.CardService;
 import com.nilhcem.xebia.essentials.core.model.Card;
 import com.nilhcem.xebia.essentials.core.model.Category;
@@ -61,12 +60,10 @@ public class CardsListFragment extends SherlockListFragment {
 		init(mCategoryId);
 	}
 
-	@UiThread
 	public void init(long categoryId) {
 		mCategoryId = categoryId;
 		mCards.clear();
-		List<Card> cards = mCardService.getDao().getAllCardsFromCategory(mCategoryId);
-		mCards.addAll(cards);
+		mCards.addAll(mCardService.getDao().getAllCardsFromCategory(mCategoryId));
 		mAdapter.init(mCards);
 		mAdapter.notifyDataSetChanged();
 
