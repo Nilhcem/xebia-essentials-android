@@ -16,7 +16,7 @@ import com.nilhcem.xebia.essentials.core.model.Category;
 @EViewGroup(R.layout.cards_list_item)
 public class CardsListItemView extends LinearLayout {
 	@Bean
-	protected InMemoryCache mCategoryFinder;
+	protected InMemoryCache mCache;
 
 	@ViewById(R.id.cardsListItemText)
 	protected TextView mTitle;
@@ -32,7 +32,7 @@ public class CardsListItemView extends LinearLayout {
 		mTitle.setText(card.getTitle());
 
 		// Category color
-		Category category = mCategoryFinder.getById(card.getCategoryId());
+		Category category = mCache.getCategoryById(card.getCategoryId());
 		int color = category.getIntColor();
 		mCategoryColor.setBackgroundColor(color);
 	}

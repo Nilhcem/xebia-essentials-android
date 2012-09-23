@@ -25,7 +25,7 @@ public class DashboardListAdapter extends BaseAdapter {
 	protected Context mContext;
 
 	@Bean
-	protected InMemoryCache mCategoryFinder;
+	protected InMemoryCache mCache;
 
 	@StringRes(R.string.cards_list_all)
 	protected String mAllCategoriesStr;
@@ -66,7 +66,7 @@ public class DashboardListAdapter extends BaseAdapter {
 	@AfterViews
 	protected void initCategories() {
 		Category all = new Category(Category.ALL_CATEGORIES_ID, mAllCategoriesStr, mAllCategoriesColor);
-		mCategories = mCategoryFinder.getAll();
+		mCategories = mCache.getAllCategories();
 		mCategories.add(0, all);
 	}
 }

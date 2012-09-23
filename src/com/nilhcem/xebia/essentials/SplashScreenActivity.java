@@ -46,7 +46,7 @@ public class SplashScreenActivity extends Activity {
 	protected CardService mCardService;
 
 	@Bean
-	protected InMemoryCache mMemoryCache;
+	protected InMemoryCache mCache;
 
 	@StringRes(R.string.splash_error)
 	protected String mErrorMessage;
@@ -105,7 +105,7 @@ public class SplashScreenActivity extends Activity {
 	protected void initCategoriesThenRedirect() {
 		try {
 			List<Category> categories = mCategoryService.getDao().queryForAll();
-			mMemoryCache.initCategories(categories);
+			mCache.initCategories(categories);
 		} catch (SQLException e) {
 			LOG.error("Error getting categories", e);
 			finishWithToastError(e.getMessage());

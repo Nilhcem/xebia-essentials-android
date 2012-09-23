@@ -21,14 +21,14 @@ public class InMemoryCache {
 		}
 	}
 
-	public List<Category> getAll() {
+	public List<Category> getAllCategories() {
 		if (mCategories == null) {
 			return null;
 		}
 		return new ArrayList<Category>(mCategories.values());
 	}
 
-	public Category getById(long id) {
+	public Category getCategoryById(long id) {
 		return mCategories.get(Long.valueOf(id));
 	}
 

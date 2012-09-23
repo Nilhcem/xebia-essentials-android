@@ -51,15 +51,15 @@ public class CardsListActivity extends DashboardBaseActivity_ implements IOnCard
 	protected CardService mCardService;
 
 	@Bean
-	protected InMemoryCache mMemoryCache;
+	protected InMemoryCache mCache;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		// If we rotate the device and are no more in two-pane layout mode, launch the CardsHtmlActivity
-		if (!mIsMultipaned && mMemoryCache.getCardPosition() > 0) {
-			onCardsListItemSelected(mMemoryCache.getCardPosition());
+		if (!mIsMultipaned && mCache.getCardPosition() > 0) {
+			onCardsListItemSelected(mCache.getCardPosition());
 		}
 	}
 
@@ -86,8 +86,8 @@ public class CardsListActivity extends DashboardBaseActivity_ implements IOnCard
 					getSupportFragmentManager(), mCards);
 			mViewPager.setAdapter(adapter);
 
-			if (mMemoryCache.getCardPosition() != 0) {
-				mViewPager.setCurrentItem(mMemoryCache.getCardPosition());
+			if (mCache.getCardPosition() != 0) {
+				mViewPager.setCurrentItem(mCache.getCardPosition());
 			}
 		}
 	}
@@ -133,7 +133,7 @@ public class CardsListActivity extends DashboardBaseActivity_ implements IOnCard
 	protected void onDashboardItemSelected(long id) {
 		LOGGER.debug("Category #{} selected", id);
 		mCategoryId = id;
-		mMemoryCache.resetCardPosition();
+		mCache.resetCardPosition();
 		initAll(true);
 	}
 
@@ -141,7 +141,7 @@ public class CardsListActivity extends DashboardBaseActivity_ implements IOnCard
 	public void onBackPressed() {
 		if (!mDrawerGarment.isDrawerOpened()
 				&& mCategoryId != Category.ALL_CATEGORIES_ID) {
-			mMemoryCache.resetCardPosition();
+			mCache.resetCardPosition();
 			onDashboardItemSelected(Category.ALL_CATEGORIES_ID);
 		} else {
 			super.onBackPressed();
@@ -152,7 +152,7 @@ public class CardsListActivity extends DashboardBaseActivity_ implements IOnCard
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		if (mViewPager != null) {
-			mMemoryCache.setCardPosition(mViewPager.getCurrentItem());
+			mCache.setCardPosition(mViewPager.getCurrentItem());
 		}
 	}
 }

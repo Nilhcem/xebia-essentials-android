@@ -54,7 +54,7 @@ public class CardsHtmlActivity extends BaseActivity {
 	protected boolean mIsMultipaned;
 
 	@Bean
-	protected InMemoryCache mMemoryCache;
+	protected InMemoryCache mCache;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +62,7 @@ public class CardsHtmlActivity extends BaseActivity {
 
 		// If we rotate the device and now are in two-pane layout mode, this activity is no longer necessary
 		if (mDisplayType != DISPLAY_ONE_CARD && mIsMultipaned) {
-			mMemoryCache.setCardPosition(mCardPosition);
+			mCache.setCardPosition(mCardPosition);
 			finish();
 			return;
 		}
@@ -103,6 +103,7 @@ public class CardsHtmlActivity extends BaseActivity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == android.R.id.home) {
+			mCache.resetCardPosition();
 			Intent intent = new Intent(this, CardsListActivity_.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);

@@ -39,7 +39,7 @@ public class CardsHtmlFragment extends SherlockFragment {
 	protected CardService mCardService;
 
 	@Bean
-	protected InMemoryCache mCategoryFinder;
+	protected InMemoryCache mCache;
 
 	@StringRes(R.string.cards_url_prefix)
 	protected String mUrlPrefix;
@@ -71,7 +71,7 @@ public class CardsHtmlFragment extends SherlockFragment {
 	@AfterViews
 	protected void initCardData() {
 		setHasOptionsMenu(true);
-		Category category = mCategoryFinder.getById(mCard.getCategoryId());
+		Category category = mCache.getCategoryById(mCard.getCategoryId());
 		mTitle.setText(mCard.getTitle());
 		mTitle.setBackgroundColor(category.getIntColor());
 		mContent.setText(Html.fromHtml(mCard.getContent()));
