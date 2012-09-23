@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 
 import com.actionbarsherlock.app.ActionBar;
@@ -14,6 +15,7 @@ import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.Extra;
+import com.googlecode.androidannotations.annotations.InstanceState;
 import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
 import com.nilhcem.xebia.essentials.R;
@@ -41,6 +43,7 @@ public class CardsHtmlActivity extends BaseActivity {
 	@Extra(CardsHtmlActivity.INTENT_DISPLAY_TYPE)
 	protected int mDisplayType;
 
+	@InstanceState
 	@Extra(CardsHtmlActivity.INTENT_CARD_POSITION)
 	protected int mCardPosition;
 
@@ -96,5 +99,11 @@ public class CardsHtmlActivity extends BaseActivity {
 		} else {
 			return super.onOptionsItemSelected(item);
 		}
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		mCardPosition = mViewPager.getCurrentItem();
 	}
 }
