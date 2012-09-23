@@ -46,6 +46,13 @@ public final class CardDao extends AbstractDao<Card> {
 		Card card = null;
 
 		if (!TextUtils.isEmpty(url)) {
+			// Fix issue with 2 cards (URL from the QR code is different from the real URL)
+			if (url.equalsIgnoreCase("uncluttered-build")) {
+				url = "clean-build";
+			} else if (url.equalsIgnoreCase("honour-the-timebox")) {
+				url = "honor-the-timebox";
+			}
+
 			QueryBuilder<Card, Long> queryBuilder = queryBuilder();
 			try {
 				queryBuilder.where().eq(Card.COL_URL, url);
