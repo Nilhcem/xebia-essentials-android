@@ -11,16 +11,16 @@ import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.view.MenuItem;
 import com.googlecode.androidannotations.annotations.AfterInject;
 import com.googlecode.androidannotations.annotations.AfterViews;
-import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.Extra;
 import com.googlecode.androidannotations.annotations.InstanceState;
-import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
+import com.googlecode.androidannotations.annotations.res.BooleanRes;
 import com.nilhcem.xebia.essentials.R;
 import com.nilhcem.xebia.essentials.cards.list.*;
 import com.nilhcem.xebia.essentials.core.BaseActivity;
+import com.nilhcem.xebia.essentials.core.InMemoryCache;
 import com.nilhcem.xebia.essentials.core.bo.CardService;
 import com.nilhcem.xebia.essentials.core.model.Card;
 
@@ -50,15 +50,27 @@ public class CardsHtmlActivity extends BaseActivity {
 	@Bean
 	protected CardService mCardService;
 
-	@AfterViews
-	@Background
-	protected void initActivity() {
-		List<Card> cards = getCardsFromIntent();
-		createViewPagerAdapter(cards);
+	@BooleanRes(R.bool.multipaned)
+	protected boolean mIsMultipaned;
+
+	@Bean
+	protected InMemoryCache mMemoryCache;
+
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+		// If we rotate the device and now are in two-pane layout mode, this activity is no longer necessary
+		if (mDisplayType != DISPLAY_ONE_CARD && mIsMultipaned) {
+			mMemoryCache.setCardPosition(mCardPosition);
+			finish();
+			return;
+		}
 	}
 
-	@UiThread
-	protected void createViewPagerAdapter(List<Card> cards) {
+	@AfterViews
+	protected void initActivity() {
+		List<Card> cards = getCardsFromIntent();
 		mViewPagerAdapter = new CardsPagerAdapter(getSupportFragmentManager(), cards);
 		mViewPager.setAdapter(mViewPagerAdapter);
 		mViewPager.setCurrentItem(mCardPosition, false);

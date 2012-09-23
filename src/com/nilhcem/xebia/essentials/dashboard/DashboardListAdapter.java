@@ -14,7 +14,7 @@ import com.googlecode.androidannotations.annotations.RootContext;
 import com.googlecode.androidannotations.annotations.res.ColorRes;
 import com.googlecode.androidannotations.annotations.res.StringRes;
 import com.nilhcem.xebia.essentials.R;
-import com.nilhcem.xebia.essentials.core.InMemoryCategoryFinder;
+import com.nilhcem.xebia.essentials.core.InMemoryCache;
 import com.nilhcem.xebia.essentials.core.model.Category;
 
 @EBean
@@ -25,7 +25,7 @@ public class DashboardListAdapter extends BaseAdapter {
 	protected Context mContext;
 
 	@Bean
-	protected InMemoryCategoryFinder mCategoryFinder;
+	protected InMemoryCache mCategoryFinder;
 
 	@StringRes(R.string.cards_list_all)
 	protected String mAllCategoriesStr;

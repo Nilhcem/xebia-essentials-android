@@ -24,7 +24,7 @@ import com.googlecode.androidannotations.annotations.ViewById;
 import com.googlecode.androidannotations.annotations.res.StringRes;
 import com.nilhcem.xebia.essentials.cards.html.*;
 import com.nilhcem.xebia.essentials.cards.list.*;
-import com.nilhcem.xebia.essentials.core.InMemoryCategoryFinder;
+import com.nilhcem.xebia.essentials.core.InMemoryCache;
 import com.nilhcem.xebia.essentials.core.bo.CardService;
 import com.nilhcem.xebia.essentials.core.bo.CategoryService;
 import com.nilhcem.xebia.essentials.core.model.Card;
@@ -46,7 +46,7 @@ public class SplashScreenActivity extends Activity {
 	protected CardService mCardService;
 
 	@Bean
-	protected InMemoryCategoryFinder mCategoryFinder;
+	protected InMemoryCache mMemoryCache;
 
 	@StringRes(R.string.splash_error)
 	protected String mErrorMessage;
@@ -105,7 +105,7 @@ public class SplashScreenActivity extends Activity {
 	protected void initCategoriesThenRedirect() {
 		try {
 			List<Category> categories = mCategoryService.getDao().queryForAll();
-			mCategoryFinder.initCategories(categories);
+			mMemoryCache.initCategories(categories);
 		} catch (SQLException e) {
 			LOG.error("Error getting categories", e);
 			finishWithToastError(e.getMessage());

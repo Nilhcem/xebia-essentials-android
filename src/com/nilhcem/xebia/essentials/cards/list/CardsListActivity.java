@@ -8,6 +8,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -21,6 +22,7 @@ import com.googlecode.androidannotations.annotations.ViewById;
 import com.googlecode.androidannotations.annotations.res.BooleanRes;
 import com.nilhcem.xebia.essentials.R;
 import com.nilhcem.xebia.essentials.cards.html.*;
+import com.nilhcem.xebia.essentials.core.InMemoryCache;
 import com.nilhcem.xebia.essentials.core.bo.CardService;
 import com.nilhcem.xebia.essentials.core.model.Card;
 import com.nilhcem.xebia.essentials.core.model.Category;
@@ -48,6 +50,19 @@ public class CardsListActivity extends DashboardBaseActivity_ implements IOnCard
 	@Bean
 	protected CardService mCardService;
 
+	@Bean
+	protected InMemoryCache mMemoryCache;
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+
+		// If we rotate the device and are no more in two-pane layout mode, launch the CardsHtmlActivity
+		if (!mIsMultipaned && mMemoryCache.getCardPosition() > 0) {
+			onCardsListItemSelected(mMemoryCache.getCardPosition());
+		}
+	}
+
 	@AfterViews
 	protected void initAll() {
 		initAll(false);
@@ -70,6 +85,10 @@ public class CardsListActivity extends DashboardBaseActivity_ implements IOnCard
 			PagerAdapter adapter = new CardsPagerAdapter(
 					getSupportFragmentManager(), mCards);
 			mViewPager.setAdapter(adapter);
+
+			if (mMemoryCache.getCardPosition() != 0) {
+				mViewPager.setCurrentItem(mMemoryCache.getCardPosition());
+			}
 		}
 	}
 
@@ -114,6 +133,7 @@ public class CardsListActivity extends DashboardBaseActivity_ implements IOnCard
 	protected void onDashboardItemSelected(long id) {
 		LOGGER.debug("Category #{} selected", id);
 		mCategoryId = id;
+		mMemoryCache.resetCardPosition();
 		initAll(true);
 	}
 
@@ -121,9 +141,18 @@ public class CardsListActivity extends DashboardBaseActivity_ implements IOnCard
 	public void onBackPressed() {
 		if (!mDrawerGarment.isDrawerOpened()
 				&& mCategoryId != Category.ALL_CATEGORIES_ID) {
+			mMemoryCache.resetCardPosition();
 			onDashboardItemSelected(Category.ALL_CATEGORIES_ID);
 		} else {
 			super.onBackPressed();
+		}
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		if (mViewPager != null) {
+			mMemoryCache.setCardPosition(mViewPager.getCurrentItem());
 		}
 	}
 }

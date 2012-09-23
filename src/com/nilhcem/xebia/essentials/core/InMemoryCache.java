@@ -10,7 +10,8 @@ import com.googlecode.androidannotations.api.Scope;
 import com.nilhcem.xebia.essentials.core.model.Category;
 
 @EBean(scope = Scope.Singleton)
-public class InMemoryCategoryFinder {
+public class InMemoryCache {
+	private int mCardPosition; // used when orientation changed on CardsHtmlActivity, switching from one to two panes
 	private Map<Long, Category> mCategories;
 
 	public void initCategories(List<Category> categories) {
@@ -29,5 +30,17 @@ public class InMemoryCategoryFinder {
 
 	public Category getById(long id) {
 		return mCategories.get(Long.valueOf(id));
+	}
+
+	public int getCardPosition() {
+		return mCardPosition;
+	}
+
+	public void setCardPosition(int position) {
+		mCardPosition = position;
+	}
+
+	public void resetCardPosition() {
+		mCardPosition = 0;
 	}
 }

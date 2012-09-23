@@ -17,7 +17,7 @@ import com.googlecode.androidannotations.annotations.EFragment;
 import com.googlecode.androidannotations.annotations.ViewById;
 import com.googlecode.androidannotations.annotations.res.StringRes;
 import com.nilhcem.xebia.essentials.R;
-import com.nilhcem.xebia.essentials.core.InMemoryCategoryFinder;
+import com.nilhcem.xebia.essentials.core.InMemoryCache;
 import com.nilhcem.xebia.essentials.core.bo.CardService;
 import com.nilhcem.xebia.essentials.core.model.Card;
 import com.nilhcem.xebia.essentials.core.model.Category;
@@ -39,7 +39,7 @@ public class CardsHtmlFragment extends SherlockFragment {
 	protected CardService mCardService;
 
 	@Bean
-	protected InMemoryCategoryFinder mCategoryFinder;
+	protected InMemoryCache mCategoryFinder;
 
 	@StringRes(R.string.cards_url_prefix)
 	protected String mUrlPrefix;
