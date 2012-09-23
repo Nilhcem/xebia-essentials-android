@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
+    <!-- About Xebia -->
+    <Preference
+        android:icon="@drawable/group"
+        android:key="xebia"
+        android:title="@string/settings_xebia" />
+
+    <!-- About the cards -->
+    <Preference
+        android:icon="@drawable/shoebox"
+        android:key="cards"
+        android:title="@string/settings_cards" />
+
     <!-- Licenses -->
     <Preference
         android:icon="@drawable/notepad"

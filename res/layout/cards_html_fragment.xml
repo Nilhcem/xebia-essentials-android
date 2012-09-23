@@ -3,7 +3,7 @@
     android:id="@+id/cardsHtmlScroll"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#ffffffff" >
+    android:background="@color/white" >
 
     <LinearLayout
         android:layout_width="fill_parent"
@@ -18,7 +18,7 @@
             android:paddingLeft="18dp"
             android:paddingRight="18dp"
             android:paddingTop="28dp"
-            android:textColor="#ffffffff"
+            android:textColor="@color/white"
             android:textSize="32sp"
             android:textStyle="bold" />
 
