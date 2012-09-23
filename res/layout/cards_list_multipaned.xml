@@ -4,9 +4,8 @@
     android:layout_height="fill_parent"
     android:orientation="horizontal" >
 
-    <fragment
-        android:id="@+id/cardsListFragment"
-        android:name="com.nilhcem.xebia.essentials.cards.list.CardsListFragment_"
+    <LinearLayout
+        android:id="@+id/cardsListFragmentLayout"
         android:layout_width="0dp"
         android:layout_height="fill_parent"
         android:layout_weight="35" />

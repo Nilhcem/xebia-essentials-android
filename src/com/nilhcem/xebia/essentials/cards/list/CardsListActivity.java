@@ -1,23 +1,27 @@
 package com.nilhcem.xebia.essentials.cards.list;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import android.content.Intent;
-import android.os.Bundle;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.googlecode.androidannotations.annotations.AfterViews;
+import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EActivity;
-import com.googlecode.androidannotations.annotations.FragmentById;
+import com.googlecode.androidannotations.annotations.FragmentByTag;
 import com.googlecode.androidannotations.annotations.InstanceState;
 import com.googlecode.androidannotations.annotations.ViewById;
 import com.googlecode.androidannotations.annotations.res.BooleanRes;
 import com.nilhcem.xebia.essentials.R;
 import com.nilhcem.xebia.essentials.cards.html.*;
+import com.nilhcem.xebia.essentials.core.bo.CardService;
 import com.nilhcem.xebia.essentials.core.model.Card;
 import com.nilhcem.xebia.essentials.core.model.Category;
 import com.nilhcem.xebia.essentials.dashboard.*;
@@ -25,23 +29,74 @@ import com.nilhcem.xebia.essentials.dashboard.*;
 @EActivity(R.layout.main_layout)
 public class CardsListActivity extends DashboardBaseActivity_ implements IOnCardItemSelected {
 	private static final Logger LOGGER = LoggerFactory.getLogger(CardsListActivity.class);
+	private static final String LIST_FRAGMENT_TAG = "cardsListFragmentTag";
 
-	@FragmentById(R.id.cardsListFragment)
+	private List<Card> mCards = Collections.synchronizedList(new ArrayList<Card>());
+
+	@InstanceState
+	protected long mCategoryId = Category.ALL_CATEGORIES_ID;
+
+	@FragmentByTag(LIST_FRAGMENT_TAG)
 	protected CardsListFragment mListFragment;
-
-	// Only for multipaned
-	@ViewById(R.id.cardsListViewPager)
-	protected ViewPager mViewPager;
 
 	@BooleanRes(R.bool.multipaned)
 	protected boolean mIsMultipaned;
 
-	@InstanceState
-	protected boolean mOverrideBackButton = false;
+	@ViewById(R.id.cardsListViewPager)
+	protected ViewPager mViewPager;
+
+	@Bean
+	protected CardService mCardService;
+
+	@AfterViews
+	protected void initAll() {
+		initAll(false);
+	}
+
+	private void initAll(boolean replaceFragment) {
+		initCards();
+		initViewPager();
+		initListFragment(replaceFragment);
+	}
+
+	private void initCards() {
+		mCards.clear();
+		mCards.addAll(mCardService.getDao().getAllCardsFromCategory(mCategoryId));
+		LOGGER.debug("Cards size: {}", mCards.size());
+	}
+
+	private void initViewPager() {
+		if (mViewPager != null) {
+			PagerAdapter adapter = new CardsPagerAdapter(
+					getSupportFragmentManager(), mCards);
+			mViewPager.setAdapter(adapter);
+		}
+	}
+
+	private void initListFragment(boolean replaceFragment) {
+		if (!replaceFragment && mListFragment != null) {
+			mListFragment.setCards(mCards);
+			return;
+		}
+
+		int resId = R.id.cardsListFragmentLayout;
+		mListFragment = new CardsListFragment_();
+		mListFragment.setCards(mCards);
+
+		FragmentTransaction transaction = getSupportFragmentManager()
+				.beginTransaction();
+
+		if (replaceFragment) {
+			transaction.replace(resId, mListFragment, LIST_FRAGMENT_TAG);
+		} else {
+			transaction.add(resId, mListFragment, LIST_FRAGMENT_TAG);
+		}
+		transaction.commit();
+	}
 
 	@Override
 	public void onCardsListItemSelected(int position) {
-		LOGGER.info("Card selected: {}", position);
+		LOGGER.debug("Card selected: {}", position);
 
 		if (mIsMultipaned) {
 			mViewPager.setCurrentItem(position);
@@ -50,42 +105,22 @@ public class CardsListActivity extends DashboardBaseActivity_ implements IOnCard
 			intent.putExtra(CardsHtmlActivity.INTENT_CARD_POSITION, position);
 			intent.putExtra(CardsHtmlActivity.INTENT_DISPLAY_TYPE,
 					CardsHtmlActivity.DISPLAY_FROM_CATEGORY);
-			intent.putExtra(CardsHtmlActivity.INTENT_ITEM_ID,
-					mListFragment.getCategoryId());
+			intent.putExtra(CardsHtmlActivity.INTENT_ITEM_ID, mCategoryId);
 			startActivity(intent);
 		}
 	}
 
 	@Override
-	public void onCardsFinishedLoading() {
-		initViewPager();
-	}
-
-	@Override
 	protected void onDashboardItemSelected(long id) {
 		LOGGER.debug("Category #{} selected", id);
-		mListFragment.init(id);
-		mOverrideBackButton = (id != Category.ALL_CATEGORIES_ID);
-	}
-
-	@AfterViews
-	protected void initViewPager() {
-		if (mViewPager != null) {
-			List<Card> cards = mListFragment.getCards();
-			PagerAdapter adapter = new CardsPagerAdapter(
-					getSupportFragmentManager(), cards);
-			mViewPager.setAdapter(adapter);
-		}
-	}
-
-	@Override
-	protected void onSaveInstanceState(Bundle outState) {
-	    super.onSaveInstanceState(outState);
+		mCategoryId = id;
+		initAll(true);
 	}
 
 	@Override
 	public void onBackPressed() {
-		if (!mDrawerGarment.isDrawerOpened() && mOverrideBackButton) {
+		if (!mDrawerGarment.isDrawerOpened()
+				&& mCategoryId != Category.ALL_CATEGORIES_ID) {
 			onDashboardItemSelected(Category.ALL_CATEGORIES_ID);
 		} else {
 			super.onBackPressed();

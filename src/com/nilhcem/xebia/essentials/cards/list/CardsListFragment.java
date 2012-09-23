@@ -1,11 +1,8 @@
 package com.nilhcem.xebia.essentials.cards.list;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import android.app.Activity;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.ListView;
 
@@ -13,23 +10,15 @@ import com.actionbarsherlock.app.SherlockListFragment;
 import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EFragment;
-import com.nilhcem.xebia.essentials.core.bo.CardService;
 import com.nilhcem.xebia.essentials.core.model.Card;
-import com.nilhcem.xebia.essentials.core.model.Category;
 
 @EFragment
 public class CardsListFragment extends SherlockListFragment {
-	public static final String EXTRA_CATEGORY = "CardsListFragment:mCategoryId";
-
-	private List<Card> mCards = Collections.synchronizedList(new ArrayList<Card>());
-	private long mCategoryId = Category.ALL_CATEGORIES_ID;
+	private List<Card> mCards;
 	private IOnCardItemSelected mOnItemSelected;
 
 	@Bean
 	protected CardsListAdapter mAdapter;
-
-	@Bean
-	protected CardService mCardService;
 
 	@Override
 	public void onAttach(Activity activity) {
@@ -37,39 +26,10 @@ public class CardsListFragment extends SherlockListFragment {
 		mOnItemSelected = (IOnCardItemSelected) activity;
 	}
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setRetainInstance(true);
-
-		if (savedInstanceState != null
-				&& savedInstanceState.containsKey(EXTRA_CATEGORY)) {
-			mCategoryId = savedInstanceState.getLong(EXTRA_CATEGORY);
-		}
-	}
-
-	@Override
-	public void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
-		outState.putLong(EXTRA_CATEGORY, mCategoryId);
-	}
-
 	@AfterViews
 	protected void bindAdapter() {
-		setListAdapter(mAdapter);
-		init(mCategoryId);
-	}
-
-	public void init(long categoryId) {
-		mCategoryId = categoryId;
-		mCards.clear();
-		mCards.addAll(mCardService.getDao().getAllCardsFromCategory(mCategoryId));
 		mAdapter.init(mCards);
-		mAdapter.notifyDataSetChanged();
-
-		if (mOnItemSelected != null) {
-			mOnItemSelected.onCardsFinishedLoading();
-		}
+		setListAdapter(mAdapter);
 	}
 
 	@Override
@@ -81,11 +41,7 @@ public class CardsListFragment extends SherlockListFragment {
 		}
 	}
 
-	public long getCategoryId() {
-		return mCategoryId;
-	}
-
-	public List<Card> getCards() {
-		return mCards;
+	public void setCards(List<Card> cards) {
+		mCards = cards;
 	}
 }
