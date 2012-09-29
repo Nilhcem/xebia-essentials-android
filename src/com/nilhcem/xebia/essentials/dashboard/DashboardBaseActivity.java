@@ -63,7 +63,6 @@ public abstract class DashboardBaseActivity extends BaseActivity {
 	@AfterInject
 	protected void initDashboard() {
 		mDrawerGarment = new DrawerGarment(this, R.layout.dashboard);
-		mDrawerGarment.setSlideTarget(DrawerGarment.SLIDE_TARGET_CONTENT);
 		mDrawerGarment.setDrawerCallbacks(new DrawerGarment.IDrawerCallbacks() {
 			@Override
 			public void onDrawerOpened() {
