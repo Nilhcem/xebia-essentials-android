@@ -19,6 +19,7 @@
         android:id="@+id/cardsListViewPager"
         android:layout_width="0dp"
         android:layout_height="fill_parent"
-        android:layout_weight="65" />
+        android:layout_weight="65"
+        android:background="@color/cards_flip_bg" />
 
 </LinearLayout>

@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">Xebia Essentials</string>
-    <string name="cards_url_prefix">http://essentials.xebia.com/</string>
+    <string name="bitly_url_prefix">"http://bit.ly/"</string>
+    <string name="cards_url_prefix">essentials.xebia.com/</string> <!-- without http:// -->
+    <string name="github_url">https://github.com/Nilhcem/xebia-essentials-android</string>
 
     <!-- Explicitly tell OrmLite the name of our DatabaseHelper class -->
     <string name="open_helper_classname">com.nilhcem.xebia.essentials.core.DatabaseHelper</string>
@@ -12,6 +14,8 @@
 
     <!-- Main menu -->
     <string name="menu_settings">Settings</string>
+    <string name="menu_see_card">See card</string>
+    <string name="menu_see_details">See details</string>
 
     <!-- Settings -->
     <string name="settings_xebia">About Xebia</string>
@@ -22,6 +26,9 @@
 
     <!-- Cards list -->
     <string name="cards_list_all">All categories</string>
+
+    <!-- Cards flip -->
+    <string name="cards_flip_qrcode_description">QR code</string>
 
     <!-- About -->
     <string name="about_xebia_title">About Xebia</string>

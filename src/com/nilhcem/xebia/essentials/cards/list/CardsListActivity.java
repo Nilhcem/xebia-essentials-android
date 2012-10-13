@@ -18,18 +18,21 @@ import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.FragmentByTag;
 import com.googlecode.androidannotations.annotations.InstanceState;
+import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
 import com.googlecode.androidannotations.annotations.res.BooleanRes;
 import com.nilhcem.xebia.essentials.R;
+import com.nilhcem.xebia.essentials.cards.IOnCardMenuSelected;
 import com.nilhcem.xebia.essentials.cards.html.*;
 import com.nilhcem.xebia.essentials.core.InMemoryCache;
 import com.nilhcem.xebia.essentials.core.bo.CardService;
 import com.nilhcem.xebia.essentials.core.model.Card;
 import com.nilhcem.xebia.essentials.core.model.Category;
 import com.nilhcem.xebia.essentials.dashboard.*;
+import com.nilhcem.xebia.essentials.settings.SettingsActivity;
 
 @EActivity(R.layout.main_layout)
-public class CardsListActivity extends DashboardBaseActivity_ implements IOnCardItemSelected {
+public class CardsListActivity extends DashboardBaseActivity_ implements IOnCardItemSelected, IOnCardMenuSelected {
 	private static final Logger LOGGER = LoggerFactory.getLogger(CardsListActivity.class);
 	private static final String LIST_FRAGMENT_TAG = "cardsListFragmentTag";
 
@@ -87,7 +90,7 @@ public class CardsListActivity extends DashboardBaseActivity_ implements IOnCard
 			mViewPager.setAdapter(adapter);
 
 			if (mCache.getCardPosition() != 0) {
-				mViewPager.setCurrentItem(mCache.getCardPosition());
+				mViewPager.setCurrentItem(mCache.getCardPosition(), false);
 			}
 		}
 	}
@@ -154,5 +157,13 @@ public class CardsListActivity extends DashboardBaseActivity_ implements IOnCard
 		if (mViewPager != null) {
 			mCache.setCardPosition(mViewPager.getCurrentItem());
 		}
+	}
+
+	@UiThread
+	@Override
+	public void onCardMenuSelected() {
+		SettingsActivity.switchViewMode(this);
+		mCache.setCardPosition(mViewPager.getCurrentItem());
+		initViewPager();
 	}
 }

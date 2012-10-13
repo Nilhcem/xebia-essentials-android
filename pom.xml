@@ -85,6 +85,13 @@
 			<version>${com.github.tony19.logback.version}</version>
 		</dependency>
 
+		<!-- Zxing: barcode scanner/generator -->
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>core</artifactId>
+			<version>2.0</version>
+		</dependency>
+
 		<!-- IO Utils -->
 		<dependency>
 			<groupId>commons-io</groupId>

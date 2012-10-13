@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ViewFlipper xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cardsFlipViewFlipper"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:layout_centerInParent="true"
+    android:layout_gravity="center"
+    android:addStatesFromChildren="true"
+    android:background="@color/cards_flip_bg"
+    android:gravity="center" >
+
+    <!-- Card - first side -->
+    <RelativeLayout
+        android:id="@+id/cardsFlipLayout1"
+        style="@style/CardsFlipCard" >
+
+        <!-- Category title -->
+        <TextView
+            android:id="@+id/cardsFlipCategory1"
+            style="@style/CardsFlipCategoryTitle" />
+
+        <!-- Category divider -->
+        <View
+            android:id="@+id/cardsFlipDivider1"
+            style="@style/CardsFlipDivider"
+            android:layout_below="@+id/cardsFlipCategory1" />
+
+        <!-- Card title -->
+        <ScrollView
+            android:id="@+id/scrollView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/cardsFlipQrCodeLayout"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/cardsFlipDivider1"
+            android:fillViewport="true" >
+
+            <TextView
+                android:id="@+id/cardsFlipTitle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="@dimen/cards_flip_title_size" />
+        </ScrollView>
+
+        <!-- Card prefix URL -->
+        <TextView
+            style="@style/CardsFlipUrl"
+            android:layout_above="@+id/cardsFlipUrl"
+            android:layout_alignLeft="@+id/cardsFlipUrl"
+            android:text="@string/cards_url_prefix" />
+
+        <!-- Card URL -->
+        <TextView
+            android:id="@+id/cardsFlipUrl"
+            style="@style/CardsFlipUrl"
+            android:layout_above="@+id/cardsFlipDivider2"
+            android:layout_alignLeft="@+id/cardsFlipDivider2" />
+
+        <!-- Url divider -->
+        <View
+            android:id="@+id/cardsFlipDivider2"
+            style="@style/CardsFlipDivider"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="@dimen/cards_flip_divider_margin" />
+
+        <!-- QR code -->
+        <FrameLayout
+            android:id="@+id/cardsFlipQrCodeLayout"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_alignBottom="@+id/cardsFlipUrl"
+            android:layout_alignRight="@+id/cardsFlipDivider2" >
+
+            <ImageView
+                android:id="@+id/cardsFlipQrCode"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:adjustViewBounds="true"
+                android:background="@color/white"
+                android:contentDescription="@string/cards_flip_qrcode_description"
+                android:scaleType="fitXY" />
+
+            <ProgressBar
+                android:id="@+id/cardsFlipQrCodeLayoutProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|center_horizontal" />
+        </FrameLayout>
+    </RelativeLayout>
+
+    <!-- Card - second side -->
+    <RelativeLayout
+        android:id="@+id/cardsFlipLayout2"
+        style="@style/CardsFlipCard" >
+
+        <!-- Category title -->
+        <TextView
+            android:id="@+id/cardsFlipCategory2"
+            style="@style/CardsFlipCategoryTitle" />
+
+        <!-- Top divider -->
+        <View
+            android:id="@+id/cardsFlipDivider3"
+            style="@style/CardsFlipDivider"
+            android:layout_below="@+id/cardsFlipCategory2" />
+
+        <!-- Card description -->
+        <ScrollView
+            android:id="@+id/scrollView2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/cardsFlipDivider4"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/cardsFlipDivider3"
+            android:fillViewport="true" >
+
+            <TextView
+                android:id="@+id/cardsFlipSummary"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="4dp"
+                android:textColor="@color/white"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+        </ScrollView>
+
+        <!-- Bottom divider -->
+        <View
+            android:id="@+id/cardsFlipDivider4"
+            style="@style/CardsFlipDivider"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="@dimen/cards_flip_divider_margin" />
+    </RelativeLayout>
+
+</ViewFlipper>

@@ -1,6 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Core -->
     <style name="XebiaTheme" parent="@style/Theme.Sherlock.Light.DarkActionBar" />
+
+    <!-- Cards flip fragment -->
+    <style name="CardsFlipCard">
+        <item name="android:layout_height">fill_parent</item>
+        <item name="android:layout_width">fill_parent</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:paddingTop">@dimen/cards_flip_white_border_size</item>
+        <item name="android:paddingBottom">26dp</item>
+        <item name="android:paddingLeft">@dimen/cards_flip_side_padding</item>
+        <item name="android:paddingRight">@dimen/cards_flip_side_padding</item>
+    </style>
+    <style name="CardsFlipCategoryTitle">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:paddingTop">2dp</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">10sp</item>
+    </style>
+    <style name="CardsFlipDivider">
+        <item name="android:background">@color/cards_flip_divider</item>
+        <item name="android:layout_height">1dp</item>
+        <item name="android:layout_width">fill_parent</item>
+    </style>
+    <style name="CardsFlipUrl">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:includeFontPadding">false</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">11sp</item>
+    </style>
 
 </resources>

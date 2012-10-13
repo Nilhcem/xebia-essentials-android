@@ -5,7 +5,11 @@
     <color name="xebia_purple">#ff653a71</color>
     <color name="white">#ffffffff</color>
 
-    <!-- Cards List Multipaned -->
+    <!-- Cards list multipaned -->
     <color name="grey_separator">#ffcccccc</color>
+
+    <!-- Cards flip -->
+    <color name="cards_flip_bg">#ff2d2d2d</color>
+    <color name="cards_flip_divider">#bbffffff</color>
 
 </resources>

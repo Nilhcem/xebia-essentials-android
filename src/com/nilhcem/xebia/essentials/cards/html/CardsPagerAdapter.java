@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
+import com.nilhcem.xebia.essentials.cards.AbstractCardFragment;
 import com.nilhcem.xebia.essentials.core.model.Card;
 
 public class CardsPagerAdapter extends FragmentStatePagerAdapter {
@@ -18,7 +19,7 @@ public class CardsPagerAdapter extends FragmentStatePagerAdapter {
 
 	@Override
 	public Fragment getItem(int position) {
-		return CardsHtmlFragment.newInstance(mCards.get(position));
+		return AbstractCardFragment.newInstance(mCards.get(position));
 	}
 
 	@Override

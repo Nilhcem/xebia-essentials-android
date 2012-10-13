@@ -2,8 +2,12 @@ package com.nilhcem.xebia.essentials.core;
 
 import java.lang.reflect.Method;
 
+import android.content.Context;
+import android.graphics.Point;
 import android.graphics.drawable.Drawable;
+import android.view.Display;
 import android.view.View;
+import android.view.WindowManager;
 
 public final class Compatibility {
 
@@ -37,5 +41,29 @@ public final class Compatibility {
 		if (oldWay) {
 			view.setBackgroundDrawable(drawable);
 		}
+	}
+
+	@SuppressWarnings("deprecation")
+	public static Point getScreenDimensions(Context context) {
+		boolean oldWay = true;
+		Point size = new Point();
+
+		WindowManager wm = (WindowManager) context
+				.getSystemService(Context.WINDOW_SERVICE);
+		Display display = wm.getDefaultDisplay();
+		if (Compatibility.isCompatible(13)) {
+			try {
+				Method method = Display.class.getDeclaredMethod("getSize",
+						new Class[] { Point.class });
+				method.invoke(display, size);
+				oldWay = false;
+			} catch (Exception e) {
+				oldWay = true;
+			}
+		}
+		if (oldWay) {
+			size.set(display.getWidth(), display.getHeight());
+		}
+		return size;
 	}
 }

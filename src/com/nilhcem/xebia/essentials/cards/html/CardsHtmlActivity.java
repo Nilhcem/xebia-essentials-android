@@ -15,17 +15,20 @@ import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.Extra;
 import com.googlecode.androidannotations.annotations.InstanceState;
+import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
 import com.googlecode.androidannotations.annotations.res.BooleanRes;
 import com.nilhcem.xebia.essentials.R;
+import com.nilhcem.xebia.essentials.cards.IOnCardMenuSelected;
 import com.nilhcem.xebia.essentials.cards.list.*;
 import com.nilhcem.xebia.essentials.core.BaseActivity;
 import com.nilhcem.xebia.essentials.core.InMemoryCache;
 import com.nilhcem.xebia.essentials.core.bo.CardService;
 import com.nilhcem.xebia.essentials.core.model.Card;
+import com.nilhcem.xebia.essentials.settings.SettingsActivity;
 
 @EActivity(R.layout.cards_html)
-public class CardsHtmlActivity extends BaseActivity {
+public class CardsHtmlActivity extends BaseActivity implements IOnCardMenuSelected {
 	public static final String INTENT_ITEM_ID = "itemId"; // Card or Category ID, depending on the INTENT_DISPLAY_TYPE
 	public static final String INTENT_DISPLAY_TYPE = "displayType"; // See DISPLAY_*
 	public static final String INTENT_CARD_POSITION = "cardPosition";
@@ -118,5 +121,16 @@ public class CardsHtmlActivity extends BaseActivity {
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		mCardPosition = mViewPager.getCurrentItem();
+	}
+
+	@UiThread
+	@Override
+	public void onCardMenuSelected() {
+		SettingsActivity.switchViewMode(this);
+
+		// Force viewpager to refresh itself
+		int position = mViewPager.getCurrentItem();
+		mViewPager.setAdapter(mViewPagerAdapter);
+		mViewPager.setCurrentItem(position, false);
 	}
 }
