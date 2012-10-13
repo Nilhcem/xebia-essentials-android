@@ -86,19 +86,21 @@ public class SettingsActivity extends SherlockPreferenceActivity implements OnPr
 		return false;
 	}
 
-	public static int getViewMode() {
-		int viewMode = (sViewMode == null) ? VIEW_MODE_CARD : sViewMode;
-		return viewMode;
+	public static int getViewMode(Activity activity) {
+		if (activity != null && sViewMode == null) {
+			SharedPreferences prefs = activity.getPreferences(MODE_PRIVATE);
+			if (sViewMode == null) {
+				sViewMode = prefs.getInt(KEY_VIEW_MODE, VIEW_MODE_CARD);
+			}
+		}
+		return sViewMode;
 	}
 
 	public static synchronized void switchViewMode(Activity activity) {
+		int viewMode = getViewMode(activity);
+		int newViewMode = (viewMode == VIEW_MODE_CARD) ? VIEW_MODE_DETAILS : VIEW_MODE_CARD;
+
 		SharedPreferences prefs = activity.getPreferences(MODE_PRIVATE);
-		if (sViewMode == null) {
-			sViewMode = prefs.getInt(KEY_VIEW_MODE, VIEW_MODE_CARD);
-		}
-
-		int newViewMode = (sViewMode == VIEW_MODE_CARD) ? VIEW_MODE_DETAILS : VIEW_MODE_CARD;
-
 		SharedPreferences.Editor prefsEditor = prefs.edit();
 		prefsEditor.putInt(KEY_VIEW_MODE, newViewMode);
 		prefsEditor.commit();

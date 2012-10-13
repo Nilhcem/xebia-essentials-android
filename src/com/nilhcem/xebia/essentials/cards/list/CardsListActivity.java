@@ -85,7 +85,7 @@ public class CardsListActivity extends DashboardBaseActivity_ implements IOnCard
 
 	private void initViewPager() {
 		if (mViewPager != null) {
-			PagerAdapter adapter = new CardsPagerAdapter(
+			PagerAdapter adapter = new CardsPagerAdapter(this,
 					getSupportFragmentManager(), mCards);
 			mViewPager.setAdapter(adapter);
 

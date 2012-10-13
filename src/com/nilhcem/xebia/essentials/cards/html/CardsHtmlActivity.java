@@ -74,7 +74,7 @@ public class CardsHtmlActivity extends BaseActivity implements IOnCardMenuSelect
 	@AfterViews
 	protected void initActivity() {
 		List<Card> cards = getCardsFromIntent();
-		mViewPagerAdapter = new CardsPagerAdapter(getSupportFragmentManager(), cards);
+		mViewPagerAdapter = new CardsPagerAdapter(this, getSupportFragmentManager(), cards);
 		mViewPager.setAdapter(mViewPagerAdapter);
 		mViewPager.setCurrentItem(mCardPosition, false);
 	}

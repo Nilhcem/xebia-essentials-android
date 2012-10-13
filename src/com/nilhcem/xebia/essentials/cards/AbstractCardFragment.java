@@ -23,9 +23,9 @@ public abstract class AbstractCardFragment extends SherlockFragment {
 	private String mUrlPrefix;
 	private IOnCardMenuSelected mOnMenuSelected;
 
-	public static AbstractCardFragment newInstance(Card card) {
+	public static AbstractCardFragment newInstance(Activity activity, Card card) {
 		AbstractCardFragment fragment;
-		int viewMode = SettingsActivity.getViewMode();
+		int viewMode = SettingsActivity.getViewMode(activity);
 
 		if (viewMode == SettingsActivity.VIEW_MODE_CARD) {
 			fragment = new CardsFlipFragment_();
