@@ -20,7 +20,7 @@
 		<dependency>
 			<groupId>com.google.android</groupId>
 			<artifactId>android</artifactId>
-			<version>4.0.1.2</version>
+			<version>4.1.1.4</version>
 			<scope>provided</scope>
 		</dependency>
 
@@ -51,7 +51,7 @@
 		<dependency>
 			<groupId>com.j256.ormlite</groupId>
 			<artifactId>ormlite-android</artifactId>
-			<version>4.41</version>
+			<version>4.42</version>
 		</dependency>
 
 		<!-- Android Annotations -->
@@ -103,7 +103,7 @@
 		<dependency>
 			<groupId>com.actionbarsherlock</groupId>
 			<artifactId>library</artifactId>
-			<version>4.1.0</version>
+			<version>4.2.0</version>
 			<type>apklib</type>
 		</dependency>
 
@@ -111,7 +111,7 @@
 		<dependency>
 			<groupId>eddieringle</groupId>
 			<artifactId>android-undergarment</artifactId>
-			<version>049f40319402564011761c787147a17daf6dc1da</version>
+			<version>7d9b2af32de552ad8ab9f85d2da382b0dcfc73cc</version>
 			<type>apklib</type>
 		</dependency>
 	</dependencies>
@@ -135,7 +135,7 @@
 			<plugin>
 				<groupId>com.jayway.maven.plugins.android.generation2</groupId>
 				<artifactId>android-maven-plugin</artifactId>
-				<version>3.3.0</version>
+				<version>3.3.2</version>
 				<configuration>
 					<sdk>
 						<path>${env.ANDROID_SDK}</path>
