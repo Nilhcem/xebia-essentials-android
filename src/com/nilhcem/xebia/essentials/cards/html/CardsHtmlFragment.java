@@ -24,6 +24,9 @@ public class CardsHtmlFragment extends AbstractCardFragment {
 	@ViewById(R.id.cardsHtmlTitle)
 	protected TextView mTitle;
 
+	@ViewById(R.id.cardsHtmlCategory)
+	protected TextView mCategory;
+
 	@ViewById(R.id.cardsHtmlContent)
 	protected TextView mContent;
 
@@ -39,6 +42,10 @@ public class CardsHtmlFragment extends AbstractCardFragment {
 		Category category = mCache.getCategoryById(mCard.getCategoryId());
 		mTitle.setText(mCard.getTitle());
 		mTitle.setBackgroundColor(category.getIntColor());
+
+		mCategory.setText(category.getName());
+		mCategory.setBackgroundColor(category.getIntColor());
+
 		mContent.setText(Html.fromHtml(mCard.getContent()));
 		mContent.setMovementMethod(LinkMovementMethod.getInstance()); // make links clickable
 	}
