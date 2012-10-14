@@ -63,17 +63,6 @@ public abstract class DashboardBaseActivity extends BaseActivity {
 	@AfterInject
 	protected void initDashboard() {
 		mDrawerGarment = new DrawerGarment(this, R.layout.dashboard);
-		mDrawerGarment.setDrawerCallbacks(new DrawerGarment.IDrawerCallbacks() {
-			@Override
-			public void onDrawerOpened() {
-				mActionBar.setDisplayHomeAsUpEnabled(false);
-			}
-
-			@Override
-			public void onDrawerClosed() {
-				mActionBar.setDisplayHomeAsUpEnabled(true);
-			}
-		});
 	}
 
 	@AfterViews
