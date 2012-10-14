@@ -1,9 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <!-- Core -->
-    <style name="XebiaTheme" parent="@style/Theme.Sherlock.Light.DarkActionBar" />
-
     <!-- Cards flip fragment -->
     <style name="CardsFlipCard">
         <item name="android:layout_height">fill_parent</item>

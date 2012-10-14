@@ -11,7 +11,7 @@
         android:hardwareAccelerated="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
-        android:theme="@style/XebiaTheme" >
+        android:theme="@style/Theme.xebia" >
         <activity
             android:name="SplashScreenActivity_"
             android:noHistory="true"
