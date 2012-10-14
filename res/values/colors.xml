@@ -9,7 +9,7 @@
     <color name="grey_separator">#ffcccccc</color>
 
     <!-- Cards flip -->
-    <color name="cards_flip_bg">#ff251225</color>
+    <color name="cards_flip_bg">#ff524152</color>
     <color name="cards_flip_divider">#bbffffff</color>
 
 </resources>
