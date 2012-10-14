@@ -6,5 +6,6 @@
     <dimen name="cards_flip_title_size">22sp</dimen>
     <dimen name="cards_flip_side_padding">18dp</dimen>
     <dimen name="cards_flip_divider_margin">2dp</dimen>
+    <dimen name="cards_flip_summary_text_size">14sp</dimen>
 
 </resources>

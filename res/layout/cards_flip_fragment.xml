@@ -121,8 +121,7 @@
                 android:layout_height="wrap_content"
                 android:paddingTop="4dp"
                 android:textColor="@color/white"
-                android:textSize="14sp"
-                android:textStyle="bold" />
+                android:textSize="@dimen/cards_flip_summary_text_size" />
         </ScrollView>
 
         <!-- Bottom divider -->
