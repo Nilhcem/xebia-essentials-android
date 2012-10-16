@@ -16,6 +16,7 @@ import com.nilhcem.xebia.essentials.R;
 
 @EActivity
 public class SettingsActivity extends SherlockPreferenceActivity implements OnPreferenceClickListener {
+	public static final String KEY_ANIMATION = "cards_animation";
 	public static final String KEY_VIEW_MODE = "viewMode"; // see VIEW_MODE_*
 	public static final int VIEW_MODE_CARD = 1;
 	public static final int VIEW_MODE_DETAILS = 2;

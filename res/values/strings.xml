@@ -18,6 +18,9 @@
     <string name="menu_see_details">See details</string>
 
     <!-- Settings -->
+    <string name="settings_cat_general">General</string>
+    <string name="settings_cat_info">More information</string>
+    <string name="settings_cards_animation">Cards flip animation</string>
     <string name="settings_xebia">About Xebia</string>
     <string name="settings_cards">About the cards</string>
     <string name="settings_licenses">Licenses</string>

@@ -4,12 +4,14 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.preference.PreferenceManager;
 import android.text.Html;
 import android.view.Gravity;
 import android.view.View;
@@ -39,6 +41,7 @@ import com.nilhcem.xebia.essentials.cards.AbstractCardFragment;
 import com.nilhcem.xebia.essentials.core.Compatibility;
 import com.nilhcem.xebia.essentials.core.InMemoryCache;
 import com.nilhcem.xebia.essentials.core.model.Category;
+import com.nilhcem.xebia.essentials.settings.SettingsActivity;
 import com.tekle.oss.android.animation.AnimationFactory;
 import com.tekle.oss.android.animation.AnimationFactory.FlipDirection;
 
@@ -94,6 +97,8 @@ public class CardsFlipFragment extends AbstractCardFragment {
 	@StringRes(R.string.bitly_url_prefix)
 	protected String mBitlyPrefix;
 
+	private SharedPreferences mPrefs;
+	private boolean mAnimateSwap;
 	private int mScreenWidth;
 	private int mScreenHeight;
 
@@ -102,6 +107,9 @@ public class CardsFlipFragment extends AbstractCardFragment {
 		super.onAttach(activity);
 
 		Point dimensions = Compatibility.getScreenDimensions(activity);
+		mPrefs = PreferenceManager.getDefaultSharedPreferences(activity);
+		refreshSwapBoolean();
+
 		mScreenWidth = dimensions.x;
 		mScreenHeight = dimensions.y;
 	}
@@ -111,8 +119,15 @@ public class CardsFlipFragment extends AbstractCardFragment {
 		View.OnClickListener listener = new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				AnimationFactory.flipTransition(mViewAnimator,
-						FlipDirection.LEFT_RIGHT);
+				if (mAnimateSwap) {
+					AnimationFactory.flipTransition(mViewAnimator,
+							FlipDirection.LEFT_RIGHT);
+				} else {
+					int card1Visibility = mCardSide1.getVisibility();
+					int card2Visibility = mCardSide2.getVisibility();
+					mCardSide1.setVisibility(card2Visibility);
+					mCardSide2.setVisibility(card1Visibility);
+				}
 			}
 		};
 		mViewAnimator.setOnClickListener(listener);
@@ -213,5 +228,17 @@ public class CardsFlipFragment extends AbstractCardFragment {
 		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width, height);
 		params.gravity = Gravity.CENTER;
 		return params;
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		refreshSwapBoolean();
+	}
+
+	private void refreshSwapBoolean() {
+		if (mPrefs != null) {
+			mAnimateSwap = mPrefs.getBoolean(SettingsActivity.KEY_ANIMATION, true);
+		}
 	}
 }

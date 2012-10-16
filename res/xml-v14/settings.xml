@@ -4,7 +4,7 @@
     <PreferenceCategory android:title="@string/settings_cat_general" >
 
         <!-- Enable cards flip animation -->
-        <CheckBoxPreference
+        <SwitchPreference
             android:defaultValue="true"
             android:icon="@drawable/photos"
             android:key="cards_animation"
