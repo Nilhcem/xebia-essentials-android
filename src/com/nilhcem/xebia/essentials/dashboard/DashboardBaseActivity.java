@@ -14,10 +14,10 @@ import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.nilhcem.xebia.essentials.R;
-import com.nilhcem.xebia.essentials.core.BaseActivity;
+import com.nilhcem.xebia.essentials.core.*;
 
 @EActivity
-public abstract class DashboardBaseActivity extends BaseActivity {
+public abstract class DashboardBaseActivity extends BaseActivity_ {
 	private static final String EXTRA_SHOW_DASH = "DashboardBaseActivity:showDashboard";
 
 	private ActionBar mActionBar;

@@ -43,4 +43,8 @@ public class InMemoryCache {
 	public void resetCardPosition() {
 		mCardPosition = 0;
 	}
+
+	public boolean isInitialized() {
+		return (mCategories != null && mCategories.size() > 0);
+	}
 }

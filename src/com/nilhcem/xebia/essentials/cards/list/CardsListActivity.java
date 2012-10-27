@@ -24,7 +24,6 @@ import com.googlecode.androidannotations.annotations.res.BooleanRes;
 import com.nilhcem.xebia.essentials.R;
 import com.nilhcem.xebia.essentials.cards.IOnCardMenuSelected;
 import com.nilhcem.xebia.essentials.cards.html.*;
-import com.nilhcem.xebia.essentials.core.InMemoryCache;
 import com.nilhcem.xebia.essentials.core.bo.CardService;
 import com.nilhcem.xebia.essentials.core.model.Card;
 import com.nilhcem.xebia.essentials.core.model.Category;
@@ -52,9 +51,6 @@ public class CardsListActivity extends DashboardBaseActivity_ implements IOnCard
 
 	@Bean
 	protected CardService mCardService;
-
-	@Bean
-	protected InMemoryCache mCache;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {

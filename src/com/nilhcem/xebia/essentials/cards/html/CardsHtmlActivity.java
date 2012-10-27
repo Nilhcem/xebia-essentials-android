@@ -21,14 +21,13 @@ import com.googlecode.androidannotations.annotations.res.BooleanRes;
 import com.nilhcem.xebia.essentials.R;
 import com.nilhcem.xebia.essentials.cards.IOnCardMenuSelected;
 import com.nilhcem.xebia.essentials.cards.list.*;
-import com.nilhcem.xebia.essentials.core.BaseActivity;
-import com.nilhcem.xebia.essentials.core.InMemoryCache;
+import com.nilhcem.xebia.essentials.core.*;
 import com.nilhcem.xebia.essentials.core.bo.CardService;
 import com.nilhcem.xebia.essentials.core.model.Card;
 import com.nilhcem.xebia.essentials.settings.SettingsActivity;
 
 @EActivity(R.layout.cards_html)
-public class CardsHtmlActivity extends BaseActivity implements IOnCardMenuSelected {
+public class CardsHtmlActivity extends BaseActivity_ implements IOnCardMenuSelected {
 	public static final String INTENT_ITEM_ID = "itemId"; // Card or Category ID, depending on the INTENT_DISPLAY_TYPE
 	public static final String INTENT_DISPLAY_TYPE = "displayType"; // See DISPLAY_*
 	public static final String INTENT_CARD_POSITION = "cardPosition";
@@ -55,9 +54,6 @@ public class CardsHtmlActivity extends BaseActivity implements IOnCardMenuSelect
 
 	@BooleanRes(R.bool.multipaned)
 	protected boolean mIsMultipaned;
-
-	@Bean
-	protected InMemoryCache mCache;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

@@ -127,16 +127,18 @@ public class SplashScreenActivity extends Activity {
 
 		// Start activity
 		Intent intent;
+		int flags = Intent.FLAG_ACTIVITY_NO_ANIMATION;
 		if (card == null) {
 			LOG.debug("Redirect to main activity");
 			intent = new Intent(this, CardsListActivity_.class);
+			flags |= Intent.FLAG_ACTIVITY_CLEAR_TOP;
 		} else {
 			LOG.debug("Redirect to card activity");
 			intent = new Intent(this, CardsHtmlActivity_.class);
 			intent.putExtra(CardsHtmlActivity.INTENT_ITEM_ID, card.getId());
 			intent.putExtra(CardsHtmlActivity.INTENT_DISPLAY_TYPE, CardsHtmlActivity.DISPLAY_ONE_CARD);
 		}
-		intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+		intent.setFlags(flags);
 		startActivity(intent);
 	}
 }
