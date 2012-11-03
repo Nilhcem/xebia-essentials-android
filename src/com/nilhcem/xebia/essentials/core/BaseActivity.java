@@ -11,6 +11,8 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EActivity;
+import com.googlecode.androidannotations.annotations.res.BooleanRes;
+import com.nilhcem.xebia.essentials.R;
 import com.nilhcem.xebia.essentials.*;
 import com.nilhcem.xebia.essentials.settings.*;
 
@@ -20,6 +22,9 @@ public abstract class BaseActivity extends SherlockFragmentActivity {
 
 	@Bean
 	protected InMemoryCache mCache;
+
+	@BooleanRes(R.bool.multipaned)
+	protected boolean mIsMultipaned;
 
 	@Override
 	protected void onResume() {

@@ -139,16 +139,18 @@ public class CardsFlipFragment extends AbstractCardFragment {
 	protected void initCardData() {
 		setHasOptionsMenu(true);
 		Category category = mCache.getCategoryById(mCard.getCategoryId());
-		mCategorySide1.setText(category.getName());
-		mCategorySide2.setText(category.getName());
+		if (category != null) {
+			mCategorySide1.setText(category.getName());
+			mCategorySide2.setText(category.getName());
+
+			Drawable bg = getCardBackground(category.getIntColor());
+			Compatibility.setDrawableToView(mCardSide1, bg);
+			Compatibility.setDrawableToView(mCardSide2, bg);
+		}
 
 		mTitle.setText(mCard.getTitle());
 		mUrl.setText(mCard.getUrl());
 		mSummary.setText(Html.fromHtml(mCard.getSummary()));
-
-		Drawable bg = getCardBackground(category.getIntColor());
-		Compatibility.setDrawableToView(mCardSide1, bg);
-		Compatibility.setDrawableToView(mCardSide2, bg);
 
 		// Set card size depending on the device
 		FrameLayout.LayoutParams params = getCardsLayoutParams();

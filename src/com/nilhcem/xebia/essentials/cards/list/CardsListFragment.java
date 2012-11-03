@@ -33,6 +33,12 @@ public class CardsListFragment extends SherlockListFragment {
 		mOnItemSelected = (IOnCardItemSelected) activity;
 	}
 
+	@Override
+	public void onDetach() {
+		super.onDetach();
+		mOnItemSelected = null;
+	}
+
 	@AfterViews
 	protected void bindAdapter() {
 		mAdapter.init(mCards);

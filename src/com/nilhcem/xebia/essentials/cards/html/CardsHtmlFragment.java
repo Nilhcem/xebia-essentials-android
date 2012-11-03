@@ -40,12 +40,13 @@ public class CardsHtmlFragment extends AbstractCardFragment {
 	protected void initCardData() {
 		setHasOptionsMenu(true);
 		Category category = mCache.getCategoryById(mCard.getCategoryId());
+		if (category != null) {
+			mTitle.setBackgroundColor(category.getIntColor());
+			mCategory.setText(category.getName());
+			mCategory.setBackgroundColor(category.getIntColor());
+		}
+
 		mTitle.setText(mCard.getTitle());
-		mTitle.setBackgroundColor(category.getIntColor());
-
-		mCategory.setText(category.getName());
-		mCategory.setBackgroundColor(category.getIntColor());
-
 		mContent.setText(Html.fromHtml(mCard.getContent()));
 		mContent.setMovementMethod(LinkMovementMethod.getInstance()); // make links clickable
 	}

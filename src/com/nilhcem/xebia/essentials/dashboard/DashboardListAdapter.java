@@ -35,11 +35,17 @@ public class DashboardListAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
+		if (mCategories == null) {
+			return 0;
+		}
 		return mCategories.size();
 	}
 
 	@Override
 	public Category getItem(int position) {
+		if (mCategories == null) {
+			return null;
+		}
 		return mCategories.get(position);
 	}
 
@@ -67,6 +73,8 @@ public class DashboardListAdapter extends BaseAdapter {
 	protected void initCategories() {
 		Category all = new Category(Category.ALL_CATEGORIES_ID, mAllCategoriesStr, mAllCategoriesColor);
 		mCategories = mCache.getAllCategories();
-		mCategories.add(0, all);
+		if (mCategories != null) {
+			mCategories.add(0, all);
+		}
 	}
 }

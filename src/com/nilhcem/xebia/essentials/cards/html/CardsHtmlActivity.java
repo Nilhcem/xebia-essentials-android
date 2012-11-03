@@ -17,7 +17,6 @@ import com.googlecode.androidannotations.annotations.Extra;
 import com.googlecode.androidannotations.annotations.InstanceState;
 import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
-import com.googlecode.androidannotations.annotations.res.BooleanRes;
 import com.nilhcem.xebia.essentials.R;
 import com.nilhcem.xebia.essentials.cards.IOnCardMenuSelected;
 import com.nilhcem.xebia.essentials.cards.list.*;
@@ -51,9 +50,6 @@ public class CardsHtmlActivity extends BaseActivity_ implements IOnCardMenuSelec
 
 	@Bean
 	protected CardService mCardService;
-
-	@BooleanRes(R.bool.multipaned)
-	protected boolean mIsMultipaned;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

@@ -29,6 +29,9 @@ public class InMemoryCache {
 	}
 
 	public Category getCategoryById(long id) {
+		if (mCategories == null) {
+			return null;
+		}
 		return mCategories.get(Long.valueOf(id));
 	}
 

@@ -1,5 +1,8 @@
 package com.nilhcem.xebia.essentials.cards;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,6 +19,7 @@ import com.nilhcem.xebia.essentials.core.model.Card;
 import com.nilhcem.xebia.essentials.settings.SettingsActivity;
 
 public abstract class AbstractCardFragment extends SherlockFragment {
+	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractCardFragment.class);
 	private static final String EXTRA_CARD = "AbstractCardFragment:mCard";
 
 	protected Card mCard;
@@ -54,9 +58,17 @@ public abstract class AbstractCardFragment extends SherlockFragment {
 
 	@Override
 	public void onAttach(Activity activity) {
+		LOGGER.debug("onAttach()");
 		super.onAttach(activity);
 		mOnMenuSelected = (IOnCardMenuSelected) activity;
 		mUrlPrefix = String.format("http://%s", activity.getString(R.string.cards_url_prefix));
+	}
+
+	@Override
+	public void onDetach() {
+		LOGGER.debug("onDetach()");
+		super.onDetach();
+		mOnMenuSelected = null;
 	}
 
 	@Override

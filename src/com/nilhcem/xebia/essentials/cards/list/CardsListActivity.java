@@ -20,7 +20,6 @@ import com.googlecode.androidannotations.annotations.FragmentByTag;
 import com.googlecode.androidannotations.annotations.InstanceState;
 import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
-import com.googlecode.androidannotations.annotations.res.BooleanRes;
 import com.nilhcem.xebia.essentials.R;
 import com.nilhcem.xebia.essentials.cards.IOnCardMenuSelected;
 import com.nilhcem.xebia.essentials.cards.html.*;
@@ -42,9 +41,6 @@ public class CardsListActivity extends DashboardBaseActivity_ implements IOnCard
 
 	@FragmentByTag(LIST_FRAGMENT_TAG)
 	protected CardsListFragment mListFragment;
-
-	@BooleanRes(R.bool.multipaned)
-	protected boolean mIsMultipaned;
 
 	@ViewById(R.id.cardsListViewPager)
 	protected ViewPager mViewPager;
@@ -119,6 +115,7 @@ public class CardsListActivity extends DashboardBaseActivity_ implements IOnCard
 		if (mIsMultipaned) {
 			mViewPager.setCurrentItem(position);
 		} else {
+			mCache.setCardPosition(position);
 			Intent intent = new Intent(this, CardsHtmlActivity_.class);
 			intent.putExtra(CardsHtmlActivity.INTENT_CARD_POSITION, position);
 			intent.putExtra(CardsHtmlActivity.INTENT_DISPLAY_TYPE,
@@ -149,10 +146,25 @@ public class CardsListActivity extends DashboardBaseActivity_ implements IOnCard
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
+		LOGGER.info("onSaveInstanceState");
 		if (mViewPager != null) {
 			mCache.setCardPosition(mViewPager.getCurrentItem());
+			mViewPager.setAdapter(null); // Remove adapter reference so that no fragment state will be saved - Avoid memory leaks on 7inch layout
 		}
+		if (!mIsMultipaned) {
+			mCache.resetCardPosition();
+		}
+		// When Activity is destroyed and retains state (like when you turn the device to landscape mode),
+		// it doesn't retain the exact Fragment objects in the stack, only their states - Fragment.FragmentState objects,
+		// i.e. actual fragments in the back stack are re-created every time activity gets re-created with retained state.
+		// http://stackoverflow.com/questions/8482606/when-a-fragment-is-replaced-and-put-in-the-back-stack-or-removed-does-it-stay
+		super.onSaveInstanceState(outState);
+	}
+
+	@Override
+	protected void onResumeFragments() {
+		super.onResumeFragments();
+		initViewPager(); // Since we removed adapter reference, recreate it
 	}
 
 	@UiThread

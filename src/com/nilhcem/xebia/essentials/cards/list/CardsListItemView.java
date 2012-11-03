@@ -33,7 +33,9 @@ public class CardsListItemView extends LinearLayout {
 
 		// Category color
 		Category category = mCache.getCategoryById(card.getCategoryId());
-		int color = category.getIntColor();
-		mCategoryColor.setBackgroundColor(color);
+		if (category != null) {
+			int color = category.getIntColor();
+			mCategoryColor.setBackgroundColor(color);
+		}
 	}
 }
