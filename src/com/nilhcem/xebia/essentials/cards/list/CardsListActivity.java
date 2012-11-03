@@ -53,7 +53,7 @@ public class CardsListActivity extends DashboardBaseActivity_ implements IOnCard
 		super.onCreate(savedInstanceState);
 
 		// If we rotate the device and are no more in two-pane layout mode, launch the CardsHtmlActivity
-		if (!mIsMultipaned && mCache.getCardPosition() > 0) {
+		if (!mIsMultipaned && mCache.isCardPositionSet()) {
 			onCardsListItemSelected(mCache.getCardPosition());
 		}
 	}
@@ -80,8 +80,31 @@ public class CardsListActivity extends DashboardBaseActivity_ implements IOnCard
 			PagerAdapter adapter = new CardsPagerAdapter(this,
 					getSupportFragmentManager(), mCards);
 			mViewPager.setAdapter(adapter);
+			mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+				private volatile boolean setPosition = false;
 
-			if (mCache.getCardPosition() != 0) {
+				@Override
+				public void onPageSelected(int position) {
+					if (setPosition) {
+						mCache.setCardPosition(position);
+						refreshListView();
+						setPosition = false;
+					}
+				}
+
+				@Override
+				public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+				}
+
+				@Override
+				public void onPageScrollStateChanged(int state) {
+					if (state == ViewPager.SCROLL_STATE_SETTLING) {
+						setPosition = true;
+					}
+				}
+			});
+
+			if (mCache.isCardPositionSet()) {
 				mViewPager.setCurrentItem(mCache.getCardPosition(), false);
 			}
 		}
@@ -111,11 +134,12 @@ public class CardsListActivity extends DashboardBaseActivity_ implements IOnCard
 	@Override
 	public void onCardsListItemSelected(int position) {
 		LOGGER.debug("Card selected: {}", position);
+		mCache.setCardPosition(position);
 
 		if (mIsMultipaned) {
-			mViewPager.setCurrentItem(position);
+			mViewPager.setCurrentItem(position, false);
+			refreshListView();
 		} else {
-			mCache.setCardPosition(position);
 			Intent intent = new Intent(this, CardsHtmlActivity_.class);
 			intent.putExtra(CardsHtmlActivity.INTENT_CARD_POSITION, position);
 			intent.putExtra(CardsHtmlActivity.INTENT_DISPLAY_TYPE,
@@ -171,7 +195,17 @@ public class CardsListActivity extends DashboardBaseActivity_ implements IOnCard
 	@Override
 	public void onCardMenuSelected() {
 		SettingsActivity.switchViewMode(this);
-		mCache.setCardPosition(mViewPager.getCurrentItem());
 		initViewPager();
+	}
+
+	private void refreshListView() {
+		// Refresh selected item on listView
+		if (mIsMultipaned) {
+			try {
+				mListFragment.getListView().invalidateViews();
+			} catch (IllegalStateException e) {
+				// Do nothing - content view not created yet
+			}
+		}
 	}
 }
