@@ -1,4 +1,4 @@
-package com.nilhcem.xebia.essentials.dashboard;
+package com.nilhcem.xebia.essentials.menudrawer;
 
 import android.content.Context;
 import android.graphics.drawable.ShapeDrawable;
@@ -13,15 +13,15 @@ import com.nilhcem.xebia.essentials.R;
 import com.nilhcem.xebia.essentials.core.Compatibility;
 import com.nilhcem.xebia.essentials.core.model.Category;
 
-@EViewGroup(R.layout.dashboard_list_item)
-public class DashboardListItemView extends LinearLayout {
-	@ViewById(R.id.dashboardItemTitle)
+@EViewGroup(R.layout.menudrawer_list_item)
+public class MenuDrawerListItemView extends LinearLayout {
+	@ViewById(R.id.menudrawerItemTitle)
 	protected TextView mTitle;
 
-	@ViewById(R.id.dashboardItemColor)
+	@ViewById(R.id.menudrawerItemColor)
 	protected View mView;
 
-	public DashboardListItemView(Context context) {
+	public MenuDrawerListItemView(Context context) {
 		super(context);
 	}
 

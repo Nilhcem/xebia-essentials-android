@@ -12,4 +12,6 @@
     <color name="cards_flip_bg">#ff372e38</color>
     <color name="cards_flip_divider">#bbffffff</color>
 
+    <!-- Menu drawer -->
+    <color name="drawer_item_selected">#ff444444</color>
 </resources>

@@ -11,6 +11,7 @@ import com.nilhcem.xebia.essentials.core.model.Category;
 
 @EBean(scope = Scope.Singleton)
 public class InMemoryCache {
+	private long mSelectedCategory = Category.ALL_CATEGORIES_ID;
 	private int mCardPosition = CARD_POSITION_UNSET; // useful when orientation changed on CardsHtmlActivity, switching from one to two panes
 	private Map<Long, Category> mCategories;
 
@@ -35,6 +36,15 @@ public class InMemoryCache {
 			return null;
 		}
 		return mCategories.get(Long.valueOf(id));
+	}
+
+	public long getSelectedCategory() {
+		return mSelectedCategory;
+	}
+
+	public void setSelectedCategory(long categoryId) {
+		mSelectedCategory = categoryId;
+		resetCardPosition();
 	}
 
 	public int getCardPosition() {

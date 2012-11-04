@@ -60,7 +60,7 @@ public class SplashScreenActivity extends Activity {
 	protected void onResume() {
 		super.onResume();
 
-		mCache.resetCardPosition();
+		mCache.setSelectedCategory(Category.ALL_CATEGORIES_ID);
 		if (isDbInitialized()) {
 			initCategoriesThenRedirect();
 		} else {

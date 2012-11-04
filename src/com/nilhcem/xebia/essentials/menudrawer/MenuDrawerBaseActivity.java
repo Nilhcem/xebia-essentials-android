@@ -1,0 +1,108 @@
+package com.nilhcem.xebia.essentials.menudrawer;
+
+import net.simonvt.widget.MenuDrawer;
+import net.simonvt.widget.MenuDrawerManager;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
+
+import com.actionbarsherlock.app.ActionBar;
+import com.actionbarsherlock.view.MenuItem;
+import com.googlecode.androidannotations.annotations.AfterInject;
+import com.googlecode.androidannotations.annotations.AfterViews;
+import com.googlecode.androidannotations.annotations.Bean;
+import com.googlecode.androidannotations.annotations.EActivity;
+import com.nilhcem.xebia.essentials.R;
+import com.nilhcem.xebia.essentials.core.*;
+
+@EActivity
+public abstract class MenuDrawerBaseActivity extends BaseActivity_ {
+	private static final String EXTRA_STATE_MENUDRAWER = "MenuDrawerBaseActivity:stateMenuDrawer";
+
+	private MenuDrawerManager mMenuDrawer;
+	private ActionBar mActionBar;
+	private ListView mCategoriesListView;
+
+	@Bean
+	protected MenuDrawerListAdapter mCategoriesListAdapter;
+
+	@Override
+	public void setContentView(int layoutResID) {
+		// This override is only needed when using MENU_DRAG_CONTENT.
+		mMenuDrawer.setContentView(layoutResID);
+		onContentChanged();
+	}
+
+	@Override
+	protected void onRestoreInstanceState(Bundle savedInstanceState) {
+		super.onRestoreInstanceState(savedInstanceState);
+		mMenuDrawer.onRestoreDrawerState(savedInstanceState.getParcelable(EXTRA_STATE_MENUDRAWER));
+	}
+
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putParcelable(EXTRA_STATE_MENUDRAWER, mMenuDrawer.onSaveDrawerState());
+	}
+
+	@AfterInject
+	protected void initActionBar() {
+		mActionBar = getSupportActionBar();
+		mActionBar.setHomeButtonEnabled(true);
+		mActionBar.setDisplayHomeAsUpEnabled(true);
+	}
+
+	@Override
+	public void onBackPressed() {
+		final int drawerState = mMenuDrawer.getDrawerState();
+		if (drawerState == MenuDrawer.STATE_OPEN || drawerState == MenuDrawer.STATE_OPENING) {
+			mMenuDrawer.closeMenu();
+			return;
+		}
+		super.onBackPressed();
+	}
+
+	@AfterInject
+	protected void initMenuDrawer() {
+		mMenuDrawer = new MenuDrawerManager(this, MenuDrawer.MENU_DRAG_CONTENT);
+		mMenuDrawer.setMenuView(R.layout.menudrawer);
+		mMenuDrawer.getMenuDrawer().setOffsetMenuEnabled(false);
+	}
+
+	@AfterViews
+	protected void initMenuDrawerList() {
+		mCategoriesListView = (ListView) findViewById(R.id.menudrawerList);
+		mCategoriesListView.setAdapter(mCategoriesListAdapter);
+
+		mCategoriesListView.setOnItemClickListener(new OnItemClickListener() {
+			@Override
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				onMenuDrawerItemSelected(id);
+				mMenuDrawer.closeMenu(true);
+				refreshMenuDrawer();
+			}
+		});
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		if (item.getItemId() == android.R.id.home) {
+			mMenuDrawer.toggleMenu();
+			return true;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
+	protected boolean isMenuDrawerClosedOrClosing() {
+		final int drawerState = mMenuDrawer.getDrawerState();
+		return (drawerState == MenuDrawer.STATE_CLOSED || drawerState == MenuDrawer.STATE_CLOSING);
+	}
+
+	protected void refreshMenuDrawer() {
+		mCategoriesListView.invalidateViews();
+	}
+
+	protected abstract void onMenuDrawerItemSelected(long id);
+}

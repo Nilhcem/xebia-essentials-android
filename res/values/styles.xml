@@ -31,4 +31,8 @@
         <item name="android:textSize">11sp</item>
     </style>
 
+    <!-- Menu drawer -->
+    <style name="MenuDrawerStyle" parent="Widget.MenuDrawer">
+        <item name="mdMenuWidth">280dp</item>
+    </style>
 </resources>

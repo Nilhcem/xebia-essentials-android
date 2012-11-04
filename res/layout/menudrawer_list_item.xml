@@ -8,7 +8,7 @@
     android:paddingTop="14dp" >
 
     <View
-        android:id="@+id/dashboardItemColor"
+        android:id="@+id/menudrawerItemColor"
         android:layout_width="26dp"
         android:layout_height="26dp"
         android:layout_alignParentLeft="true"
@@ -16,11 +16,12 @@
         android:layout_marginRight="10dp" />
 
     <TextView
-        android:id="@+id/dashboardItemTitle"
+        android:id="@+id/menudrawerItemTitle"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/dashboardItemColor"
+        android:layout_toRightOf="@+id/menudrawerItemColor"
+        android:textColor="?android:attr/textColorPrimaryInverse"
         android:textSize="18sp" />
 
 </RelativeLayout>

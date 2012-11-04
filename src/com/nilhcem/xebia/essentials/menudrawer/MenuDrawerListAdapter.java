@@ -1,4 +1,4 @@
-package com.nilhcem.xebia.essentials.dashboard;
+package com.nilhcem.xebia.essentials.menudrawer;
 
 import java.util.List;
 
@@ -14,11 +14,12 @@ import com.googlecode.androidannotations.annotations.RootContext;
 import com.googlecode.androidannotations.annotations.res.ColorRes;
 import com.googlecode.androidannotations.annotations.res.StringRes;
 import com.nilhcem.xebia.essentials.R;
+import com.nilhcem.xebia.essentials.core.Compatibility;
 import com.nilhcem.xebia.essentials.core.InMemoryCache;
 import com.nilhcem.xebia.essentials.core.model.Category;
 
 @EBean
-public class DashboardListAdapter extends BaseAdapter {
+public class MenuDrawerListAdapter extends BaseAdapter {
 	private List<Category> mCategories;
 
 	@RootContext
@@ -32,6 +33,9 @@ public class DashboardListAdapter extends BaseAdapter {
 
 	@ColorRes(R.color.xebia_purple)
 	protected int mAllCategoriesColor;
+
+	@ColorRes(R.color.drawer_item_selected)
+	protected int mSelectedItemColor;
 
 	@Override
 	public int getCount() {
@@ -56,17 +60,25 @@ public class DashboardListAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		DashboardListItemView dashboardItem;
+		MenuDrawerListItemView view;
 
 		if (convertView == null) {
-			dashboardItem = DashboardListItemView_.build(mContext);
+			view = MenuDrawerListItemView_.build(mContext);
 		} else {
-			dashboardItem = (DashboardListItemView) convertView;
+			view = (MenuDrawerListItemView) convertView;
 		}
 
 		Category category = getItem(position);
-		dashboardItem.bind(category);
-		return dashboardItem;
+		view.bind(category);
+
+		// Highlight selected category
+		long currentCategory = mCache.getSelectedCategory();
+		if (category.getId() == currentCategory) {
+			view.setBackgroundColor(mSelectedItemColor);
+		} else {
+			Compatibility.setDrawableToView(view, null);
+		}
+		return view;
 	}
 
 	@AfterViews

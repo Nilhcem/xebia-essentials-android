@@ -34,10 +34,12 @@
         <item name="android:actionBarStyle">@style/xebia_solid_ActionBar</item>
         <item name="android:panelBackground">@drawable/menu_hardkey_panel_xebia</item>
 
-                <!-- Light.DarkActionBar specific -->
+        <!-- Light.DarkActionBar specific -->
         <item name="actionBarWidgetTheme">@style/Theme.xebia.widget</item>
         <item name="android:actionBarWidgetTheme">@style/Theme.xebia.widget</item>
 
+        <!-- Menu drawer -->
+        <item name="menuDrawerStyle">@style/MenuDrawerStyle</item>
     </style>
 
     <style name="xebia_solid_ActionBar" parent="@style/Widget.Sherlock.Light.ActionBar.Solid.Inverse">

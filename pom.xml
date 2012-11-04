@@ -109,9 +109,9 @@
 
 		<!-- Drawer pattern -->
 		<dependency>
-			<groupId>eddieringle</groupId>
-			<artifactId>android-undergarment</artifactId>
-			<version>7d9b2af32de552ad8ab9f85d2da382b0dcfc73cc</version>
+			<groupId>net.simonvt</groupId>
+			<artifactId>android-menudrawer</artifactId>
+			<version>1.0.0</version>
 			<type>apklib</type>
 		</dependency>
 	</dependencies>

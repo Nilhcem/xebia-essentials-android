@@ -5,9 +5,8 @@
     android:orientation="vertical" >
 
     <ListView
-        android:id="@+id/dashboardList"
+        android:id="@+id/menudrawerList"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
-    </ListView>
+        android:layout_height="fill_parent" />
 
 </LinearLayout>

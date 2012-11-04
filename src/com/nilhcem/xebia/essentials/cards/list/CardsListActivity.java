@@ -17,7 +17,6 @@ import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.FragmentByTag;
-import com.googlecode.androidannotations.annotations.InstanceState;
 import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
 import com.nilhcem.xebia.essentials.R;
@@ -26,18 +25,15 @@ import com.nilhcem.xebia.essentials.cards.html.*;
 import com.nilhcem.xebia.essentials.core.bo.CardService;
 import com.nilhcem.xebia.essentials.core.model.Card;
 import com.nilhcem.xebia.essentials.core.model.Category;
-import com.nilhcem.xebia.essentials.dashboard.*;
+import com.nilhcem.xebia.essentials.menudrawer.*;
 import com.nilhcem.xebia.essentials.settings.SettingsActivity;
 
 @EActivity(R.layout.main_layout)
-public class CardsListActivity extends DashboardBaseActivity_ implements IOnCardItemSelected, IOnCardMenuSelected {
+public class CardsListActivity extends MenuDrawerBaseActivity_ implements IOnCardItemSelected, IOnCardMenuSelected {
 	private static final Logger LOGGER = LoggerFactory.getLogger(CardsListActivity.class);
 	private static final String LIST_FRAGMENT_TAG = "cardsListFragmentTag";
 
 	private List<Card> mCards = Collections.synchronizedList(new ArrayList<Card>());
-
-	@InstanceState
-	protected long mCategoryId = Category.ALL_CATEGORIES_ID;
 
 	@FragmentByTag(LIST_FRAGMENT_TAG)
 	protected CardsListFragment mListFragment;
@@ -71,7 +67,7 @@ public class CardsListActivity extends DashboardBaseActivity_ implements IOnCard
 
 	private void initCards() {
 		mCards.clear();
-		mCards.addAll(mCardService.getDao().getAllCardsFromCategory(mCategoryId));
+		mCards.addAll(mCardService.getDao().getAllCardsFromCategory(mCache.getSelectedCategory()));
 		LOGGER.debug("Cards size: {}", mCards.size());
 	}
 
@@ -144,25 +140,23 @@ public class CardsListActivity extends DashboardBaseActivity_ implements IOnCard
 			intent.putExtra(CardsHtmlActivity.INTENT_CARD_POSITION, position);
 			intent.putExtra(CardsHtmlActivity.INTENT_DISPLAY_TYPE,
 					CardsHtmlActivity.DISPLAY_FROM_CATEGORY);
-			intent.putExtra(CardsHtmlActivity.INTENT_ITEM_ID, mCategoryId);
+			intent.putExtra(CardsHtmlActivity.INTENT_ITEM_ID, mCache.getSelectedCategory());
 			startActivity(intent);
 		}
 	}
 
 	@Override
-	protected void onDashboardItemSelected(long id) {
+	protected void onMenuDrawerItemSelected(long id) {
 		LOGGER.debug("Category #{} selected", id);
-		mCategoryId = id;
-		mCache.resetCardPosition();
+		mCache.setSelectedCategory(id);
 		initAll(true);
 	}
 
 	@Override
 	public void onBackPressed() {
-		if (!mDrawerGarment.isDrawerOpened()
-				&& mCategoryId != Category.ALL_CATEGORIES_ID) {
-			mCache.resetCardPosition();
-			onDashboardItemSelected(Category.ALL_CATEGORIES_ID);
+		if (isMenuDrawerClosedOrClosing() && mCache.getSelectedCategory() != Category.ALL_CATEGORIES_ID) {
+			onMenuDrawerItemSelected(Category.ALL_CATEGORIES_ID);
+			refreshMenuDrawer();
 		} else {
 			super.onBackPressed();
 		}
