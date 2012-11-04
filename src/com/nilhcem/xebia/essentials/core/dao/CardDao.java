@@ -62,7 +62,26 @@ public final class CardDao extends AbstractDao<Card> {
 					card = cards.get(0);
 				}
 			} catch (SQLException e) {
-				LOG.error("Error getting card for URL {}", url, e);
+				LOG.error("Error getting card from URL: {}", url, e);
+			}
+		}
+		return card;
+	}
+
+	public Card getByBitly(String bitly) {
+		Card card = null;
+
+		if (!TextUtils.isEmpty(bitly)) {
+			QueryBuilder<Card, Long> queryBuilder = queryBuilder();
+			try {
+				queryBuilder.where().eq(Card.COL_BITLY, bitly);
+				PreparedQuery<Card> preparedQuery = queryBuilder.prepare();
+				List<Card> cards = query(preparedQuery);
+				if (cards.size() == 1) {
+					card = cards.get(0);
+				}
+			} catch (SQLException e) {
+				LOG.error("Error getting card from bitly: {}", bitly, e);
 			}
 		}
 		return card;

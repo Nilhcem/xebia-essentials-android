@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:paddingBottom="14dp"
@@ -7,20 +8,23 @@
     android:paddingRight="10dp"
     android:paddingTop="14dp" >
 
-    <View
-        android:id="@+id/menudrawerItemColor"
+    <!-- Icon -->
+    <ImageView
+        android:id="@+id/menudrawerItemIcon"
         android:layout_width="26dp"
         android:layout_height="26dp"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="10dp" />
+        android:layout_marginRight="10dp"
+        tools:ignore="ContentDescription" />
 
+    <!-- Description -->
     <TextView
         android:id="@+id/menudrawerItemTitle"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/menudrawerItemColor"
+        android:layout_toRightOf="@+id/menudrawerItemIcon"
         android:textColor="?android:attr/textColorPrimaryInverse"
         android:textSize="18sp" />
 

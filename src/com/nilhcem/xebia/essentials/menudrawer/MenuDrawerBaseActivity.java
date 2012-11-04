@@ -2,6 +2,7 @@ package com.nilhcem.xebia.essentials.menudrawer;
 
 import net.simonvt.widget.MenuDrawer;
 import net.simonvt.widget.MenuDrawerManager;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,6 +17,7 @@ import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.nilhcem.xebia.essentials.R;
 import com.nilhcem.xebia.essentials.core.*;
+import com.nilhcem.xebia.essentials.scanner.CardScanner;
 
 @EActivity
 public abstract class MenuDrawerBaseActivity extends BaseActivity_ {
@@ -27,6 +29,9 @@ public abstract class MenuDrawerBaseActivity extends BaseActivity_ {
 
 	@Bean
 	protected MenuDrawerListAdapter mCategoriesListAdapter;
+
+	@Bean
+	protected CardScanner mCardScanner;
 
 	@Override
 	public void setContentView(int layoutResID) {
@@ -73,17 +78,27 @@ public abstract class MenuDrawerBaseActivity extends BaseActivity_ {
 
 	@AfterViews
 	protected void initMenuDrawerList() {
-		mCategoriesListView = (ListView) findViewById(R.id.menudrawerList);
+		mCategoriesListView = (ListView) findViewById(R.id.menudrawerCategoriesList);
 		mCategoriesListView.setAdapter(mCategoriesListAdapter);
 
 		mCategoriesListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				onMenuDrawerItemSelected(id);
+				if (id == MenuDrawerListItemView.CATEGORY_SCAN_BUTTON) {
+					mCardScanner.initiateScan(MenuDrawerBaseActivity.this);
+				} else {
+					onMenuDrawerItemSelected(id);
+					refreshMenuDrawer();
+				}
 				mMenuDrawer.closeMenu(true);
-				refreshMenuDrawer();
 			}
 		});
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent intent) {
+		super.onActivityResult(requestCode, resultCode, intent);
+		mCardScanner.onActivityResult(this, requestCode, resultCode, intent);
 	}
 
 	@Override

@@ -1,5 +1,6 @@
 package com.nilhcem.xebia.essentials.menudrawer;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -20,7 +21,7 @@ import com.nilhcem.xebia.essentials.core.model.Category;
 
 @EBean
 public class MenuDrawerListAdapter extends BaseAdapter {
-	private List<Category> mCategories;
+	private List<Object> mItems;
 
 	@RootContext
 	protected Context mContext;
@@ -31,6 +32,15 @@ public class MenuDrawerListAdapter extends BaseAdapter {
 	@StringRes(R.string.cards_list_all)
 	protected String mAllCategoriesStr;
 
+	@StringRes(R.string.drawer_categories)
+	protected String mCategoriesTitleStr;
+
+	@StringRes(R.string.drawer_scan)
+	protected String mScanTitleStr;
+
+	@StringRes(R.string.drawer_scan_card)
+	protected String mScanCardStr;
+
 	@ColorRes(R.color.xebia_purple)
 	protected int mAllCategoriesColor;
 
@@ -39,54 +49,100 @@ public class MenuDrawerListAdapter extends BaseAdapter {
 
 	@Override
 	public int getCount() {
-		if (mCategories == null) {
+		if (mItems == null) {
 			return 0;
 		}
-		return mCategories.size();
+		return mItems.size();
 	}
 
 	@Override
-	public Category getItem(int position) {
-		if (mCategories == null) {
+	public Object getItem(int position) {
+		if (mItems == null) {
 			return null;
 		}
-		return mCategories.get(position);
+		return mItems.get(position);
 	}
 
 	@Override
 	public long getItemId(int position) {
-		return getItem(position).getId();
+		Object obj = getItem(position);
+		if (obj instanceof Category) {
+			return ((Category) obj).getId();
+		}
+		return 100 + position; // adding 100 to avoid collisions with real categories ids
+	}
+
+	@Override
+	public int getItemViewType(int position) {
+		Object obj = getItem(position);
+		if (obj instanceof String) {
+			return 0;
+		}
+		return 1;
+	}
+
+	@Override
+	public int getViewTypeCount() {
+		return 2;
+	}
+
+	@Override
+	public boolean areAllItemsEnabled() {
+		return false;
+	}
+
+	@Override
+	public boolean isEnabled(int position) {
+		return (getItem(position) instanceof Category);
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		MenuDrawerListItemView view;
+		View v = convertView;
+		Object item = getItem(position);
 
-		if (convertView == null) {
-			view = MenuDrawerListItemView_.build(mContext);
-		} else {
-			view = (MenuDrawerListItemView) convertView;
+		if (item instanceof String) {
+			if (v == null) {
+				v = MenuDrawerListCategoryView_.build(mContext);
+			}
+
+			MenuDrawerListCategoryView view = (MenuDrawerListCategoryView) v;
+			view.bind((String) item);
+		} else if (item instanceof Category) {
+			if (v == null) {
+				v = MenuDrawerListItemView_.build(mContext);
+			}
+
+			MenuDrawerListItemView view = (MenuDrawerListItemView) v;
+			Category category = (Category) item;
+			view.bind(category);
+
+			// Highlight selected category
+			long currentCategory = mCache.getSelectedCategory();
+			if (category.getId() == currentCategory) {
+				view.setBackgroundColor(mSelectedItemColor);
+			} else {
+				Compatibility.setDrawableToView(view, null);
+			}
 		}
-
-		Category category = getItem(position);
-		view.bind(category);
-
-		// Highlight selected category
-		long currentCategory = mCache.getSelectedCategory();
-		if (category.getId() == currentCategory) {
-			view.setBackgroundColor(mSelectedItemColor);
-		} else {
-			Compatibility.setDrawableToView(view, null);
-		}
-		return view;
+		return v;
 	}
 
 	@AfterViews
-	protected void initCategories() {
+	protected void initItems() {
+		mItems = new ArrayList<Object>();
+
+		// Categories
+		mItems.add(mCategoriesTitleStr);
 		Category all = new Category(Category.ALL_CATEGORIES_ID, mAllCategoriesStr, mAllCategoriesColor);
-		mCategories = mCache.getAllCategories();
-		if (mCategories != null) {
-			mCategories.add(0, all);
+		mItems.add(all);
+		for (Category category : mCache.getAllCategories()) {
+			mItems.add(category);
 		}
+
+		// Scan card
+		mItems.add(mScanTitleStr);
+		Category scanButton = new Category(MenuDrawerListItemView.CATEGORY_SCAN_BUTTON, mScanCardStr, 0);
+		mItems.add(scanButton);
 	}
 }

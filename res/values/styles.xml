@@ -33,6 +33,6 @@
 
     <!-- Menu drawer -->
     <style name="MenuDrawerStyle" parent="Widget.MenuDrawer">
-        <item name="mdMenuWidth">280dp</item>
+        <item name="mdMenuWidth">320dp</item>
     </style>
 </resources>

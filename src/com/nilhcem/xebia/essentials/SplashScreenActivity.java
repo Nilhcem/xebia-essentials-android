@@ -10,7 +10,6 @@ import org.slf4j.LoggerFactory;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -22,7 +21,6 @@ import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
 import com.googlecode.androidannotations.annotations.res.StringRes;
-import com.nilhcem.xebia.essentials.cards.html.*;
 import com.nilhcem.xebia.essentials.cards.list.*;
 import com.nilhcem.xebia.essentials.core.InMemoryCache;
 import com.nilhcem.xebia.essentials.core.bo.CardService;
@@ -30,6 +28,7 @@ import com.nilhcem.xebia.essentials.core.bo.CategoryService;
 import com.nilhcem.xebia.essentials.core.model.Card;
 import com.nilhcem.xebia.essentials.core.model.Category;
 import com.nilhcem.xebia.essentials.core.model.XmlData;
+import com.nilhcem.xebia.essentials.scanner.CardScanner;
 
 @EActivity(R.layout.splash_screen)
 public class SplashScreenActivity extends Activity {
@@ -38,6 +37,9 @@ public class SplashScreenActivity extends Activity {
 
 	@ViewById(R.id.splashscreenLoading)
 	protected LinearLayout mLoadingLayout;
+
+	@StringRes(R.string.splash_error)
+	protected String mErrorMessage;
 
 	@Bean
 	protected CategoryService mCategoryService;
@@ -48,8 +50,8 @@ public class SplashScreenActivity extends Activity {
 	@Bean
 	protected InMemoryCache mCache;
 
-	@StringRes(R.string.splash_error)
-	protected String mErrorMessage;
+	@Bean
+	protected CardScanner mCardScanner;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -116,31 +118,19 @@ public class SplashScreenActivity extends Activity {
 	}
 
 	private void processRedirect() {
-		// Check intent filters (ie: http://essentials.xebia.com/have-fun)
-		Card card = null;
-		Uri data = getIntent().getData();
-		if (data != null) {
-			List<String> params = data.getPathSegments();
-			if (params != null && params.size() == 1) {
-				String cardUrl = params.get(0);
-				card = mCardService.getDao().getByUrl(cardUrl);
-			}
-		}
+		// Check intent filters if any (when a card is scanned from an external app)
+		Card card = mCardScanner.checkIntentData(getIntent().getData());
 
 		// Start activity
 		Intent intent;
-		int flags = Intent.FLAG_ACTIVITY_NO_ANIMATION;
 		if (card == null) {
 			LOG.debug("Redirect to main activity");
 			intent = new Intent(this, CardsListActivity_.class);
-			flags |= Intent.FLAG_ACTIVITY_CLEAR_TOP;
+			intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 		} else {
 			LOG.debug("Redirect to card activity");
-			intent = new Intent(this, CardsHtmlActivity_.class);
-			intent.putExtra(CardsHtmlActivity.INTENT_ITEM_ID, card.getId());
-			intent.putExtra(CardsHtmlActivity.INTENT_DISPLAY_TYPE, CardsHtmlActivity.DISPLAY_ONE_CARD);
+			intent = mCardScanner.createIntent(this, card);
 		}
-		intent.setFlags(flags);
 		startActivity(intent);
 	}
 }

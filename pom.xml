@@ -11,6 +11,7 @@
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<com.google.zxing.version>2.0</com.google.zxing.version>
 		<com.github.tony19.logback.version>1.0.7-1</com.github.tony19.logback.version>
 		<com.googlecode.androidannotations.version>2.6</com.googlecode.androidannotations.version>
 	</properties>
@@ -32,17 +33,17 @@
 			<exclusions>
 				<!-- StAX is not available on Android -->
 				<exclusion>
-					<artifactId>stax</artifactId>
 					<groupId>stax</groupId>
+					<artifactId>stax</artifactId>
 				</exclusion>
 				<exclusion>
-					<artifactId>stax-api</artifactId>
 					<groupId>stax</groupId>
+					<artifactId>stax-api</artifactId>
 				</exclusion>
 				<!-- Provided by Android -->
 				<exclusion>
-					<artifactId>xpp3</artifactId>
 					<groupId>xpp3</groupId>
+					<artifactId>xpp3</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
@@ -89,7 +90,18 @@
 		<dependency>
 			<groupId>com.google.zxing</groupId>
 			<artifactId>core</artifactId>
-			<version>2.0</version>
+			<version>${com.google.zxing.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.google.zxing</groupId>
+			<artifactId>android-integration</artifactId>
+			<version>${com.google.zxing.version}</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.google.android</groupId>
+				    <artifactId>support</artifactId>
+				</exclusion>
+			</exclusions>
 		</dependency>
 
 		<!-- IO Utils -->

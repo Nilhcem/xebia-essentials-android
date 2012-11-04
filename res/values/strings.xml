@@ -33,6 +33,14 @@
     <!-- Cards flip -->
     <string name="cards_flip_qrcode_description">QR code</string>
 
+    <!-- Card scanner -->
+    <string name="scanner_card_not_found">Card not found</string>
+
+    <!-- Menu drawer -->
+    <string name="drawer_categories">categories</string>
+    <string name="drawer_scan">scan</string>
+    <string name="drawer_scan_card">Scan card</string>
+
     <!-- About -->
     <string name="about_xebia_title">About Xebia</string>
     <string name="about_xebia_content"><![CDATA[<p>Xebia is a specialist in Agile, Java software development and enterprise architecture. Craftsmanship, the Mission of striving for a position of authority in our fields of expertise and our company values - People First, Sharing Knowledge, Quality without Compromise and Customer Intimacy - is what makes us tick.</p><p>Xebia was founded over a decade ago and has to date grown into a company of more than 250 employees, over 5 different countries - the Netherlands, France, India, Sweden, and the US - and a separate product company for automated deployment, XebiaLabs.</p><p>The secret of Xebia\'s success lies in the dedicated, vigorous, smart and enthusiastic people that commit themselves to the company and its customers. These craftsman and -women eagerly share their knowledge and work towards a common goal: software development done right.<br />Xebia commits itself to support their ambitions in an inspiring working environment where there is more than enough room for personal development.</p>]]></string>
