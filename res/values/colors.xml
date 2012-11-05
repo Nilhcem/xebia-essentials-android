@@ -4,6 +4,7 @@
     <!-- Misc -->
     <color name="xebia_purple">#ff653a71</color>
     <color name="white">#ffffffff</color>
+    <color name="transparent">#00000000</color>
 
     <!-- Cards list multipaned -->
     <color name="grey_separator">#ffcccccc</color>

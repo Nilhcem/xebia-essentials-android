@@ -37,8 +37,8 @@
     <string name="scanner_card_not_found">Card not found</string>
 
     <!-- Menu drawer -->
-    <string name="drawer_categories">categories</string>
-    <string name="drawer_scan">scan</string>
+    <string name="drawer_categories">CATEGORIES</string>
+    <string name="drawer_scan">SCAN</string>
     <string name="drawer_scan_card">Scan card</string>
 
     <!-- About -->
