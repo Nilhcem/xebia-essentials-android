@@ -30,6 +30,9 @@ public class CardScanner {
 	@StringRes(R.string.bitly_url_prefix)
 	protected String mBitlyPrefix;
 
+	@StringRes(R.string.cards_url_prefix)
+	protected String mXebiaEssentialsPrefix;
+
 	@StringRes(R.string.scanner_card_not_found)
 	protected String mCardNotFound;
 
@@ -45,20 +48,27 @@ public class CardScanner {
 		IntentResult scanResult = IntentIntegrator.parseActivityResult(
 				requestCode, resultCode, intent);
 		if (scanResult != null) {
-			Intent cardIntent = null;
+			Card card = null;
 			String content = scanResult.getContents();
 			if (!TextUtils.isEmpty(content)) {
 				LOGGER.debug("QR code found: {}", content);
+
 				if (content.startsWith(mBitlyPrefix)) {
 					String bitly = content.substring(mBitlyPrefix.length());
-					Card card = mCardDao.getByBitly(bitly);
-					cardIntent = createIntent(activity, card);
+					card = mCardDao.getByBitly(bitly);
+				} else {
+					String essentialsUrl = String.format("http://%s", mXebiaEssentialsPrefix);
+					if (content.startsWith(essentialsUrl)) {
+						String url = content.substring(essentialsUrl.length());
+						card = mCardDao.getByUrl(url);
+					}
 				}
 			}
 
-			if (cardIntent == null) {
+			if (card == null) {
 				Toast.makeText(activity, mCardNotFound, Toast.LENGTH_SHORT).show();
 			} else {
+				Intent cardIntent = createIntent(activity, card);
 				activity.startActivity(cardIntent);
 			}
 		}
