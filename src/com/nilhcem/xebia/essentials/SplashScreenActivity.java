@@ -18,13 +18,15 @@ import android.widget.Toast;
 import com.googlecode.androidannotations.annotations.Background;
 import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EActivity;
+import com.googlecode.androidannotations.annotations.OrmLiteDao;
 import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
 import com.googlecode.androidannotations.annotations.res.StringRes;
 import com.nilhcem.xebia.essentials.cards.list.*;
+import com.nilhcem.xebia.essentials.core.DatabaseHelper;
 import com.nilhcem.xebia.essentials.core.InMemoryCache;
-import com.nilhcem.xebia.essentials.core.bo.CardService;
-import com.nilhcem.xebia.essentials.core.bo.CategoryService;
+import com.nilhcem.xebia.essentials.core.dao.CardDao;
+import com.nilhcem.xebia.essentials.core.dao.CategoryDao;
 import com.nilhcem.xebia.essentials.core.model.Card;
 import com.nilhcem.xebia.essentials.core.model.Category;
 import com.nilhcem.xebia.essentials.core.model.XmlData;
@@ -41,11 +43,11 @@ public class SplashScreenActivity extends Activity {
 	@StringRes(R.string.splash_error)
 	protected String mErrorMessage;
 
-	@Bean
-	protected CategoryService mCategoryService;
+	@OrmLiteDao(helper = DatabaseHelper.class, model = Category.class)
+	protected CategoryDao mCategoryDao;
 
-	@Bean
-	protected CardService mCardService;
+	@OrmLiteDao(helper = DatabaseHelper.class, model = Card.class)
+	protected CardDao mCardDao;
 
 	@Bean
 	protected InMemoryCache mCache;
@@ -78,8 +80,8 @@ public class SplashScreenActivity extends Activity {
 		Serializer serializer = new Persister();
 		try {
 			XmlData xml = serializer.read(XmlData.class, getAssets().open(SplashScreenActivity.XML_FILE));
-			mCategoryService.getDao().insertAll(xml.getCategories());
-			mCardService.getDao().insertAll(xml.getCards());
+			mCategoryDao.insertAll(xml.getCategories());
+			mCardDao.insertAll(xml.getCards());
 			initCategoriesThenRedirect();
 		} catch (Exception e) {
 			LOG.error("Error importing data", e);
@@ -98,7 +100,7 @@ public class SplashScreenActivity extends Activity {
 		boolean databaseInitialized = false;
 
 		try {
-			databaseInitialized = (mCardService.getDao().countOf() > 0);
+			databaseInitialized = (mCardDao.countOf() > 0);
 		} catch (SQLException e) {
 			// Do nothing
 		}
@@ -108,7 +110,7 @@ public class SplashScreenActivity extends Activity {
 	@Background
 	protected void initCategoriesThenRedirect() {
 		try {
-			List<Category> categories = mCategoryService.getDao().queryForAll();
+			List<Category> categories = mCategoryDao.queryForAll();
 			mCache.initCategories(categories);
 		} catch (SQLException e) {
 			LOG.error("Error getting categories", e);

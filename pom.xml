@@ -13,7 +13,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<com.google.zxing.version>2.0</com.google.zxing.version>
 		<com.github.tony19.logback.version>1.0.7-1</com.github.tony19.logback.version>
-		<com.googlecode.androidannotations.version>2.6</com.googlecode.androidannotations.version>
+		<com.googlecode.androidannotations.version>2.7</com.googlecode.androidannotations.version>
 	</properties>
 
 	<dependencies>
@@ -64,8 +64,7 @@
 		</dependency>
 		<dependency>
 			<groupId>com.googlecode.androidannotations</groupId>
-			<artifactId>androidannotations</artifactId>
-			<classifier>api</classifier>
+			<artifactId>androidannotations-api</artifactId>
 			<version>${com.googlecode.androidannotations.version}</version>
 		</dependency>
 

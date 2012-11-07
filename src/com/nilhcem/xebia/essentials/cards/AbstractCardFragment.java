@@ -5,23 +5,34 @@ import org.slf4j.LoggerFactory;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 
 import com.actionbarsherlock.app.SherlockFragment;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.actionbarsherlock.widget.ShareActionProvider;
+import com.googlecode.androidannotations.annotations.AfterViews;
+import com.googlecode.androidannotations.annotations.Bean;
+import com.googlecode.androidannotations.annotations.EFragment;
+import com.googlecode.androidannotations.annotations.InstanceState;
+import com.googlecode.androidannotations.annotations.OptionsItem;
+import com.googlecode.androidannotations.annotations.OptionsMenu;
 import com.nilhcem.xebia.essentials.R;
 import com.nilhcem.xebia.essentials.cards.flip.*;
 import com.nilhcem.xebia.essentials.cards.html.*;
+import com.nilhcem.xebia.essentials.core.InMemoryCache;
 import com.nilhcem.xebia.essentials.core.model.Card;
 import com.nilhcem.xebia.essentials.settings.SettingsActivity;
 
+@EFragment
+@OptionsMenu(R.menu.cards_html_menu)
 public abstract class AbstractCardFragment extends SherlockFragment {
 	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractCardFragment.class);
-	private static final String EXTRA_CARD = "AbstractCardFragment:mCard";
 
+	@Bean
+	protected InMemoryCache mCache;
+
+	@InstanceState
 	protected Card mCard;
 
 	private String mUrlPrefix;
@@ -38,22 +49,6 @@ public abstract class AbstractCardFragment extends SherlockFragment {
 		}
 		fragment.mCard = card;
 		return fragment;
-	}
-
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-
-		if (savedInstanceState != null
-				&& savedInstanceState.containsKey(EXTRA_CARD)) {
-			mCard = savedInstanceState.getParcelable(EXTRA_CARD);
-		}
-	}
-
-	@Override
-	public void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
-		outState.putParcelable(EXTRA_CARD, mCard);
 	}
 
 	@Override
@@ -74,30 +69,20 @@ public abstract class AbstractCardFragment extends SherlockFragment {
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
 		super.onCreateOptionsMenu(menu, inflater);
-
-		menu.clear();
-		inflater.inflate(R.menu.main_menu, menu);
-		inflater.inflate(R.menu.cards_html_menu, menu);
-
-		// Set the share intent
 		ShareActionProvider shareProvider = (ShareActionProvider) menu
 				.findItem(R.id.menu_share).getActionProvider();
-		Intent shareIntent = new Intent(Intent.ACTION_SEND);
-		shareIntent.setType("text/plain");
-		shareIntent.putExtra(Intent.EXTRA_SUBJECT, mCard.getTitle());
-		shareIntent.putExtra(Intent.EXTRA_TEXT, String.format("%s%s", mUrlPrefix, mCard.getUrl()));
-		shareProvider.setShareIntent(shareIntent);
+		if (mCard != null) {
+			Intent shareIntent = new Intent(Intent.ACTION_SEND);
+			shareIntent.setType("text/plain");
+			shareIntent.putExtra(Intent.EXTRA_SUBJECT, mCard.getTitle());
+			shareIntent.putExtra(Intent.EXTRA_TEXT, String.format("%s%s", mUrlPrefix, mCard.getUrl()));
+			shareProvider.setShareIntent(shareIntent);
+		}
 	}
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		int id = item.getItemId();
-
-		if (id == R.id.menu_see_card || id == R.id.menu_see_details) {
-			mOnMenuSelected.onCardMenuSelected();
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
+	@OptionsItem({ R.id.menu_see_card, R.id.menu_see_details })
+	protected void onMenuCardSelected() {
+		mOnMenuSelected.onCardMenuSelected();
 	}
 
 	@Override
@@ -109,5 +94,10 @@ public abstract class AbstractCardFragment extends SherlockFragment {
 		boolean isDetailsView = (this instanceof CardsHtmlFragment_);
 		card.setVisible(isDetailsView);
 		details.setVisible(!isDetailsView);
+	}
+
+	@AfterViews
+	protected void setHasOptionMenu() {
+		setHasOptionsMenu(true);
 	}
 }

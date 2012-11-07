@@ -6,13 +6,10 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.googlecode.androidannotations.annotations.AfterViews;
-import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EFragment;
 import com.googlecode.androidannotations.annotations.ViewById;
 import com.nilhcem.xebia.essentials.R;
 import com.nilhcem.xebia.essentials.cards.AbstractCardFragment;
-import com.nilhcem.xebia.essentials.core.InMemoryCache;
-import com.nilhcem.xebia.essentials.core.bo.CardService;
 import com.nilhcem.xebia.essentials.core.model.Category;
 
 @EFragment(R.layout.cards_html_fragment)
@@ -30,15 +27,8 @@ public class CardsHtmlFragment extends AbstractCardFragment {
 	@ViewById(R.id.cardsHtmlContent)
 	protected TextView mContent;
 
-	@Bean
-	protected CardService mCardService;
-
-	@Bean
-	protected InMemoryCache mCache;
-
 	@AfterViews
 	protected void initCardData() {
-		setHasOptionsMenu(true);
 		Category category = mCache.getCategoryById(mCard.getCategoryId());
 		if (category != null) {
 			mTitle.setBackgroundColor(category.getIntColor());

@@ -14,13 +14,13 @@ import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EBean;
+import com.googlecode.androidannotations.annotations.OrmLiteDao;
 import com.googlecode.androidannotations.annotations.res.StringRes;
 import com.nilhcem.xebia.essentials.R;
-import com.nilhcem.xebia.essentials.cards.html.CardsHtmlActivity;
-import com.nilhcem.xebia.essentials.cards.html.CardsHtmlActivity_;
-import com.nilhcem.xebia.essentials.core.bo.CardService;
+import com.nilhcem.xebia.essentials.cards.html.*;
+import com.nilhcem.xebia.essentials.core.DatabaseHelper;
+import com.nilhcem.xebia.essentials.core.dao.CardDao;
 import com.nilhcem.xebia.essentials.core.model.Card;
 
 @EBean
@@ -33,8 +33,8 @@ public class CardScanner {
 	@StringRes(R.string.scanner_card_not_found)
 	protected String mCardNotFound;
 
-	@Bean
-	protected CardService mCardService;
+	@OrmLiteDao(helper = DatabaseHelper.class, model = Card.class)
+	protected CardDao mCardDao;
 
 	public void initiateScan(Activity activity) {
 		IntentIntegrator integrator = new IntentIntegrator(activity);
@@ -51,7 +51,7 @@ public class CardScanner {
 				LOGGER.debug("QR code found: {}", content);
 				if (content.startsWith(mBitlyPrefix)) {
 					String bitly = content.substring(mBitlyPrefix.length());
-					Card card = mCardService.getDao().getByBitly(bitly);
+					Card card = mCardDao.getByBitly(bitly);
 					cardIntent = createIntent(activity, card);
 				}
 			}
@@ -70,7 +70,7 @@ public class CardScanner {
 			List<String> params = data.getPathSegments();
 			if (params != null && params.size() == 1) {
 				String cardUrl = params.get(0);
-				card = mCardService.getDao().getByUrl(cardUrl);
+				card = mCardDao.getByUrl(cardUrl);
 			}
 		}
 		return card;

@@ -28,7 +28,6 @@ import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
 import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.Background;
-import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EFragment;
 import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
@@ -39,7 +38,6 @@ import com.googlecode.androidannotations.annotations.res.StringRes;
 import com.nilhcem.xebia.essentials.R;
 import com.nilhcem.xebia.essentials.cards.AbstractCardFragment;
 import com.nilhcem.xebia.essentials.core.Compatibility;
-import com.nilhcem.xebia.essentials.core.InMemoryCache;
 import com.nilhcem.xebia.essentials.core.model.Category;
 import com.nilhcem.xebia.essentials.settings.SettingsActivity;
 import com.tekle.oss.android.animation.AnimationFactory;
@@ -88,9 +86,6 @@ public class CardsFlipFragment extends AbstractCardFragment {
 	@ColorRes(R.color.white)
 	protected int mWhite;
 
-	@Bean
-	protected InMemoryCache mCache;
-
 	@BooleanRes(R.bool.multipaned)
 	protected boolean mIsMultipaned;
 
@@ -137,7 +132,6 @@ public class CardsFlipFragment extends AbstractCardFragment {
 
 	@AfterViews
 	protected void initCardData() {
-		setHasOptionsMenu(true);
 		Category category = mCache.getCategoryById(mCard.getCategoryId());
 		if (category != null) {
 			mCategorySide1.setText(category.getName());

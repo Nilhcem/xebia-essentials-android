@@ -14,22 +14,23 @@ import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.googlecode.androidannotations.annotations.AfterViews;
-import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.FragmentByTag;
+import com.googlecode.androidannotations.annotations.OrmLiteDao;
 import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
 import com.nilhcem.xebia.essentials.R;
 import com.nilhcem.xebia.essentials.cards.IOnCardMenuSelected;
 import com.nilhcem.xebia.essentials.cards.html.*;
-import com.nilhcem.xebia.essentials.core.bo.CardService;
+import com.nilhcem.xebia.essentials.core.DatabaseHelper;
+import com.nilhcem.xebia.essentials.core.dao.CardDao;
 import com.nilhcem.xebia.essentials.core.model.Card;
 import com.nilhcem.xebia.essentials.core.model.Category;
-import com.nilhcem.xebia.essentials.menudrawer.*;
+import com.nilhcem.xebia.essentials.menudrawer.MenuDrawerBaseActivity;
 import com.nilhcem.xebia.essentials.settings.SettingsActivity;
 
 @EActivity(R.layout.main_layout)
-public class CardsListActivity extends MenuDrawerBaseActivity_ implements IOnCardItemSelected, IOnCardMenuSelected {
+public class CardsListActivity extends MenuDrawerBaseActivity implements IOnCardItemSelected, IOnCardMenuSelected {
 	private static final Logger LOGGER = LoggerFactory.getLogger(CardsListActivity.class);
 	private static final String LIST_FRAGMENT_TAG = "cardsListFragmentTag";
 
@@ -41,8 +42,8 @@ public class CardsListActivity extends MenuDrawerBaseActivity_ implements IOnCar
 	@ViewById(R.id.cardsListViewPager)
 	protected ViewPager mViewPager;
 
-	@Bean
-	protected CardService mCardService;
+	@OrmLiteDao(helper = DatabaseHelper.class, model = Card.class)
+	protected CardDao mCardDao;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -67,7 +68,7 @@ public class CardsListActivity extends MenuDrawerBaseActivity_ implements IOnCar
 
 	private void initCards() {
 		mCards.clear();
-		mCards.addAll(mCardService.getDao().getAllCardsFromCategory(mCache.getSelectedCategory()));
+		mCards.addAll(mCardDao.getAllCardsFromCategory(mCache.getSelectedCategory()));
 		LOGGER.debug("Cards size: {}", mCards.size());
 	}
 

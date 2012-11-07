@@ -6,17 +6,16 @@ import org.slf4j.LoggerFactory;
 import android.content.Intent;
 
 import com.actionbarsherlock.app.SherlockFragmentActivity;
-import com.actionbarsherlock.view.Menu;
-import com.actionbarsherlock.view.MenuInflater;
-import com.actionbarsherlock.view.MenuItem;
 import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EActivity;
+import com.googlecode.androidannotations.annotations.OptionsItem;
+import com.googlecode.androidannotations.annotations.OptionsMenu;
 import com.googlecode.androidannotations.annotations.res.BooleanRes;
-import com.nilhcem.xebia.essentials.R;
 import com.nilhcem.xebia.essentials.*;
 import com.nilhcem.xebia.essentials.settings.*;
 
 @EActivity
+@OptionsMenu(R.menu.main_menu)
 public abstract class BaseActivity extends SherlockFragmentActivity {
 	private static final Logger LOGGER = LoggerFactory.getLogger(BaseActivity.class);
 
@@ -32,22 +31,9 @@ public abstract class BaseActivity extends SherlockFragmentActivity {
 		checkCacheInitialization();
 	}
 
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuInflater inflater = getSupportMenuInflater();
-		inflater.inflate(R.menu.main_menu, menu);
-		return true;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		int id = item.getItemId();
-
-		if (id == R.id.main_menu_settings) {
-			startActivity(new Intent(this, SettingsActivity_.class));
-			return true;
-		}
-		return super.onOptionsItemSelected(item);
+	@OptionsItem(R.id.main_menu_settings)
+	protected void menuSettingsSelected() {
+		startActivity(new Intent(this, SettingsActivity_.class));
 	}
 
 	/**

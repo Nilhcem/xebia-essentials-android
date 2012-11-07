@@ -20,7 +20,7 @@ import com.nilhcem.xebia.essentials.core.*;
 import com.nilhcem.xebia.essentials.scanner.CardScanner;
 
 @EActivity
-public abstract class MenuDrawerBaseActivity extends BaseActivity_ {
+public abstract class MenuDrawerBaseActivity extends BaseActivity {
 	private static final String EXTRA_STATE_MENUDRAWER = "MenuDrawerBaseActivity:stateMenuDrawer";
 
 	private MenuDrawerManager mMenuDrawer;
