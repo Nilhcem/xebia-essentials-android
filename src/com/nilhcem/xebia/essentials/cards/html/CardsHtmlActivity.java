@@ -24,6 +24,7 @@ import com.nilhcem.xebia.essentials.core.BaseActivity;
 import com.nilhcem.xebia.essentials.core.DatabaseHelper;
 import com.nilhcem.xebia.essentials.core.dao.CardDao;
 import com.nilhcem.xebia.essentials.core.model.Card;
+import com.nilhcem.xebia.essentials.core.model.Category;
 import com.nilhcem.xebia.essentials.settings.SettingsActivity;
 
 @EActivity(R.layout.cards_html)
@@ -99,7 +100,7 @@ public class CardsHtmlActivity extends BaseActivity implements IOnCardMenuSelect
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == android.R.id.home) {
-			mCache.resetCardPosition();
+			mCache.setSelectedCategory(Category.ALL_CATEGORIES_ID);
 			Intent intent = new Intent(this, CardsListActivity_.class);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             startActivity(intent);
