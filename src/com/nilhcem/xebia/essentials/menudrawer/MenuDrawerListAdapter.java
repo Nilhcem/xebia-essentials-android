@@ -136,8 +136,11 @@ public class MenuDrawerListAdapter extends BaseAdapter {
 		mItems.add(mCategoriesTitleStr);
 		Category all = new Category(Category.ALL_CATEGORIES_ID, mAllCategoriesStr, mAllCategoriesColor);
 		mItems.add(all);
-		for (Category category : mCache.getAllCategories()) {
-			mItems.add(category);
+		List<Category> categories = mCache.getAllCategories();
+		if (categories != null) {
+			for (Category category : categories) {
+				mItems.add(category);
+			}
 		}
 
 		// Scan card
