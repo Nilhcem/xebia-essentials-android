@@ -17,7 +17,7 @@
 	</properties>
 
 	<dependencies>
-	    <!-- Android -->
+		<!-- Android -->
 		<dependency>
 			<groupId>com.google.android</groupId>
 			<artifactId>android</artifactId>
@@ -150,7 +150,7 @@
 				<configuration>
 					<sdk>
 						<path>${env.ANDROID_SDK}</path>
-						<platform>16</platform>
+						<platform>17</platform>
 					</sdk>
 				</configuration>
 				<extensions>true</extensions>
