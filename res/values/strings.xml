@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- Core -->
     <string name="app_name">Xebia Essentials</string>
     <string name="bitly_url_prefix">"http://bit.ly/"</string>
     <string name="cards_url_prefix">essentials.xebia.com/</string> <!-- without http:// -->
@@ -33,13 +34,18 @@
     <!-- Cards flip -->
     <string name="cards_flip_qrcode_description">QR code</string>
 
-    <!-- Card scanner -->
-    <string name="scanner_card_not_found">Card not found</string>
+    <!-- Intent (card scanner - search) -->
+    <string name="intent_no_card_found">No card found</string>
 
     <!-- Menu drawer -->
     <string name="drawer_categories">CATEGORIES</string>
-    <string name="drawer_scan">SCAN</string>
+    <string name="drawer_other">OTHER</string>
+    <string name="drawer_search">Search</string>
     <string name="drawer_scan_card">Scan card</string>
+
+    <!-- Search -->
+    <string name="search_hint">Search card(s)</string>
+    <string name="search_label">Search card(s)</string>
 
     <!-- About -->
     <string name="about_xebia_title">About Xebia</string>

@@ -45,7 +45,7 @@ import com.tekle.oss.android.animation.AnimationFactory.FlipDirection;
 
 @EFragment(R.layout.cards_flip_fragment)
 public class CardsFlipFragment extends AbstractCardFragment {
-	private static final Logger LOGGER = LoggerFactory.getLogger(CardsFlipFragment.class);
+	private static final Logger LOG = LoggerFactory.getLogger(CardsFlipFragment.class);
 
 	@ViewById(R.id.cardsFlipViewFlipper)
 	protected ViewAnimator mViewAnimator;
@@ -175,7 +175,7 @@ public class CardsFlipFragment extends AbstractCardFragment {
 				setQrCode(bitmap);
 			}
 		} catch (WriterException e) {
-			LOGGER.error("", e);
+			LOG.error("", e);
 		}
 	}
 

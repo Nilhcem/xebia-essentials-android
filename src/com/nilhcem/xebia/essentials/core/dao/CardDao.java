@@ -1,6 +1,7 @@
 package com.nilhcem.xebia.essentials.core.dao;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -8,6 +9,7 @@ import org.slf4j.LoggerFactory;
 
 import android.text.TextUtils;
 
+import com.j256.ormlite.dao.GenericRawResults;
 import com.j256.ormlite.stmt.PreparedQuery;
 import com.j256.ormlite.stmt.QueryBuilder;
 import com.j256.ormlite.support.ConnectionSource;
@@ -100,5 +102,21 @@ public final class CardDao extends AbstractDao<Card> {
 			LOG.error("Error getting cards from category {}", catId, e);
 		}
 		return null;
+	}
+
+	public List<Card> getCardsFromSearchQuery(String searchQuery) {
+		List<Card> cards = new ArrayList<Card>();
+		if (searchQuery != null) {
+			searchQuery = searchQuery.trim().replaceAll("'", "''");
+			try {
+				GenericRawResults<Card> rawResults = queryRaw("select * from " + Card.TABLE_NAME + " where " + Card.COL_TITLE + " like '%" + searchQuery + "%'", getRawRowMapper());
+				for (Card card : rawResults) {
+					cards.add(card);
+				}
+			} catch (SQLException e) {
+				LOG.error("Error getting cards from search query {}", searchQuery, e);
+			}
+		}
+		return cards;
 	}
 }

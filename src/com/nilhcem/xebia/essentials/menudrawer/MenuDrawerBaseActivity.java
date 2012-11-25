@@ -17,6 +17,7 @@ import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.nilhcem.xebia.essentials.R;
 import com.nilhcem.xebia.essentials.core.*;
+import com.nilhcem.xebia.essentials.core.model.Category;
 import com.nilhcem.xebia.essentials.scanner.CardScanner;
 
 @EActivity
@@ -84,8 +85,10 @@ public abstract class MenuDrawerBaseActivity extends BaseActivity {
 		mCategoriesListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-				if (id == MenuDrawerListItemView.CATEGORY_SCAN_BUTTON) {
+				if (id == Category.CATEGORY_ID_SCAN) {
 					mCardScanner.initiateScan(MenuDrawerBaseActivity.this);
+				} else if (id == Category.CATEGORY_ID_SEARCH) {
+					onSearchRequested();
 				} else {
 					onMenuDrawerItemSelected(id);
 					refreshMenuDrawer();

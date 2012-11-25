@@ -1,6 +1,7 @@
 package com.nilhcem.xebia.essentials;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import org.simpleframework.xml.Serializer;
@@ -9,7 +10,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import android.app.Activity;
+import android.app.SearchManager;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
@@ -43,6 +46,9 @@ public class SplashScreenActivity extends Activity {
 	@StringRes(R.string.splash_error)
 	protected String mErrorMessage;
 
+	@StringRes(R.string.intent_no_card_found)
+	protected String mNoCardFound;
+
 	@OrmLiteDao(helper = DatabaseHelper.class, model = Category.class)
 	protected CategoryDao mCategoryDao;
 
@@ -61,14 +67,17 @@ public class SplashScreenActivity extends Activity {
 	}
 
 	@Override
+	protected void onNewIntent(Intent intent) {
+		setIntent(intent);
+	}
+
+	@Override
 	protected void onResume() {
 		super.onResume();
 
-		mCache.setSelectedCategory(Category.ALL_CATEGORIES_ID);
 		if (isDbInitialized()) {
-			initCategoriesThenRedirect();
+			initCategoriesInCacheThenRedirect();
 		} else {
-			// Display loading - Import data - Redirect to main activity
 			mLoadingLayout.setVisibility(View.VISIBLE);
 			importData();
 		}
@@ -82,18 +91,95 @@ public class SplashScreenActivity extends Activity {
 			XmlData xml = serializer.read(XmlData.class, getAssets().open(SplashScreenActivity.XML_FILE));
 			mCategoryDao.insertAll(xml.getCategories());
 			mCardDao.insertAll(xml.getCards());
-			initCategoriesThenRedirect();
+			initCategoriesInCacheThenRedirect();
 		} catch (Exception e) {
 			LOG.error("Error importing data", e);
-			finishWithToastError(e.getMessage());
+			finishWithToastError(String.format(mErrorMessage, e.getMessage()));
 		}
 	}
 
 	@UiThread
 	protected void finishWithToastError(String errorMsg) {
-		Toast.makeText(this, String.format(mErrorMessage, errorMsg),
-				Toast.LENGTH_SHORT).show();
+		Toast.makeText(this, errorMsg, Toast.LENGTH_SHORT).show();
 		finish();
+	}
+
+	@Background
+	protected void initCategoriesInCacheThenRedirect() {
+		try {
+			List<Category> categories = mCategoryDao.queryForAll();
+			mCache.initCategories(categories);
+		} catch (SQLException e) {
+			LOG.error("Error getting categories", e);
+			finishWithToastError(String.format(mErrorMessage, e.getMessage()));
+		}
+		processRedirect();
+	}
+
+	private void processRedirect() {
+		// Check for intent filters (search - qrcode), if any
+		List<Card> cards = getCardsFromIntent();
+
+		// Start activity
+		Intent startActivityIntent = null;
+		if (cards == null) {
+			LOG.debug("No specific intent - redirect to main activity");
+			startActivityIntent = createMainActivityRedirectIntent(null, Category.CATEGORY_ID_ALL);
+		} else {
+			int cardsSize = cards.size();
+
+			if (cardsSize == 0) {
+				LOG.debug("No card found - finish activity");
+				finishWithToastError(mNoCardFound);
+				return ;
+			} else if (cardsSize == 1) {
+				LOG.debug("One card found - redirect to card activity");
+				startActivityIntent = mCardScanner.createIntent(this, cards.get(0));
+			} else {
+				LOG.debug("Multiple cards found - redirect to main activity");
+				startActivityIntent = createMainActivityRedirectIntent(cards, Category.CATEGORY_ID_SEARCH);
+			}
+		}
+		startActivity(startActivityIntent);
+	}
+
+	private List<Card> getCardsFromIntent() {
+		List<Card> cards = null;
+		Intent intent = getIntent();
+
+		if (intent != null) {
+			String action = intent.getAction();
+
+			if (action != null) {
+				// Search suggestion or external QR code scanner
+				if (action.equals(Intent.ACTION_VIEW)) {
+					Uri data = intent.getData();
+					if (data != null) {
+						List<String> params = data.getPathSegments();
+						if (params != null && params.size() == 1) {
+							String cardUrl = params.get(0);
+							Card card = mCardDao.getByUrl(cardUrl);
+							if (card != null) {
+								cards = new ArrayList<Card>();
+								cards.add(card);
+							}
+						}
+					}
+				// Search result
+				} else if (action.equals(Intent.ACTION_SEARCH)) {
+					String searchQuery = intent.getStringExtra(SearchManager.QUERY);
+					cards = mCardDao.getCardsFromSearchQuery(searchQuery);
+				}
+			}
+		}
+		return cards;
+	}
+
+	private Intent createMainActivityRedirectIntent(List<Card> cards, long selectedCategory) {
+		mCache.setSelectedCategory(selectedCategory, cards);
+		Intent intent = new Intent(this, CardsListActivity_.class);
+		intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_CLEAR_TOP);
+		return intent;
 	}
 
 	private boolean isDbInitialized() {
@@ -105,34 +191,5 @@ public class SplashScreenActivity extends Activity {
 			// Do nothing
 		}
 		return databaseInitialized;
-	}
-
-	@Background
-	protected void initCategoriesThenRedirect() {
-		try {
-			List<Category> categories = mCategoryDao.queryForAll();
-			mCache.initCategories(categories);
-		} catch (SQLException e) {
-			LOG.error("Error getting categories", e);
-			finishWithToastError(e.getMessage());
-		}
-		processRedirect();
-	}
-
-	private void processRedirect() {
-		// Check intent filters if any (when a card is scanned from an external app)
-		Card card = mCardScanner.checkIntentData(getIntent().getData());
-
-		// Start activity
-		Intent intent;
-		if (card == null) {
-			LOG.debug("Redirect to main activity");
-			intent = new Intent(this, CardsListActivity_.class);
-			intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		} else {
-			LOG.debug("Redirect to card activity");
-			intent = mCardScanner.createIntent(this, card);
-		}
-		startActivity(intent);
 	}
 }

@@ -1,9 +1,5 @@
 package com.nilhcem.xebia.essentials.cards.list;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -15,6 +11,7 @@ import android.support.v4.view.ViewPager;
 
 import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.EActivity;
+import com.googlecode.androidannotations.annotations.Extra;
 import com.googlecode.androidannotations.annotations.FragmentByTag;
 import com.googlecode.androidannotations.annotations.OrmLiteDao;
 import com.googlecode.androidannotations.annotations.UiThread;
@@ -31,10 +28,9 @@ import com.nilhcem.xebia.essentials.settings.SettingsActivity;
 
 @EActivity(R.layout.main_layout)
 public class CardsListActivity extends MenuDrawerBaseActivity implements IOnCardItemSelected, IOnCardMenuSelected {
-	private static final Logger LOGGER = LoggerFactory.getLogger(CardsListActivity.class);
+	private static final Logger LOG = LoggerFactory.getLogger(CardsListActivity.class);
 	private static final String LIST_FRAGMENT_TAG = "cardsListFragmentTag";
-
-	private List<Card> mCards = Collections.synchronizedList(new ArrayList<Card>());
+	public static final String EXTRA_SEARCH_QUERY = "CardsListActivity:searchQuery";
 
 	@FragmentByTag(LIST_FRAGMENT_TAG)
 	protected CardsListFragment mListFragment;
@@ -44,6 +40,9 @@ public class CardsListActivity extends MenuDrawerBaseActivity implements IOnCard
 
 	@OrmLiteDao(helper = DatabaseHelper.class, model = Card.class)
 	protected CardDao mCardDao;
+
+	@Extra(EXTRA_SEARCH_QUERY)
+	protected String mSearchQuery;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -67,15 +66,15 @@ public class CardsListActivity extends MenuDrawerBaseActivity implements IOnCard
 	}
 
 	private void initCards() {
-		mCards.clear();
-		mCards.addAll(mCardDao.getAllCardsFromCategory(mCache.getSelectedCategory()));
-		LOGGER.debug("Cards size: {}", mCards.size());
+		if (mCache.getCurrentCards() == null) {
+			mCache.setCurrentCards(mCardDao.getAllCardsFromCategory(mCache.getSelectedCategory()));
+		}
 	}
 
 	private void initViewPager() {
 		if (mViewPager != null) {
 			PagerAdapter adapter = new CardsPagerAdapter(this,
-					getSupportFragmentManager(), mCards);
+					getSupportFragmentManager(), mCache.getCurrentCards());
 			mViewPager.setAdapter(adapter);
 			mViewPager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 				private volatile boolean setPosition = false;
@@ -109,13 +108,13 @@ public class CardsListActivity extends MenuDrawerBaseActivity implements IOnCard
 
 	private void initListFragment(boolean replaceFragment) {
 		if (!replaceFragment && mListFragment != null) {
-			mListFragment.setCards(mCards);
+			mListFragment.setCards(mCache.getCurrentCards());
 			return;
 		}
 
 		int resId = R.id.cardsListFragmentLayout;
 		mListFragment = new CardsListFragment_();
-		mListFragment.setCards(mCards);
+		mListFragment.setCards(mCache.getCurrentCards());
 
 		FragmentTransaction transaction = getSupportFragmentManager()
 				.beginTransaction();
@@ -130,7 +129,7 @@ public class CardsListActivity extends MenuDrawerBaseActivity implements IOnCard
 
 	@Override
 	public void onCardsListItemSelected(int position) {
-		LOGGER.debug("Card selected: {}", position);
+		LOG.debug("Card selected: {}", position);
 		mCache.setCardPosition(position);
 
 		if (mIsMultipaned) {
@@ -138,25 +137,23 @@ public class CardsListActivity extends MenuDrawerBaseActivity implements IOnCard
 			refreshListView();
 		} else {
 			Intent intent = new Intent(this, CardsHtmlActivity_.class);
-			intent.putExtra(CardsHtmlActivity.INTENT_CARD_POSITION, position);
-			intent.putExtra(CardsHtmlActivity.INTENT_DISPLAY_TYPE,
-					CardsHtmlActivity.DISPLAY_FROM_CATEGORY);
-			intent.putExtra(CardsHtmlActivity.INTENT_ITEM_ID, mCache.getSelectedCategory());
+			intent.putExtra(CardsHtmlActivity.EXTRA_CARD_POSITION, position);
 			startActivity(intent);
 		}
 	}
 
 	@Override
 	protected void onMenuDrawerItemSelected(long id) {
-		LOGGER.debug("Category #{} selected", id);
+		LOG.debug("Category #{} selected", id);
 		mCache.setSelectedCategory(id);
 		initAll(true);
 	}
 
 	@Override
 	public void onBackPressed() {
-		if (isMenuDrawerClosedOrClosing() && mCache.getSelectedCategory() != Category.ALL_CATEGORIES_ID) {
-			onMenuDrawerItemSelected(Category.ALL_CATEGORIES_ID);
+		// If still some, refreshMenuDrawer(), otherwise onBackPressed
+		if (isMenuDrawerClosedOrClosing() && mCache.getSelectedCategory() != Category.CATEGORY_ID_ALL) {
+			onMenuDrawerItemSelected(Category.CATEGORY_ID_ALL);
 			refreshMenuDrawer();
 		} else {
 			super.onBackPressed();
@@ -165,7 +162,7 @@ public class CardsListActivity extends MenuDrawerBaseActivity implements IOnCard
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
-		LOGGER.info("onSaveInstanceState");
+		LOG.info("onSaveInstanceState");
 		if (mViewPager != null) {
 			mCache.setCardPosition(mViewPager.getCurrentItem());
 			mViewPager.setAdapter(null); // Remove adapter reference so that no fragment state will be saved - Avoid memory leaks on 7inch layout

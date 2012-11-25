@@ -13,7 +13,9 @@ import com.nilhcem.xebia.essentials.core.dao.CategoryDao;
 @Root
 @DatabaseTable(daoClass = CategoryDao.class, tableName = Category.TABLE_NAME)
 public final class Category {
-	public static final long ALL_CATEGORIES_ID = 0;
+	public static final long CATEGORY_ID_ALL = 0;
+	public static final long CATEGORY_ID_SCAN = -1;
+	public static final long CATEGORY_ID_SEARCH = -2;
 
 	public static final String TABLE_NAME = "categories";
 	public static final String COL_ID = "_id";
@@ -54,6 +56,12 @@ public final class Category {
 	}
 
 	public int getIntColor() {
-		return Color.parseColor(getColor());
+		int color;
+		try {
+			color = Color.parseColor(getColor());
+		} catch (IllegalArgumentException e) {
+			color = 0;
+		}
+		return color;
 	}
 }

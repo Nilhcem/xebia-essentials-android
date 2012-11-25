@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<searchable xmlns:android="http://schemas.android.com/apk/res/android"
+    android:hint="@string/search_hint"
+    android:includeInGlobalSearch="true"
+    android:label="@string/search_label"
+    android:queryAfterZeroResults="false"
+    android:searchSuggestAuthority="com.nilhcem.xebia.essentials.search.SearchSuggestionProvider_"
+    android:searchSuggestIntentAction="android.intent.action.VIEW"
+    android:searchSuggestThreshold="2"
+    android:voiceLanguageModel="web_search"
+    android:voiceSearchMode="showVoiceSearchButton|launchRecognizer" />

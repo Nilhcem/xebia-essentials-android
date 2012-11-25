@@ -16,6 +16,7 @@
         android:theme="@style/Theme.xebia" >
         <activity
             android:name="SplashScreenActivity_"
+            android:launchMode="singleTop"
             android:noHistory="true"
             android:theme="@android:style/Theme.NoTitleBar" >
             <intent-filter>
@@ -23,6 +24,8 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
+            <!-- URL intent -->
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
 
@@ -34,12 +37,29 @@
                     android:scheme="http" >
                 </data>
             </intent-filter>
+
+            <!-- Search intent -->
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
         </activity>
         <activity android:name=".cards.list.CardsListActivity_" />
         <activity android:name=".cards.html.CardsHtmlActivity_" />
         <activity
             android:name=".settings.SettingsActivity_"
             android:noHistory="true" />
+
+        <!-- Search -->
+        <meta-data
+            android:name="android.app.default_searchable"
+            android:value=".SplashScreenActivity_" />
+        <provider
+            android:name=".search.SearchSuggestionProvider_"
+            android:authorities="com.nilhcem.xebia.essentials.search.SearchSuggestionProvider_" />
+
     </application>
 
 </manifest>

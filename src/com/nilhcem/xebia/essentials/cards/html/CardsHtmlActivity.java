@@ -29,9 +29,8 @@ import com.nilhcem.xebia.essentials.settings.SettingsActivity;
 
 @EActivity(R.layout.cards_html)
 public class CardsHtmlActivity extends BaseActivity implements IOnCardMenuSelected {
-	public static final String INTENT_ITEM_ID = "itemId"; // Card or Category ID, depending on the INTENT_DISPLAY_TYPE
-	public static final String INTENT_DISPLAY_TYPE = "displayType"; // See DISPLAY_*
-	public static final String INTENT_CARD_POSITION = "cardPosition";
+	public static final String EXTRA_ONE_CARD_ONLY = "CardsHtmlActivity:oneCardOnly";
+	public static final String EXTRA_CARD_POSITION = "CardsHtmlActivity:cardPosition";
 
 	public static final int DISPLAY_FROM_CATEGORY = 1;
 	public static final int DISPLAY_ONE_CARD = 2;
@@ -40,14 +39,11 @@ public class CardsHtmlActivity extends BaseActivity implements IOnCardMenuSelect
 	protected ViewPager mViewPager;
 	private CardsPagerAdapter mViewPagerAdapter;
 
-	@Extra(CardsHtmlActivity.INTENT_ITEM_ID)
-	protected Long mItemId;
-
-	@Extra(CardsHtmlActivity.INTENT_DISPLAY_TYPE)
-	protected int mDisplayType;
+	@Extra(CardsHtmlActivity.EXTRA_ONE_CARD_ONLY)
+	protected Long mCard;
 
 	@InstanceState
-	@Extra(CardsHtmlActivity.INTENT_CARD_POSITION)
+	@Extra(CardsHtmlActivity.EXTRA_CARD_POSITION)
 	protected int mCardPosition;
 
 	@OrmLiteDao(helper = DatabaseHelper.class, model = Card.class)
@@ -57,8 +53,9 @@ public class CardsHtmlActivity extends BaseActivity implements IOnCardMenuSelect
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		// If we rotate the device and now are in two-pane layout mode, this activity is no longer necessary
-		if (mDisplayType != DISPLAY_ONE_CARD && mIsMultipaned) {
+		// If we rotate the device and now are in two-pane layout mode, this
+		// activity is no longer necessary
+		if (mCard == null && mIsMultipaned) {
 			mCache.setCardPosition(mCardPosition);
 			finish();
 			return;
@@ -68,7 +65,8 @@ public class CardsHtmlActivity extends BaseActivity implements IOnCardMenuSelect
 	@AfterViews
 	protected void initActivity() {
 		List<Card> cards = getCardsFromIntent();
-		mViewPagerAdapter = new CardsPagerAdapter(this, getSupportFragmentManager(), cards);
+		mViewPagerAdapter = new CardsPagerAdapter(this,
+				getSupportFragmentManager(), cards);
 		mViewPager.setAdapter(mViewPagerAdapter);
 		mViewPager.setCurrentItem(mCardPosition, false);
 	}
@@ -76,17 +74,13 @@ public class CardsHtmlActivity extends BaseActivity implements IOnCardMenuSelect
 	private List<Card> getCardsFromIntent() {
 		List<Card> cards = null;
 
-		switch (mDisplayType) {
-			case DISPLAY_FROM_CATEGORY:
-				cards = mCardDao.getAllCardsFromCategory(mItemId);
-				break;
-			default: //DISPLAY_ONE_CARD
-				Card card = mCardDao.getById(mItemId);
-				cards = new ArrayList<Card>();
-				cards.add(card);
-				break;
+		if (mCard == null) {
+			cards = mCache.getCurrentCards();
+		} else {
+			Card card = mCardDao.getById(mCard);
+			cards = new ArrayList<Card>();
+			cards.add(card);
 		}
-
 		return cards;
 	}
 
@@ -100,11 +94,11 @@ public class CardsHtmlActivity extends BaseActivity implements IOnCardMenuSelect
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == android.R.id.home) {
-			mCache.setSelectedCategory(Category.ALL_CATEGORIES_ID);
+			mCache.setSelectedCategory(Category.CATEGORY_ID_ALL);
 			Intent intent = new Intent(this, CardsListActivity_.class);
-            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-            startActivity(intent);
-            finish();
+			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+			startActivity(intent);
+			finish();
 			return true;
 		} else {
 			return super.onOptionsItemSelected(item);

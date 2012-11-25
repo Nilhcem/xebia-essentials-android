@@ -35,8 +35,11 @@ public class MenuDrawerListAdapter extends BaseAdapter {
 	@StringRes(R.string.drawer_categories)
 	protected String mCategoriesTitleStr;
 
-	@StringRes(R.string.drawer_scan)
-	protected String mScanTitleStr;
+	@StringRes(R.string.drawer_other)
+	protected String mOtherTitleStr;
+
+	@StringRes(R.string.drawer_search)
+	protected String mSearchCardStr;
 
 	@StringRes(R.string.drawer_scan_card)
 	protected String mScanCardStr;
@@ -134,7 +137,7 @@ public class MenuDrawerListAdapter extends BaseAdapter {
 
 		// Categories
 		mItems.add(mCategoriesTitleStr);
-		Category all = new Category(Category.ALL_CATEGORIES_ID, mAllCategoriesStr, mAllCategoriesColor);
+		Category all = new Category(Category.CATEGORY_ID_ALL, mAllCategoriesStr, mAllCategoriesColor);
 		mItems.add(all);
 		List<Category> categories = mCache.getAllCategories();
 		if (categories != null) {
@@ -143,9 +146,11 @@ public class MenuDrawerListAdapter extends BaseAdapter {
 			}
 		}
 
-		// Scan card
-		mItems.add(mScanTitleStr);
-		Category scanButton = new Category(MenuDrawerListItemView.CATEGORY_SCAN_BUTTON, mScanCardStr, 0);
+		// Other: Search - Scan card
+		mItems.add(mOtherTitleStr);
+		Category searchButton = new Category(Category.CATEGORY_ID_SEARCH, mSearchCardStr, 0);
+		mItems.add(searchButton);
+		Category scanButton = new Category(Category.CATEGORY_ID_SCAN, mScanCardStr, 0);
 		mItems.add(scanButton);
 	}
 }

@@ -27,7 +27,7 @@ import com.nilhcem.xebia.essentials.settings.SettingsActivity;
 @EFragment
 @OptionsMenu(R.menu.cards_html_menu)
 public abstract class AbstractCardFragment extends SherlockFragment {
-	private static final Logger LOGGER = LoggerFactory.getLogger(AbstractCardFragment.class);
+	private static final Logger LOG = LoggerFactory.getLogger(AbstractCardFragment.class);
 
 	@Bean
 	protected InMemoryCache mCache;
@@ -53,7 +53,7 @@ public abstract class AbstractCardFragment extends SherlockFragment {
 
 	@Override
 	public void onAttach(Activity activity) {
-		LOGGER.debug("onAttach()");
+		LOG.debug("onAttach()");
 		super.onAttach(activity);
 		mOnMenuSelected = (IOnCardMenuSelected) activity;
 		mUrlPrefix = String.format("http://%s", activity.getString(R.string.cards_url_prefix));
@@ -61,7 +61,7 @@ public abstract class AbstractCardFragment extends SherlockFragment {
 
 	@Override
 	public void onDetach() {
-		LOGGER.debug("onDetach()");
+		LOG.debug("onDetach()");
 		super.onDetach();
 		mOnMenuSelected = null;
 	}

@@ -17,7 +17,7 @@ import com.nilhcem.xebia.essentials.settings.*;
 @EActivity
 @OptionsMenu(R.menu.main_menu)
 public abstract class BaseActivity extends SherlockFragmentActivity {
-	private static final Logger LOGGER = LoggerFactory.getLogger(BaseActivity.class);
+	private static final Logger LOG = LoggerFactory.getLogger(BaseActivity.class);
 
 	@Bean
 	protected InMemoryCache mCache;
@@ -41,7 +41,7 @@ public abstract class BaseActivity extends SherlockFragmentActivity {
 	 */
 	private void checkCacheInitialization() {
 		if (!mCache.isInitialized()) {
-			LOGGER.warn("Cache is not initialized, redirect to SplashScreenActivity");
+			LOG.warn("Cache is not initialized, redirect to SplashScreenActivity");
 			Intent intent = new Intent(this, SplashScreenActivity_.class);
 			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			finish();

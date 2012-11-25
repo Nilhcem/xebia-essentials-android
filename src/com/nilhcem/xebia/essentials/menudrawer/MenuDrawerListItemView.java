@@ -15,8 +15,6 @@ import com.nilhcem.xebia.essentials.core.model.Category;
 
 @EViewGroup(R.layout.menudrawer_list_item)
 public class MenuDrawerListItemView extends RelativeLayout {
-	protected static final long CATEGORY_SCAN_BUTTON = -1;
-
 	@ViewById(R.id.menudrawerItemTitle)
 	protected TextView mTitle;
 
@@ -31,8 +29,10 @@ public class MenuDrawerListItemView extends RelativeLayout {
 		long id = category.getId();
 		mTitle.setText(category.getName());
 
-		if (id == CATEGORY_SCAN_BUTTON) {
+		if (id == Category.CATEGORY_ID_SCAN) {
 			mIcon.setBackgroundResource(R.drawable.ic_qrcode);
+		} else if (id == Category.CATEGORY_ID_SEARCH) {
+			mIcon.setBackgroundResource(R.drawable.ic_search);
 		} else {
 			float[] outerRadii = new float[] { 6, 6, 6, 6, 6, 6, 6, 6 };
 			RoundRectShape rect = new RoundRectShape(outerRadii, null, null);
