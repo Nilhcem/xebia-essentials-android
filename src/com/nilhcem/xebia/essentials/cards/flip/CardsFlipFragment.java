@@ -13,6 +13,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.preference.PreferenceManager;
 import android.text.Html;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -33,7 +34,6 @@ import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
 import com.googlecode.androidannotations.annotations.res.BooleanRes;
 import com.googlecode.androidannotations.annotations.res.ColorRes;
-import com.googlecode.androidannotations.annotations.res.DimensionPixelSizeRes;
 import com.googlecode.androidannotations.annotations.res.StringRes;
 import com.nilhcem.xebia.essentials.R;
 import com.nilhcem.xebia.essentials.cards.AbstractCardFragment;
@@ -80,9 +80,6 @@ public class CardsFlipFragment extends AbstractCardFragment {
 	@ViewById(R.id.cardsFlipQrCode)
 	protected ImageView mQrCode;
 
-	@DimensionPixelSizeRes(R.dimen.cards_flip_white_border_size)
-	protected int mCardPadding;
-
 	@ColorRes(R.color.white)
 	protected int mWhite;
 
@@ -93,6 +90,7 @@ public class CardsFlipFragment extends AbstractCardFragment {
 	protected String mBitlyPrefix;
 
 	private SharedPreferences mPrefs;
+	private Activity mActivity;
 	private boolean mAnimateSwap;
 	private int mScreenWidth;
 	private int mScreenHeight;
@@ -101,12 +99,19 @@ public class CardsFlipFragment extends AbstractCardFragment {
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
 
+		mActivity = activity;
 		Point dimensions = Compatibility.getScreenDimensions(activity);
 		mPrefs = PreferenceManager.getDefaultSharedPreferences(activity);
 		refreshSwapBoolean();
 
 		mScreenWidth = dimensions.x;
 		mScreenHeight = dimensions.y;
+	}
+
+	@Override
+	public void onDetach() {
+		super.onDetach();
+		mActivity = null;
 	}
 
 	@AfterViews
@@ -132,12 +137,18 @@ public class CardsFlipFragment extends AbstractCardFragment {
 
 	@AfterViews
 	protected void initCardData() {
+		// Set card size programmatically, depending on the device's screen
+		FrameLayout.LayoutParams params = getCardsLayoutParams();
+		mCardSide1.setLayoutParams(params);
+		mCardSide2.setLayoutParams(params);
+		int sidePaddingWidth = setCardPadding(params);
+
 		Category category = mCache.getCategoryById(mCard.getCategoryId());
 		if (category != null) {
 			mCategorySide1.setText(category.getName());
 			mCategorySide2.setText(category.getName());
 
-			Drawable bg = getCardBackground(category.getIntColor());
+			Drawable bg = getCardBackground(category.getIntColor(), sidePaddingWidth);
 			Compatibility.setDrawableToView(mCardSide1, bg);
 			Compatibility.setDrawableToView(mCardSide2, bg);
 		}
@@ -146,16 +157,28 @@ public class CardsFlipFragment extends AbstractCardFragment {
 		mUrl.setText(mCard.getUrl());
 		mSummary.setText(Html.fromHtml(mCard.getSummary()));
 
-		// Set card size depending on the device
-		FrameLayout.LayoutParams params = getCardsLayoutParams();
-		mCardSide1.setLayoutParams(params);
-		mCardSide2.setLayoutParams(params);
-
 		// Set QR code size - Adjust depending on screen size
 		int qrCodeSize = Math.round((float) params.height / 3.75f);
 		mQrCodeLayout.getLayoutParams().width = qrCodeSize;
 		mQrCodeLayout.getLayoutParams().height = qrCodeSize;
 		generateQrCode(qrCodeSize);
+
+		// Set title size
+		float titleRatio = (Compatibility.convertPixelsToDp(params.width, mActivity) < 350) ? 7f : 6f;
+		float titleSize = (params.height - qrCodeSize) / titleRatio;
+		float minTextSize = Compatibility.convertDpToPixel(22f, mActivity);
+		if (titleSize < minTextSize) {
+			titleSize = minTextSize;
+		}
+		mTitle.setTextSize(TypedValue.COMPLEX_UNIT_PX, titleSize);
+
+		// Set summary size
+		float summarySize = params.height / 16;
+		float summaryMinSize = Compatibility.convertDpToPixel(16f, mActivity);
+		if (summarySize < summaryMinSize) {
+			summarySize = summaryMinSize;
+		}
+		mSummary.setTextSize(TypedValue.COMPLEX_UNIT_PX, summarySize);
 	}
 
 	@Background
@@ -185,13 +208,36 @@ public class CardsFlipFragment extends AbstractCardFragment {
 		mQrCodeProgressBar.setVisibility(View.GONE);
 	}
 
-	private Drawable getCardBackground(int color) {
+	private int setCardPadding(FrameLayout.LayoutParams params) {
+		// Compute side width depending on device's screen size (12dp or 10dp if width is too small)
+		float borderDp;
+		float bottomDp;
+		float sideDp;
+		if (Compatibility.convertPixelsToDp(params.height, mActivity) < 280) {
+			borderDp = 10f;
+			bottomDp = 12f;
+			sideDp = 8f;
+		} else {
+			borderDp = 13f;
+			bottomDp = 14f;
+			sideDp = 16f;
+		}
+		int borderPx = Math.round(Compatibility.convertDpToPixel(borderDp, mActivity));
+		int bottomPx = borderPx + Math.round(Compatibility.convertDpToPixel(bottomDp, mActivity));
+		int sidePx = borderPx + Math.round(Compatibility.convertDpToPixel(sideDp, mActivity));
+
+		mCardSide1.setPadding(sidePx, borderPx, sidePx, bottomPx);
+		mCardSide2.setPadding(sidePx, borderPx, sidePx, bottomPx);
+		return borderPx;
+	}
+
+	private Drawable getCardBackground(int color, int sidePaddingWidth) {
 		float r = 2f; // radius
 
 		GradientDrawable g = new GradientDrawable(
 				GradientDrawable.Orientation.TOP_BOTTOM, new int[] { color, color });
 		g.setGradientType(GradientDrawable.RECTANGLE);
-		g.setStroke(mCardPadding, mWhite);
+		g.setStroke(sidePaddingWidth, mWhite);
 		g.setCornerRadii(new float[] { r, r, r, r, r, r, r, r });
 		return g;
 	}
@@ -206,16 +252,16 @@ public class CardsFlipFragment extends AbstractCardFragment {
 		}
 
 		// Add some padding
-		width = width * 85 / 100;
+		width = width * 86 / 100;
 		height = height * 70 / 100;
 
 		// Add some more padding for large devices
-		if (width > 860) {
-			width = width * 80 / 100;
+		if (Compatibility.convertPixelsToDp(width, mActivity) > 560) {
+			width = width * 82 / 100;
 		}
 
-		// Ratio: width: 1, height: 0.65 (or 0.8 for small screen devices)
-		int heightRatio = (width > 350) ? 65 : 80;
+		// Ratio: width: 1, height: 0.65 (or 0.8 for very small screen devices)
+		int heightRatio = (Compatibility.convertPixelsToDp(width, mActivity) < 300) ? 80 : 65;
 		int newHeight = width * heightRatio / 100;
 		if (newHeight < height) {
 			height = newHeight;

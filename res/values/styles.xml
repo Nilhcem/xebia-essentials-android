@@ -6,10 +6,6 @@
         <item name="android:layout_height">fill_parent</item>
         <item name="android:layout_width">fill_parent</item>
         <item name="android:layout_gravity">center</item>
-        <item name="android:paddingTop">@dimen/cards_flip_white_border_size</item>
-        <item name="android:paddingBottom">26dp</item>
-        <item name="android:paddingLeft">@dimen/cards_flip_side_padding</item>
-        <item name="android:paddingRight">@dimen/cards_flip_side_padding</item>
     </style>
     <style name="CardsFlipCategoryTitle">
         <item name="android:layout_height">wrap_content</item>

@@ -39,8 +39,7 @@
                 android:id="@+id/cardsFlipTitle"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white"
-                android:textSize="@dimen/cards_flip_title_size" />
+                android:textColor="@color/white" />
         </ScrollView>
 
         <!-- Card prefix URL -->
@@ -62,7 +61,7 @@
             android:id="@+id/cardsFlipDivider2"
             style="@style/CardsFlipDivider"
             android:layout_alignParentBottom="true"
-            android:layout_marginTop="@dimen/cards_flip_divider_margin" />
+            android:layout_marginTop="2.5dp" />
 
         <!-- QR code -->
         <FrameLayout
@@ -120,8 +119,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:paddingTop="4dp"
-                android:textColor="@color/white"
-                android:textSize="@dimen/cards_flip_summary_text_size" />
+                android:textColor="@color/white" />
         </ScrollView>
 
         <!-- Bottom divider -->
@@ -129,7 +127,7 @@
             android:id="@+id/cardsFlipDivider4"
             style="@style/CardsFlipDivider"
             android:layout_alignParentBottom="true"
-            android:layout_marginTop="@dimen/cards_flip_divider_margin" />
+            android:layout_marginTop="2.5dp" />
     </RelativeLayout>
 
 </ViewFlipper>
