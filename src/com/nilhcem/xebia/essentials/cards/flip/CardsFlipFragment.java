@@ -267,6 +267,12 @@ public class CardsFlipFragment extends AbstractCardFragment {
 			height = newHeight;
 		}
 
+		// Readjust width if too large compared to height
+		int adjustedWidth = Math.round(1.75f * height);
+		if (width > adjustedWidth) {
+			width = adjustedWidth;
+		}
+
 		FrameLayout.LayoutParams params = new FrameLayout.LayoutParams(width, height);
 		params.gravity = Gravity.CENTER;
 		return params;
