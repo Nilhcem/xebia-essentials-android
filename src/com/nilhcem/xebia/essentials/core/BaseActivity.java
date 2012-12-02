@@ -11,6 +11,7 @@ import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.OptionsItem;
 import com.googlecode.androidannotations.annotations.OptionsMenu;
 import com.googlecode.androidannotations.annotations.res.BooleanRes;
+import com.nilhcem.xebia.essentials.R;
 import com.nilhcem.xebia.essentials.*;
 import com.nilhcem.xebia.essentials.settings.*;
 
@@ -43,9 +44,10 @@ public abstract class BaseActivity extends SherlockFragmentActivity {
 		if (!mCache.isInitialized()) {
 			LOG.warn("Cache is not initialized, redirect to SplashScreenActivity");
 			Intent intent = new Intent(this, SplashScreenActivity_.class);
-			intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+			intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION | Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			finish();
 			startActivity(intent);
+			overridePendingTransition(0,0);
 		}
 	}
 }
