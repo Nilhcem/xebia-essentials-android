@@ -1,13 +1,8 @@
 package com.nilhcem.xebia.essentials.cards.flip;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
-import android.graphics.Bitmap.Config;
-import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
@@ -23,12 +18,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.ViewAnimator;
 
-import com.google.zxing.BarcodeFormat;
-import com.google.zxing.WriterException;
-import com.google.zxing.common.BitMatrix;
-import com.google.zxing.qrcode.QRCodeWriter;
 import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.Background;
+import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EFragment;
 import com.googlecode.androidannotations.annotations.UiThread;
 import com.googlecode.androidannotations.annotations.ViewById;
@@ -39,14 +31,13 @@ import com.nilhcem.xebia.essentials.R;
 import com.nilhcem.xebia.essentials.cards.AbstractCardFragment;
 import com.nilhcem.xebia.essentials.core.Compatibility;
 import com.nilhcem.xebia.essentials.core.model.Category;
+import com.nilhcem.xebia.essentials.qrcode.QRCodeGenerator;
 import com.nilhcem.xebia.essentials.settings.SettingsActivity;
 import com.tekle.oss.android.animation.AnimationFactory;
 import com.tekle.oss.android.animation.AnimationFactory.FlipDirection;
 
 @EFragment(R.layout.cards_flip_fragment)
 public class CardsFlipFragment extends AbstractCardFragment {
-	private static final Logger LOG = LoggerFactory.getLogger(CardsFlipFragment.class);
-
 	@ViewById(R.id.cardsFlipViewFlipper)
 	protected ViewAnimator mViewAnimator;
 
@@ -88,6 +79,9 @@ public class CardsFlipFragment extends AbstractCardFragment {
 
 	@StringRes(R.string.bitly_url_prefix)
 	protected String mBitlyPrefix;
+
+	@Bean
+	protected QRCodeGenerator mQRCodeGenerator;
 
 	private SharedPreferences mPrefs;
 	private Activity mActivity;
@@ -183,22 +177,11 @@ public class CardsFlipFragment extends AbstractCardFragment {
 
 	@Background
 	protected void generateQrCode(int size) {
-		QRCodeWriter writer = new QRCodeWriter();
-		size *= 3; // otherwise QR code is too small
-		try {
-			BitMatrix matrix = writer.encode(String.format("%s%s", mBitlyPrefix, mCard.getBitly()), BarcodeFormat.QR_CODE, size, size);
-			Bitmap bitmap = Bitmap.createBitmap(size, size, Config.ARGB_8888);
-			for (int i = 0; i < size; i++) { // width
-				for (int j = 0; j < size; j++) { // height
-					bitmap.setPixel(i, j, matrix.get(i, j) ? Color.BLACK : Color.WHITE);
-				}
-			}
-
-			if (bitmap != null) {
-				setQrCode(bitmap);
-			}
-		} catch (WriterException e) {
-			LOG.error("", e);
+		int qrCodeSize = size * 3; // otherwise QR code is too small
+		String toConvert = String.format("%s%s", mBitlyPrefix, mCard.getBitly());
+		Bitmap qrCode = mQRCodeGenerator.generate(toConvert, qrCodeSize);
+		if (qrCode != null) {
+			setQrCode(qrCode);
 		}
 	}
 

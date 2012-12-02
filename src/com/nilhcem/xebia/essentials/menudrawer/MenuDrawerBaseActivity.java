@@ -18,7 +18,7 @@ import com.googlecode.androidannotations.annotations.EActivity;
 import com.nilhcem.xebia.essentials.R;
 import com.nilhcem.xebia.essentials.core.*;
 import com.nilhcem.xebia.essentials.core.model.Category;
-import com.nilhcem.xebia.essentials.scanner.CardScanner;
+import com.nilhcem.xebia.essentials.qrcode.QRCodeScanner;
 
 @EActivity
 public abstract class MenuDrawerBaseActivity extends BaseActivity {
@@ -32,7 +32,7 @@ public abstract class MenuDrawerBaseActivity extends BaseActivity {
 	protected MenuDrawerListAdapter mCategoriesListAdapter;
 
 	@Bean
-	protected CardScanner mCardScanner;
+	protected QRCodeScanner mCardScanner;
 
 	@Override
 	public void setContentView(int layoutResID) {

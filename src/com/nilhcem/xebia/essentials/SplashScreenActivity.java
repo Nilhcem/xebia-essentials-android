@@ -33,7 +33,7 @@ import com.nilhcem.xebia.essentials.core.dao.CategoryDao;
 import com.nilhcem.xebia.essentials.core.model.Card;
 import com.nilhcem.xebia.essentials.core.model.Category;
 import com.nilhcem.xebia.essentials.core.model.XmlData;
-import com.nilhcem.xebia.essentials.scanner.CardScanner;
+import com.nilhcem.xebia.essentials.qrcode.QRCodeScanner;
 
 @EActivity(R.layout.splash_screen)
 public class SplashScreenActivity extends Activity {
@@ -59,7 +59,7 @@ public class SplashScreenActivity extends Activity {
 	protected InMemoryCache mCache;
 
 	@Bean
-	protected CardScanner mCardScanner;
+	protected QRCodeScanner mQRCodeScanner;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -134,7 +134,7 @@ public class SplashScreenActivity extends Activity {
 				return ;
 			} else if (cardsSize == 1) {
 				LOG.debug("One card found - redirect to card activity");
-				startActivityIntent = mCardScanner.createIntent(this, cards.get(0));
+				startActivityIntent = mQRCodeScanner.createIntent(this, cards.get(0));
 			} else {
 				LOG.debug("Multiple cards found - redirect to main activity");
 				startActivityIntent = createMainActivityRedirectIntent(cards, Category.CATEGORY_ID_SEARCH);

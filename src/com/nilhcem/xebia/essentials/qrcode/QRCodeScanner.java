@@ -1,4 +1,4 @@
-package com.nilhcem.xebia.essentials.scanner;
+package com.nilhcem.xebia.essentials.qrcode;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,8 +23,8 @@ import com.nilhcem.xebia.essentials.core.dao.CardDao;
 import com.nilhcem.xebia.essentials.core.model.Card;
 
 @EBean
-public class CardScanner {
-	private static final Logger LOG = LoggerFactory.getLogger(CardScanner.class);
+public class QRCodeScanner {
+	private static final Logger LOG = LoggerFactory.getLogger(QRCodeScanner.class);
 
 	@StringRes(R.string.bitly_url_prefix)
 	protected String mBitlyPrefix;
