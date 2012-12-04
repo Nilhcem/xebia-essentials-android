@@ -109,9 +109,25 @@ public final class CardDao extends AbstractDao<Card> {
 		if (searchQuery != null) {
 			searchQuery = searchQuery.trim().replaceAll("'", "''");
 			try {
-				GenericRawResults<Card> rawResults = queryRaw("select * from " + Card.TABLE_NAME + " where " + Card.COL_TITLE + " like '%" + searchQuery + "%'", getRawRowMapper());
+				// Results that matches the title should be displayed first
+				String query = String.format("select * from %s where %s like '%%%s%%'",
+						Card.TABLE_NAME, Card.COL_TITLE, searchQuery);
+				GenericRawResults<Card> rawResults = queryRaw(query, getRawRowMapper());
 				for (Card card : rawResults) {
 					cards.add(card);
+				}
+
+				// If no match, get results that match the summary, or the HTML description
+				if (cards.size() == 0) {
+					query = String.format("select * from %s where (%s like '%%%s%%' OR %s like '%%%s%%')",
+									Card.TABLE_NAME, Card.COL_SUMMARY, searchQuery, Card.COL_CONTENT, searchQuery);
+
+					rawResults = queryRaw(query, getRawRowMapper());
+					for (Card card : rawResults) {
+						if (!cards.contains(card)) {
+							cards.add(card);
+						}
+					}
 				}
 			} catch (SQLException e) {
 				LOG.error("Error getting cards from search query {}", searchQuery, e);
