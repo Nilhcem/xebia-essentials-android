@@ -149,6 +149,10 @@ public class AnimationFactory {
 	 * @param dir the direction of flip
 	 */
 	public static void flipTransition(final ViewAnimator viewAnimator, FlipDirection dir) {
+		flipTransition(viewAnimator, dir, 500);
+	}
+
+	public static void flipTransition(final ViewAnimator viewAnimator, FlipDirection dir, int duration) {
 
 		final View fromView = viewAnimator.getCurrentView();
 		final int currentIndex = viewAnimator.getDisplayedChild();
@@ -156,7 +160,7 @@ public class AnimationFactory {
 
 		final View toView = viewAnimator.getChildAt(nextIndex);
 
-		Animation[] animc = AnimationFactory.flipAnimation(fromView, toView, (nextIndex < currentIndex?dir.theOtherDirection():dir), 500, null);
+		Animation[] animc = AnimationFactory.flipAnimation(fromView, toView, (nextIndex < currentIndex?dir.theOtherDirection():dir), duration, null);
 
 		viewAnimator.setOutAnimation(animc[0]);
 		viewAnimator.setInAnimation(animc[1]);

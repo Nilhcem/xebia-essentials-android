@@ -38,6 +38,8 @@ import com.tekle.oss.android.animation.AnimationFactory.FlipDirection;
 
 @EFragment(R.layout.cards_flip_fragment)
 public class CardsFlipFragment extends AbstractCardFragment {
+	private static final int DEFAULT_FLIP_DURATION = 500;
+
 	@ViewById(R.id.cardsFlipViewFlipper)
 	protected ViewAnimator mViewAnimator;
 
@@ -109,19 +111,19 @@ public class CardsFlipFragment extends AbstractCardFragment {
 	}
 
 	@AfterViews
+	protected void initCardSide() {
+		if (mCache.isCardFlipOnBackSide(mCard)) {
+			flipCard(false);
+		}
+	}
+
+	@AfterViews
 	protected void initCardsFlipAnimator() {
 		View.OnClickListener listener = new View.OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if (mAnimateSwap) {
-					AnimationFactory.flipTransition(mViewAnimator,
-							FlipDirection.LEFT_RIGHT);
-				} else {
-					int card1Visibility = mCardSide1.getVisibility();
-					int card2Visibility = mCardSide2.getVisibility();
-					mCardSide1.setVisibility(card2Visibility);
-					mCardSide2.setVisibility(card1Visibility);
-				}
+				flipCard(mAnimateSwap);
+				mCache.setCardFlipSide(mCard);
 			}
 		};
 		mViewAnimator.setOnClickListener(listener);
@@ -189,6 +191,12 @@ public class CardsFlipFragment extends AbstractCardFragment {
 	protected void setQrCode(Bitmap bitmap) {
 		mQrCode.setImageBitmap(bitmap);
 		mQrCodeProgressBar.setVisibility(View.GONE);
+	}
+
+	private void flipCard(boolean animate) {
+		int duration = (animate) ? DEFAULT_FLIP_DURATION : 0;
+		AnimationFactory.flipTransition(mViewAnimator,
+				FlipDirection.LEFT_RIGHT, duration);
 	}
 
 	private int setCardPadding(FrameLayout.LayoutParams params) {

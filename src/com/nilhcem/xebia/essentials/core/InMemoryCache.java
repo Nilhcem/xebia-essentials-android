@@ -19,6 +19,7 @@ public class InMemoryCache {
 	private int mCardPosition = CARD_POSITION_UNSET; // useful when orientation changed on CardsHtmlActivity, switching from one to two panes
 	private List<Card> mCurrentCards;
 	private Map<Long, Category> mCategories;
+	private Long mCurrentBackSideCardFlipId; // the current card id that is displayed on the back side (to keep this data while switching orientation)
 
 	public void initCategories(List<Category> categories) {
 		mCategories = new HashMap<Long, Category>();
@@ -77,6 +78,7 @@ public class InMemoryCache {
 
 	public void resetCardPosition() {
 		mCardPosition = CARD_POSITION_UNSET;
+		mCurrentBackSideCardFlipId = null;
 	}
 
 	public boolean isCardPositionSet() {
@@ -85,5 +87,18 @@ public class InMemoryCache {
 
 	public boolean isInitialized() {
 		return (mCategories != null && mCategories.size() > 0);
+	}
+
+	public boolean isCardFlipOnBackSide(Card card) {
+		return (card != null && mCurrentBackSideCardFlipId != null
+				&& card.getId() != null && mCurrentBackSideCardFlipId == card.getId());
+	}
+	public void setCardFlipSide(Card card) {
+		Long cardId = null;
+
+		if (card != null && !isCardFlipOnBackSide(card)) {
+			cardId = card.getId();
+		}
+		mCurrentBackSideCardFlipId = cardId;
 	}
 }
