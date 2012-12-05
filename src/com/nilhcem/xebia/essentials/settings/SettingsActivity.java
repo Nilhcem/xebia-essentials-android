@@ -1,10 +1,18 @@
 package com.nilhcem.xebia.essentials.settings;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
@@ -13,9 +21,13 @@ import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.googlecode.androidannotations.annotations.res.StringRes;
 import com.nilhcem.xebia.essentials.R;
+import com.nilhcem.xebia.essentials.core.Compatibility;
 
 @EActivity
-public class SettingsActivity extends SherlockPreferenceActivity implements OnPreferenceClickListener {
+public class SettingsActivity extends SherlockPreferenceActivity implements
+		OnPreferenceClickListener, ISettingsClickListenerInitializer {
+	private static final Logger LOG = LoggerFactory.getLogger(SettingsActivity.class);
+
 	public static final String KEY_ANIMATION = "cards_animation";
 	public static final String KEY_VIEW_MODE = "viewMode"; // see VIEW_MODE_*
 	public static final int VIEW_MODE_CARD = 1;
@@ -39,11 +51,11 @@ public class SettingsActivity extends SherlockPreferenceActivity implements OnPr
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		addPreferencesFromResource(R.xml.settings);
-		findPreference(SettingsActivity.KEY_ABOUT_XEBIA).setOnPreferenceClickListener(this);
-		findPreference(SettingsActivity.KEY_ABOUT_CARDS).setOnPreferenceClickListener(this);
-		findPreference(SettingsActivity.KEY_LICENSES).setOnPreferenceClickListener(this);
-		findPreference(SettingsActivity.KEY_GITHUB).setOnPreferenceClickListener(this);
+		if (!Compatibility.isCompatible(Build.VERSION_CODES.HONEYCOMB)) {
+			addPreferencesFromResource(R.xml.settings_general);
+			addPreferencesFromResource(R.xml.settings_other);
+			initSettingsClickListeners(this);
+		}
 		createDialogs();
 	}
 
@@ -107,5 +119,49 @@ public class SettingsActivity extends SherlockPreferenceActivity implements OnPr
 		prefsEditor.commit();
 
 		sViewMode = newViewMode;
+	}
+
+	@Override
+	public void onBuildHeaders(List<Header> target) {
+		try {
+			Method method = getClass().getMethod("loadHeadersFromResource", int.class, List.class);
+			method.invoke(this, new Object[] { R.xml.settings_headers, target });
+		} catch (NoSuchMethodException e) {
+			// Do nothing
+		} catch (IllegalArgumentException e) {
+			// Do nothing
+		} catch (IllegalAccessException e) {
+			// Do nothing
+		} catch (InvocationTargetException e) {
+			// Do nothing
+		}
+	}
+
+	@Override
+	public void initSettingsClickListeners(Object object) {
+		final String[] keys = new String[] {
+			SettingsActivity.KEY_ABOUT_XEBIA,
+			SettingsActivity.KEY_ABOUT_CARDS,
+			SettingsActivity.KEY_LICENSES,
+			SettingsActivity.KEY_GITHUB
+		};
+
+		try {
+			Method method = object.getClass().getMethod("findPreference", new Class[] { CharSequence.class });
+			for (String key : keys) {
+				Preference pref = (Preference) method.invoke(object, key);
+				if (pref != null) {
+					pref.setOnPreferenceClickListener(this);
+				}
+			}
+		} catch (NoSuchMethodException e) {
+			LOG.warn("", e);
+		} catch (IllegalArgumentException e) {
+			LOG.warn("", e);
+		} catch (IllegalAccessException e) {
+			LOG.warn("", e);
+		} catch (InvocationTargetException e) {
+			LOG.warn("", e);
+		}
 	}
 }

@@ -1,17 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
-
-    <PreferenceCategory android:title="@string/settings_cat_general" >
-
-        <!-- Enable cards flip animation -->
-        <CheckBoxPreference
-            android:defaultValue="true"
-            android:icon="@drawable/photos"
-            android:key="cards_animation"
-            android:title="@string/settings_cards_animation" />
-    </PreferenceCategory>
-
-    <PreferenceCategory android:title="@string/settings_cat_info" >
+    <PreferenceCategory
+        android:key="settings_cat_other"
+        android:title="@string/settings_cat_info" >
 
         <!-- About Xebia -->
         <Preference
@@ -37,5 +28,4 @@
             android:key="github"
             android:title="@string/settings_github" />
     </PreferenceCategory>
-
 </PreferenceScreen>

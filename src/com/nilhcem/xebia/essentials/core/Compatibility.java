@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.util.DisplayMetrics;
 import android.view.Display;
 import android.view.View;
@@ -29,7 +30,7 @@ public final class Compatibility {
 	@SuppressWarnings("deprecation")
 	public static void setDrawableToView(View view, Drawable drawable) {
 		boolean oldWay = true;
-		if (Compatibility.isCompatible(16)) {
+		if (Compatibility.isCompatible(Build.VERSION_CODES.JELLY_BEAN)) {
 			try {
 				Method method = view.getClass().getDeclaredMethod(
 						"setBackground", new Class[] { Drawable.class });
@@ -52,7 +53,7 @@ public final class Compatibility {
 		WindowManager wm = (WindowManager) context
 				.getSystemService(Context.WINDOW_SERVICE);
 		Display display = wm.getDefaultDisplay();
-		if (Compatibility.isCompatible(13)) {
+		if (Compatibility.isCompatible(Build.VERSION_CODES.HONEYCOMB_MR2)) {
 			try {
 				Method method = Display.class.getDeclaredMethod("getSize",
 						new Class[] { Point.class });
