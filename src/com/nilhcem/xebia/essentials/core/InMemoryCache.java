@@ -13,7 +13,7 @@ import com.nilhcem.xebia.essentials.core.model.Category;
 
 @EBean(scope = Scope.Singleton)
 public class InMemoryCache {
-	private static int CARD_POSITION_UNSET = -1;
+	private static final int CARD_POSITION_UNSET = -1;
 
 	private long mSelectedCategory = Category.CATEGORY_ID_ALL;
 	private int mCardPosition = CARD_POSITION_UNSET; // useful when orientation changed on CardsHtmlActivity, switching from one to two panes

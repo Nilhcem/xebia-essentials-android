@@ -13,7 +13,6 @@ import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -60,11 +59,6 @@ public class SplashScreenActivity extends Activity {
 
 	@Bean
 	protected QRCodeScanner mQRCodeScanner;
-
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-	}
 
 	@Override
 	protected void onNewIntent(Intent intent) {

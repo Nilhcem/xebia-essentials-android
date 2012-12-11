@@ -14,6 +14,10 @@ import android.view.WindowManager;
 
 public final class Compatibility {
 
+	private Compatibility() {
+		throw new UnsupportedOperationException();
+	}
+
 	/**
 	 * Checks if current SDK is compatible with the desired API level.
 	 *
@@ -79,8 +83,7 @@ public final class Compatibility {
 	public static float convertDpToPixel(float dp, Context context) {
 		Resources resources = context.getResources();
 		DisplayMetrics metrics = resources.getDisplayMetrics();
-		float px = dp * (metrics.densityDpi / 160f);
-		return px;
+		return dp * (metrics.densityDpi / 160f);
 	}
 
 	/**
@@ -93,8 +96,6 @@ public final class Compatibility {
 	public static float convertPixelsToDp(float px, Context context) {
 		Resources resources = context.getResources();
 		DisplayMetrics metrics = resources.getDisplayMetrics();
-		float dp = px / (metrics.densityDpi / 160f);
-		return dp;
-
+		return px / (metrics.densityDpi / 160f);
 	}
 }

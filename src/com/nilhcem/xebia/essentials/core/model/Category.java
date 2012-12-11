@@ -56,12 +56,12 @@ public final class Category {
 	}
 
 	public int getIntColor() {
-		int color;
+		int intColor;
 		try {
-			color = Color.parseColor(getColor());
+			intColor = Color.parseColor(getColor());
 		} catch (IllegalArgumentException e) {
-			color = 0;
+			intColor = 0;
 		}
-		return color;
+		return intColor;
 	}
 }

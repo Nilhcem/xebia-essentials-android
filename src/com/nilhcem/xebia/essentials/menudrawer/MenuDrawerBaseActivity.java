@@ -25,7 +25,6 @@ public abstract class MenuDrawerBaseActivity extends BaseActivity {
 	private static final String EXTRA_STATE_MENUDRAWER = "MenuDrawerBaseActivity:stateMenuDrawer";
 
 	private MenuDrawerManager mMenuDrawer;
-	private ActionBar mActionBar;
 	private ListView mCategoriesListView;
 
 	@Bean
@@ -55,9 +54,9 @@ public abstract class MenuDrawerBaseActivity extends BaseActivity {
 
 	@AfterInject
 	protected void initActionBar() {
-		mActionBar = getSupportActionBar();
-		mActionBar.setHomeButtonEnabled(true);
-		mActionBar.setDisplayHomeAsUpEnabled(true);
+		ActionBar actionBar = getSupportActionBar();
+		actionBar.setHomeButtonEnabled(true);
+		actionBar.setDisplayHomeAsUpEnabled(true);
 	}
 
 	@Override

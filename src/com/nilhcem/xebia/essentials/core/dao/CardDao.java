@@ -44,15 +44,18 @@ public final class CardDao extends AbstractDao<Card> {
 		return card;
 	}
 
-	public Card getByUrl(String url) {
+	public Card getByUrl(String cardUrl) {
 		Card card = null;
 
-		if (!TextUtils.isEmpty(url)) {
+		if (!TextUtils.isEmpty(cardUrl)) {
 			// Fix issue with 2 cards (URL from the QR code is different from the real URL)
-			if (url.equalsIgnoreCase("uncluttered-build")) {
+			String url = null;
+			if (cardUrl.equalsIgnoreCase("uncluttered-build")) {
 				url = "clean-build";
-			} else if (url.equalsIgnoreCase("honour-the-timebox")) {
+			} else if (cardUrl.equalsIgnoreCase("honour-the-timebox")) {
 				url = "honor-the-timebox";
+			} else {
+				url = cardUrl;
 			}
 
 			QueryBuilder<Card, Long> queryBuilder = queryBuilder();
@@ -107,11 +110,11 @@ public final class CardDao extends AbstractDao<Card> {
 	public List<Card> getCardsFromSearchQuery(String searchQuery) {
 		List<Card> cards = new ArrayList<Card>();
 		if (searchQuery != null) {
-			searchQuery = searchQuery.trim().replaceAll("'", "''");
+			String searchTerm = searchQuery.trim().replaceAll("'", "''");
 			try {
 				// Results that matches the title should be displayed first
 				String query = String.format("select * from %s where %s like '%%%s%%'",
-						Card.TABLE_NAME, Card.COL_TITLE, searchQuery);
+						Card.TABLE_NAME, Card.COL_TITLE, searchTerm);
 				GenericRawResults<Card> rawResults = queryRaw(query, getRawRowMapper());
 				for (Card card : rawResults) {
 					cards.add(card);
@@ -120,7 +123,7 @@ public final class CardDao extends AbstractDao<Card> {
 				// If no match, get results that match the summary, or the HTML description
 				if (cards.size() == 0) {
 					query = String.format("select * from %s where (%s like '%%%s%%' OR %s like '%%%s%%')",
-									Card.TABLE_NAME, Card.COL_SUMMARY, searchQuery, Card.COL_CONTENT, searchQuery);
+									Card.TABLE_NAME, Card.COL_SUMMARY, searchTerm, Card.COL_CONTENT, searchTerm);
 
 					rawResults = queryRaw(query, getRawRowMapper());
 					for (Card card : rawResults) {
@@ -130,7 +133,7 @@ public final class CardDao extends AbstractDao<Card> {
 					}
 				}
 			} catch (SQLException e) {
-				LOG.error("Error getting cards from search query {}", searchQuery, e);
+				LOG.error("Error getting cards from search query {}", searchTerm, e);
 			}
 		}
 		return cards;
