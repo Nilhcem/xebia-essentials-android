@@ -1,5 +1,7 @@
 package com.nilhcem.xebia.essentials.cards.flip;
 
+import java.util.Locale;
+
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
@@ -180,7 +182,7 @@ public class CardsFlipFragment extends AbstractCardFragment {
 	@Background
 	protected void generateQrCode(int size) {
 		int qrCodeSize = size * 3; // otherwise QR code is too small
-		String toConvert = String.format("%s%s", mBitlyPrefix, mCard.getBitly());
+		String toConvert = String.format(Locale.US, "%s%s", mBitlyPrefix, mCard.getBitly());
 		Bitmap qrCode = mQRCodeGenerator.generate(toConvert, qrCodeSize);
 		if (qrCode != null) {
 			setQrCode(qrCode);

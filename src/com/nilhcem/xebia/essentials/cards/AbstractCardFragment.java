@@ -1,5 +1,7 @@
 package com.nilhcem.xebia.essentials.cards;
 
+import java.util.Locale;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -56,7 +58,7 @@ public abstract class AbstractCardFragment extends SherlockFragment {
 		LOG.debug("onAttach()");
 		super.onAttach(activity);
 		mOnMenuSelected = (IOnCardMenuSelected) activity;
-		mUrlPrefix = String.format("http://%s", activity.getString(R.string.cards_url_prefix));
+		mUrlPrefix = String.format(Locale.US, "http://%s", activity.getString(R.string.cards_url_prefix));
 	}
 
 	@Override
@@ -75,7 +77,7 @@ public abstract class AbstractCardFragment extends SherlockFragment {
 			Intent shareIntent = new Intent(Intent.ACTION_SEND);
 			shareIntent.setType("text/plain");
 			shareIntent.putExtra(Intent.EXTRA_SUBJECT, mCard.getTitle());
-			shareIntent.putExtra(Intent.EXTRA_TEXT, String.format("%s%s", mUrlPrefix, mCard.getUrl()));
+			shareIntent.putExtra(Intent.EXTRA_TEXT, String.format(Locale.US, "%s%s", mUrlPrefix, mCard.getUrl()));
 			shareProvider.setShareIntent(shareIntent);
 		}
 	}

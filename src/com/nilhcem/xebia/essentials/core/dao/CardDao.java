@@ -3,6 +3,7 @@ package com.nilhcem.xebia.essentials.core.dao;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -113,7 +114,7 @@ public final class CardDao extends AbstractDao<Card> {
 			String searchTerm = searchQuery.trim().replaceAll("'", "''");
 			try {
 				// Results that matches the title should be displayed first
-				String query = String.format("select * from %s where %s like '%%%s%%'",
+				String query = String.format(Locale.US, "select * from %s where %s like '%%%s%%'",
 						Card.TABLE_NAME, Card.COL_TITLE, searchTerm);
 				GenericRawResults<Card> rawResults = queryRaw(query, getRawRowMapper());
 				for (Card card : rawResults) {
@@ -122,7 +123,7 @@ public final class CardDao extends AbstractDao<Card> {
 
 				// If no match, get results that match the summary, or the HTML description
 				if (cards.size() == 0) {
-					query = String.format("select * from %s where (%s like '%%%s%%' OR %s like '%%%s%%')",
+					query = String.format(Locale.US, "select * from %s where (%s like '%%%s%%' OR %s like '%%%s%%')",
 									Card.TABLE_NAME, Card.COL_SUMMARY, searchTerm, Card.COL_CONTENT, searchTerm);
 
 					rawResults = queryRaw(query, getRawRowMapper());

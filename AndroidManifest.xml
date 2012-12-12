@@ -50,6 +50,7 @@
         <activity android:name=".cards.html.CardsHtmlActivity_" />
         <activity
             android:name=".settings.SettingsActivity_"
+            android:exported="false"
             android:label="@string/menu_settings" >
             <intent-filter>
                 <category android:name="android.intent.category.PREFERENCE" />

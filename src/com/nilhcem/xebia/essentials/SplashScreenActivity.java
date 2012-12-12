@@ -3,6 +3,7 @@ package com.nilhcem.xebia.essentials;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import org.simpleframework.xml.Serializer;
 import org.simpleframework.xml.core.Persister;
@@ -88,7 +89,7 @@ public class SplashScreenActivity extends Activity {
 			initCategoriesInCacheThenRedirect();
 		} catch (Exception e) {
 			LOG.error("Error importing data", e);
-			finishWithToastError(String.format(mErrorMessage, e.getMessage()));
+			finishWithToastError(String.format(Locale.getDefault(), mErrorMessage, e.getMessage()));
 		}
 	}
 
@@ -105,7 +106,7 @@ public class SplashScreenActivity extends Activity {
 			mCache.initCategories(categories);
 		} catch (SQLException e) {
 			LOG.error("Error getting categories", e);
-			finishWithToastError(String.format(mErrorMessage, e.getMessage()));
+			finishWithToastError(String.format(Locale.getDefault(), mErrorMessage, e.getMessage()));
 		}
 		processRedirect();
 	}

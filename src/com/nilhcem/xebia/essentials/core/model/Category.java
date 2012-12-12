@@ -1,5 +1,7 @@
 package com.nilhcem.xebia.essentials.core.model;
 
+import java.util.Locale;
+
 import org.simpleframework.xml.Attribute;
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
@@ -40,7 +42,7 @@ public final class Category {
 	public Category(long id, String name, int color) {
 		this.id = id;
 		this.name = name;
-		this.color = String.format("#%x", color);
+		this.color = String.format(Locale.US, "#%x", color);
 	}
 
 	public long getId() {

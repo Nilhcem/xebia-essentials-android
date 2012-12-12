@@ -1,5 +1,7 @@
 package com.nilhcem.xebia.essentials.qrcode;
 
+import java.util.Locale;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -59,7 +61,7 @@ public class QRCodeScanner {
 					String bitly = content.substring(mBitlyPrefix.length());
 					card = mCardDao.getByBitly(bitly);
 				} else {
-					String essentialsUrl = String.format("http://%s", mXebiaEssentialsPrefix);
+					String essentialsUrl = String.format(Locale.US, "http://%s", mXebiaEssentialsPrefix);
 					if (content.startsWith(essentialsUrl)) {
 						String url = content.substring(essentialsUrl.length());
 						card = mCardDao.getByUrl(url);
