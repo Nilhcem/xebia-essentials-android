@@ -61,6 +61,7 @@ public class CardsListFragment extends SherlockListFragment {
 		ListView listView = getListView();
 		listView.setDivider(mDivider);
 		listView.setDividerHeight(1);
+		listView.requestFocus();
 	}
 
 	public void setCards(List<Card> cards) {

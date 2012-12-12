@@ -64,6 +64,7 @@ public abstract class MenuDrawerBaseActivity extends BaseActivity {
 		final int drawerState = mMenuDrawer.getDrawerState();
 		if (drawerState == MenuDrawer.STATE_OPEN || drawerState == MenuDrawer.STATE_OPENING) {
 			mMenuDrawer.closeMenu();
+			onMenuDrawerClosedWithNoAction();
 			return;
 		}
 		super.onBackPressed();
@@ -84,6 +85,7 @@ public abstract class MenuDrawerBaseActivity extends BaseActivity {
 		mCategoriesListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				boolean categorySelected = false;
 				if (id == Category.CATEGORY_ID_SCAN) {
 					mCardScanner.initiateScan(MenuDrawerBaseActivity.this);
 				} else if (id == Category.CATEGORY_ID_SEARCH) {
@@ -91,8 +93,12 @@ public abstract class MenuDrawerBaseActivity extends BaseActivity {
 				} else {
 					onMenuDrawerItemSelected(id);
 					refreshMenuDrawer();
+					categorySelected = true;
 				}
 				mMenuDrawer.closeMenu(true);
+				if (!categorySelected) {
+					onMenuDrawerClosedWithNoAction();
+				}
 			}
 		});
 	}
@@ -107,6 +113,9 @@ public abstract class MenuDrawerBaseActivity extends BaseActivity {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		if (item.getItemId() == android.R.id.home) {
 			mMenuDrawer.toggleMenu();
+			if (isMenuDrawerClosedOrClosing()) {
+				onMenuDrawerClosedWithNoAction();
+			}
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
@@ -122,4 +131,6 @@ public abstract class MenuDrawerBaseActivity extends BaseActivity {
 	}
 
 	protected abstract void onMenuDrawerItemSelected(long id);
+
+	protected abstract void onMenuDrawerClosedWithNoAction();
 }

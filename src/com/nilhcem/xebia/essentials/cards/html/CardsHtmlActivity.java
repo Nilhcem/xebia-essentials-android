@@ -62,6 +62,12 @@ public class CardsHtmlActivity extends BaseActivity implements IOnCardMenuSelect
 		}
 	}
 
+	@Override
+	protected void onResume() {
+		super.onResume();
+		mViewPager.requestFocus();
+	}
+
 	@AfterViews
 	protected void initActivity() {
 		List<Card> cards = getCardsFromIntent();

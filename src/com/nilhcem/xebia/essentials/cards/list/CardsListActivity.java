@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.widget.ListView;
 
 import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.EActivity;
@@ -147,6 +148,15 @@ public class CardsListActivity extends MenuDrawerBaseActivity implements IOnCard
 		LOG.debug("Category #{} selected", id);
 		mCache.setSelectedCategory(id);
 		initAll(true);
+	}
+
+	@Override
+	protected void onMenuDrawerClosedWithNoAction() {
+		ListView view = mListFragment.getListView();
+
+		if (view != null) {
+			view.requestFocus();
+		}
 	}
 
 	@Override
