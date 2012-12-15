@@ -24,7 +24,7 @@ You should own the cards to use the application.
 
 * Before building the app, you must go to the project root directory and type the following to specify the SDK directory (only required once).
 
-    android update project --path . --target android-16
+    android update project --path . --target android-17
 
 * You must also create a `data.xml` file in the `assets` folder that will contain all the Xebia Essentials Cards data.
 See the `data.xml.example` template.
@@ -76,14 +76,13 @@ See [this link][8] for more information
 This project uses many great open-source libraries, such as:
 
 * [ActionBarSherlock][6]
-* [SimpleXML][9]
-* [OrmLite][10]
-* [AndroidAnnotations][11]
-* [Zxing][12]
+* [OrmLite][9]
+* [AndroidAnnotations][10]
+* [Zxing][11]
 * [android-menudrawer][7]
 
 These are just a few of the major dependencies, the entire list of dependencies
-is listed in the [app's POM file][13]
+is listed in the [app's POM file][12]
 
 
 ## License
@@ -109,8 +108,7 @@ is listed in the [app's POM file][13]
 [6]: http://actionbarsherlock.com
 [7]: https://github.com/SimonVT/android-menudrawer
 [8]: http://ormlite.com/javadoc/ormlite-core/doc-files/ormlite_4.html
-[9]: http://simple.sourceforge.net/
-[10]: http://ormlite.com/
-[11]: http://androidannotations.org/
-[12]: http://code.google.com/p/zxing/
-[13]: https://github.com/Nilhcem/xebia-essentials-android/blob/master/pom.xml
+[9]: http://ormlite.com/
+[10]: http://androidannotations.org/
+[11]: http://code.google.com/p/zxing/
+[12]: https://github.com/Nilhcem/xebia-essentials-android/blob/master/pom.xml

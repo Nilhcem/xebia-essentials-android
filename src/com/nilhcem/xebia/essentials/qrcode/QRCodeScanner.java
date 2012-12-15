@@ -2,13 +2,11 @@ package com.nilhcem.xebia.essentials.qrcode;
 
 import java.util.Locale;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.text.TextUtils;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -26,7 +24,7 @@ import com.nilhcem.xebia.essentials.core.model.Card;
 
 @EBean
 public class QRCodeScanner {
-	private static final Logger LOG = LoggerFactory.getLogger(QRCodeScanner.class);
+	private static final String TAG = "QRCodeScanner";
 
 	@StringRes(R.string.bitly_url_prefix)
 	protected String mBitlyPrefix;
@@ -55,7 +53,7 @@ public class QRCodeScanner {
 			Card card = null;
 			String content = scanResult.getContents();
 			if (!TextUtils.isEmpty(content)) {
-				LOG.debug("QR code found: {}", content);
+				Log.d(TAG, "QR code found: " + content);
 
 				if (content.startsWith(mBitlyPrefix)) {
 					String bitly = content.substring(mBitlyPrefix.length());

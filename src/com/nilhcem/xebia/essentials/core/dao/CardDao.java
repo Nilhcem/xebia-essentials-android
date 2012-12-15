@@ -5,10 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import android.text.TextUtils;
+import android.util.Log;
 
 import com.j256.ormlite.dao.GenericRawResults;
 import com.j256.ormlite.stmt.PreparedQuery;
@@ -18,7 +16,7 @@ import com.j256.ormlite.table.DatabaseTableConfig;
 import com.nilhcem.xebia.essentials.core.model.Card;
 
 public final class CardDao extends AbstractDao<Card> {
-	protected static final Logger LOG = LoggerFactory.getLogger(CardDao.class);
+	private static final String TAG = "CardDao";
 
 	public CardDao(Class<Card> dataClass) throws SQLException {
 		super(dataClass);
@@ -39,7 +37,7 @@ public final class CardDao extends AbstractDao<Card> {
 		try {
 			card = queryForId(cardId);
 		} catch (SQLException e) {
-			LOG.error("Error getting card {}", cardId, e);
+			Log.e(TAG, "Error getting card " + cardId, e);
 			card = null;
 		}
 		return card;
@@ -68,7 +66,7 @@ public final class CardDao extends AbstractDao<Card> {
 					card = cards.get(0);
 				}
 			} catch (SQLException e) {
-				LOG.error("Error getting card from URL: {}", url, e);
+				Log.e(TAG, "Error getting card from URL: " + url, e);
 			}
 		}
 		return card;
@@ -87,7 +85,7 @@ public final class CardDao extends AbstractDao<Card> {
 					card = cards.get(0);
 				}
 			} catch (SQLException e) {
-				LOG.error("Error getting card from bitly: {}", bitly, e);
+				Log.e(TAG, "Error getting card from bitly: " + bitly, e);
 			}
 		}
 		return card;
@@ -103,7 +101,7 @@ public final class CardDao extends AbstractDao<Card> {
 			PreparedQuery<Card> preparedQuery = queryBuilder.prepare();
 			return query(preparedQuery);
 		} catch (SQLException e) {
-			LOG.error("Error getting cards from category {}", catId, e);
+			Log.e(TAG, "Error getting cards from category " + catId, e);
 		}
 		return null;
 	}
@@ -134,7 +132,7 @@ public final class CardDao extends AbstractDao<Card> {
 					}
 				}
 			} catch (SQLException e) {
-				LOG.error("Error getting cards from search query {}", searchTerm, e);
+				Log.e(TAG, "Error getting cards from search query " + searchTerm, e);
 			}
 		}
 		return cards;

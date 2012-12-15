@@ -2,9 +2,6 @@ package com.nilhcem.xebia.essentials.cards;
 
 import java.util.Locale;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import android.app.Activity;
 import android.content.Intent;
 
@@ -29,8 +26,6 @@ import com.nilhcem.xebia.essentials.settings.SettingsActivity;
 @EFragment
 @OptionsMenu(R.menu.cards_html_menu)
 public abstract class AbstractCardFragment extends SherlockFragment {
-	private static final Logger LOG = LoggerFactory.getLogger(AbstractCardFragment.class);
-
 	@Bean
 	protected InMemoryCache mCache;
 
@@ -55,7 +50,6 @@ public abstract class AbstractCardFragment extends SherlockFragment {
 
 	@Override
 	public void onAttach(Activity activity) {
-		LOG.debug("onAttach()");
 		super.onAttach(activity);
 		mOnMenuSelected = (IOnCardMenuSelected) activity;
 		mUrlPrefix = String.format(Locale.US, "http://%s", activity.getString(R.string.cards_url_prefix));
@@ -63,7 +57,6 @@ public abstract class AbstractCardFragment extends SherlockFragment {
 
 	@Override
 	public void onDetach() {
-		LOG.debug("onDetach()");
 		super.onDetach();
 		mOnMenuSelected = null;
 	}

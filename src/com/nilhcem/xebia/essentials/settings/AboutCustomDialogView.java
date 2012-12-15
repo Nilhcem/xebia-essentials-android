@@ -4,12 +4,11 @@ import java.io.IOException;
 import java.io.InputStream;
 
 import org.apache.commons.io.IOUtils;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import android.content.Context;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,7 +21,7 @@ import com.nilhcem.xebia.essentials.R;
 
 @EViewGroup(R.layout.about_dialog)
 public class AboutCustomDialogView extends LinearLayout {
-	private static final Logger LOG = LoggerFactory.getLogger(AboutCustomDialogView.class);
+	private static final String TAG = "AboutCustomDialogView";
 	private static final String LICENSES_FILE = "LICENSES";
 
 	public static final int DIALOG_XEBIA = 1;
@@ -84,7 +83,7 @@ public class AboutCustomDialogView extends LinearLayout {
 			InputStream stream = getContext().getAssets().open(LICENSES_FILE);
 			licenses = IOUtils.toString(stream);
 		} catch (IOException e) {
-			LOG.error("Error while reading {} file", LICENSES_FILE, e);
+			Log.e(TAG, "Error while reading file " + LICENSES_FILE, e);
 			licenses = "";
 		}
 		return licenses;

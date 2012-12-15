@@ -1,8 +1,5 @@
 package com.nilhcem.xebia.essentials.cards.list;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentTransaction;
@@ -29,7 +26,6 @@ import com.nilhcem.xebia.essentials.settings.SettingsActivity;
 
 @EActivity(R.layout.main_layout)
 public class CardsListActivity extends MenuDrawerBaseActivity implements IOnCardItemSelected, IOnCardMenuSelected {
-	private static final Logger LOG = LoggerFactory.getLogger(CardsListActivity.class);
 	private static final String LIST_FRAGMENT_TAG = "cardsListFragmentTag";
 	public static final String EXTRA_SEARCH_QUERY = "CardsListActivity:searchQuery";
 
@@ -130,7 +126,6 @@ public class CardsListActivity extends MenuDrawerBaseActivity implements IOnCard
 
 	@Override
 	public void onCardsListItemSelected(int position) {
-		LOG.debug("Card selected: {}", position);
 		mCache.setCardPosition(position);
 
 		if (mIsMultipaned) {
@@ -145,7 +140,6 @@ public class CardsListActivity extends MenuDrawerBaseActivity implements IOnCard
 
 	@Override
 	protected void onMenuDrawerItemSelected(long id) {
-		LOG.debug("Category #{} selected", id);
 		mCache.setSelectedCategory(id);
 		initAll(true);
 	}
@@ -172,7 +166,6 @@ public class CardsListActivity extends MenuDrawerBaseActivity implements IOnCard
 
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
-		LOG.info("onSaveInstanceState");
 		if (mViewPager != null) {
 			mCache.setCardPosition(mViewPager.getCurrentItem());
 			mViewPager.setAdapter(null); // Remove adapter reference so that no fragment state will be saved - Avoid memory leaks on 7inch layout

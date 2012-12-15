@@ -1,8 +1,5 @@
 package com.nilhcem.xebia.essentials.core.model;
 
-import org.simpleframework.xml.Element;
-import org.simpleframework.xml.Root;
-
 import android.os.Parcel;
 import android.os.Parcelable;
 
@@ -10,7 +7,6 @@ import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 import com.nilhcem.xebia.essentials.core.dao.CardDao;
 
-@Root
 @DatabaseTable(daoClass = CardDao.class, tableName = Card.TABLE_NAME)
 public final class Card implements Parcelable {
 	public static final String TABLE_NAME = "cards";
@@ -25,27 +21,21 @@ public final class Card implements Parcelable {
 	@DatabaseField(columnName = Card.COL_ID, generatedId = true)
 	private Long id;
 
-	@Element
 	@DatabaseField(columnName = Card.COL_TITLE)
 	private String title;
 
-	@Element(name = "category")
 	@DatabaseField(columnName = Card.COL_CATEGORY)
 	private long categoryId;
 
-	@Element
 	@DatabaseField(columnName = Card.COL_BITLY)
 	private String bitly;
 
-	@Element
 	@DatabaseField(columnName = Card.COL_URL)
 	private String url;
 
-	@Element
 	@DatabaseField(columnName = Card.COL_SUMMARY)
 	private String summary;
 
-	@Element
 	@DatabaseField(columnName = Card.COL_CONTENT)
 	private String content;
 
@@ -90,6 +80,15 @@ public final class Card implements Parcelable {
 	};
 
 	public Card() {
+	}
+
+	public Card(String title, long categoryId, String bitly, String url, String summary, String content) {
+		this.title = title;
+		this.categoryId = categoryId;
+		this.bitly = bitly;
+		this.url = url;
+		this.summary = summary;
+		this.content = content;
 	}
 
 	private Card(Parcel in) {

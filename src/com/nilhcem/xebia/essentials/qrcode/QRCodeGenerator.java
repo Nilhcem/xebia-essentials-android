@@ -1,11 +1,9 @@
 package com.nilhcem.xebia.essentials.qrcode;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Color;
+import android.util.Log;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
@@ -16,7 +14,7 @@ import com.googlecode.androidannotations.api.Scope;
 
 @EBean(scope = Scope.Singleton)
 public class QRCodeGenerator {
-	private static final Logger LOG = LoggerFactory.getLogger(QRCodeGenerator.class);
+	private static final String TAG = "QRCodeGenerator";
 
 	public Bitmap generate(String toConvert, int size) {
 		Bitmap qrCode = null;
@@ -31,7 +29,7 @@ public class QRCodeGenerator {
 				}
 			}
 		} catch (WriterException e) {
-			LOG.error("", e);
+			Log.e(TAG, "Error generating QR Code", e);
 		}
 		return qrCode;
 	}

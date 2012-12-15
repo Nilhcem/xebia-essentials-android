@@ -4,8 +4,7 @@ import java.sql.SQLException;
 import java.util.List;
 import java.util.concurrent.Callable;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import android.util.Log;
 
 import com.j256.ormlite.dao.BaseDaoImpl;
 import com.j256.ormlite.dao.Dao;
@@ -14,7 +13,7 @@ import com.j256.ormlite.support.ConnectionSource;
 import com.j256.ormlite.table.DatabaseTableConfig;
 
 public abstract class AbstractDao<T> extends BaseDaoImpl<T, Long> implements Dao<T, Long> {
-	private static final Logger LOG = LoggerFactory.getLogger(AbstractDao.class);
+	private static final String TAG = "AbstractDao";
 
 	public AbstractDao(Class<T> dataClass) throws SQLException {
 		super(dataClass);
@@ -42,7 +41,7 @@ public abstract class AbstractDao<T> extends BaseDaoImpl<T, Long> implements Dao
 				}
 			});
 		} catch (SQLException e) {
-			LOG.error("Error inserting objects in DB", e);
+			Log.e(TAG, "Error inserting objects in DB", e);
 		}
 	}
 }

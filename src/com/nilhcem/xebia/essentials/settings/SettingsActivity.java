@@ -4,9 +4,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.List;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
@@ -16,6 +13,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
+import android.util.Log;
 
 import com.actionbarsherlock.app.SherlockPreferenceActivity;
 import com.googlecode.androidannotations.annotations.EActivity;
@@ -26,7 +24,7 @@ import com.nilhcem.xebia.essentials.core.Compatibility;
 @EActivity
 public class SettingsActivity extends SherlockPreferenceActivity implements
 		OnPreferenceClickListener, ISettingsClickListenerInitializer {
-	private static final Logger LOG = LoggerFactory.getLogger(SettingsActivity.class);
+	private static final String TAG = "SettingsActivity";
 
 	public static final String KEY_ANIMATION = "cards_animation";
 	public static final String KEY_VIEW_MODE = "viewMode"; // see VIEW_MODE_*
@@ -155,13 +153,13 @@ public class SettingsActivity extends SherlockPreferenceActivity implements
 				}
 			}
 		} catch (NoSuchMethodException e) {
-			LOG.warn("", e);
+			Log.w(TAG, "", e);
 		} catch (IllegalArgumentException e) {
-			LOG.warn("", e);
+			Log.w(TAG, "", e);
 		} catch (IllegalAccessException e) {
-			LOG.warn("", e);
+			Log.w(TAG, "", e);
 		} catch (InvocationTargetException e) {
-			LOG.warn("", e);
+			Log.w(TAG, "", e);
 		}
 	}
 }

@@ -1,19 +1,17 @@
 package com.nilhcem.xebia.essentials;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
-import org.simpleframework.xml.Serializer;
-import org.simpleframework.xml.core.Persister;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.net.Uri;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.Toast;
@@ -32,12 +30,13 @@ import com.nilhcem.xebia.essentials.core.dao.CardDao;
 import com.nilhcem.xebia.essentials.core.dao.CategoryDao;
 import com.nilhcem.xebia.essentials.core.model.Card;
 import com.nilhcem.xebia.essentials.core.model.Category;
-import com.nilhcem.xebia.essentials.core.model.XmlData;
 import com.nilhcem.xebia.essentials.qrcode.QRCodeScanner;
+import com.nilhcem.xebia.essentials.xml.XmlData;
+import com.nilhcem.xebia.essentials.xml.XmlParser;
 
 @EActivity(R.layout.splash_screen)
 public class SplashScreenActivity extends Activity {
-	private static final Logger LOG = LoggerFactory.getLogger(SplashScreenActivity.class);
+	private static final String TAG = "SplashScreenActivity";
 	private static final String XML_FILE = "data.xml";
 
 	@ViewById(R.id.splashscreenLoading)
@@ -61,6 +60,9 @@ public class SplashScreenActivity extends Activity {
 	@Bean
 	protected QRCodeScanner mQRCodeScanner;
 
+	@Bean
+	protected XmlParser mXmlParser;
+
 	@Override
 	protected void onNewIntent(Intent intent) {
 		setIntent(intent);
@@ -80,16 +82,26 @@ public class SplashScreenActivity extends Activity {
 
 	@Background
 	protected void importData() {
-		LOG.debug("Importing XML data...");
-		Serializer serializer = new Persister();
+		Log.d(TAG, "Importing XML data...");
+
+		InputStream xmlStream = null;
 		try {
-			XmlData xml = serializer.read(XmlData.class, getAssets().open(SplashScreenActivity.XML_FILE));
+			xmlStream = getAssets().open(SplashScreenActivity.XML_FILE);
+			XmlData xml = mXmlParser.parseXml(xmlStream);
 			mCategoryDao.insertAll(xml.getCategories());
 			mCardDao.insertAll(xml.getCards());
 			initCategoriesInCacheThenRedirect();
 		} catch (Exception e) {
-			LOG.error("Error importing data", e);
+			Log.e(TAG, "Error importing data", e);
 			finishWithToastError(String.format(Locale.getDefault(), mErrorMessage, e.getMessage()));
+		} finally {
+			if (xmlStream != null) {
+				try {
+					xmlStream.close();
+				} catch (IOException e) {
+					Log.e(TAG, "Cannot close stream", e);
+				}
+			}
 		}
 	}
 
@@ -105,7 +117,7 @@ public class SplashScreenActivity extends Activity {
 			List<Category> categories = mCategoryDao.queryForAll();
 			mCache.initCategories(categories);
 		} catch (SQLException e) {
-			LOG.error("Error getting categories", e);
+			Log.e(TAG, "Error getting categories", e);
 			finishWithToastError(String.format(Locale.getDefault(), mErrorMessage, e.getMessage()));
 		}
 		processRedirect();
@@ -118,20 +130,20 @@ public class SplashScreenActivity extends Activity {
 		// Start activity
 		Intent startActivityIntent = null;
 		if (cards == null) {
-			LOG.debug("No specific intent - redirect to main activity");
+			Log.d(TAG, "No specific intent - redirect to main activity");
 			startActivityIntent = createMainActivityRedirectIntent(null, Category.CATEGORY_ID_ALL);
 		} else {
 			int cardsSize = cards.size();
 
 			if (cardsSize == 0) {
-				LOG.debug("No card found - finish activity");
+				Log.d(TAG, "No card found - finish activity");
 				finishWithToastError(mNoCardFound);
 				return ;
 			} else if (cardsSize == 1) {
-				LOG.debug("One card found - redirect to card activity");
+				Log.d(TAG, "One card found - redirect to card activity");
 				startActivityIntent = mQRCodeScanner.createIntent(this, cards.get(0));
 			} else {
-				LOG.debug("Multiple cards found - redirect to main activity");
+				Log.d(TAG, "Multiple cards found - redirect to main activity");
 				startActivityIntent = createMainActivityRedirectIntent(cards, Category.CATEGORY_ID_SEARCH);
 			}
 		}

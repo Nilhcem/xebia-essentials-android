@@ -2,11 +2,9 @@ package com.nilhcem.xebia.essentials.core;
 
 import java.sql.SQLException;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
+import android.util.Log;
 
 import com.j256.ormlite.android.apptools.OrmLiteSqliteOpenHelper;
 import com.j256.ormlite.support.ConnectionSource;
@@ -16,7 +14,7 @@ import com.nilhcem.xebia.essentials.core.model.Card;
 import com.nilhcem.xebia.essentials.core.model.Category;
 
 public final class DatabaseHelper extends OrmLiteSqliteOpenHelper {
-	private static final Logger LOG = LoggerFactory.getLogger(DatabaseHelper.class);
+	private static final String TAG = "DatabaseHelper";
 	private static final String DATABASE_NAME = "xebiacards.db";
 	private static final int DATABASE_VERSION = 1;
 
@@ -32,7 +30,7 @@ public final class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 			TableUtils.createTable(connectionSource, Category.class);
 			TableUtils.createTable(connectionSource, Card.class);
 		} catch (SQLException e) {
-			LOG.error("Error creating DB tables", e);
+			Log.e(TAG, "Error creating DB tables", e);
 		}
 	}
 
