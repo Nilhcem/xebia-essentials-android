@@ -12,7 +12,7 @@ You should own the cards to use the application.
 ## Features
 
 * Scan your Xebia essentials cards from everywhere - no Internet connection required
-* Share cards with other
+* Share cards with others
 * Designed for phones and tablets
 * Browse all cards, or use the search functionality
 * Safe - no permissions required
