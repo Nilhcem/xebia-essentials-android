@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xebia>
+  <categories>
+    <category id="1">
+      <name>Architecture and Design</name>
+      <color>#FC7A25</color>
+    </category>
+    <category id="2">
+      <name>Code</name>
+      <color>#107FD5</color>
+    </category>
+    <category id="3">
+      <name>Mindset</name>
+      <color>#F80068</color>
+    </category>
+    <category id="4">
+      <name>Process</name>
+      <color>#DD0025</color>
+    </category>
+    <category id="5">
+      <name>Test</name>
+      <color>#6DC726</color>
+    </category>
+  </categories>
+
+  <cards>
+    <card>
+      <title>Have fun</title>
+      <category>3</category>
+      <bitly>f37zxa</bitly>
+      <url>have-fun</url>
+      <summary><![CDATA[If it ain't fun,<br />it probably ain't right.]]></summary>
+      <content><![CDATA[<p>HTML content of the card.</p>]]></content>
+    </card>
+    <!-- Other cards will go there -->
+  </cards>
+</xebia>
