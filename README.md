@@ -73,7 +73,7 @@ See [this link][8] for more information
 
 ## Acknowledgements
 
-This project many great open-source libraries, such as:
+This project uses many great open-source libraries, such as:
 
 * [ActionBarSherlock][6]
 * [SimpleXML][9]
