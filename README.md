@@ -24,7 +24,7 @@ You should own the cards to use the application.
 
 * Before building the app, you must go to the project root directory and type the following to specify the SDK directory (only required once).
 
-    android update project --path . --target android-17
+    `android update project --path . --target android-17`
 
 * You must also create a `data.xml` file in the `assets` folder that will contain all the Xebia Essentials Cards data.
 See the `data.xml.example` template.
@@ -33,12 +33,12 @@ We do not provide the original data file in the GitHub repository, as it is a pr
 * The build requires [Maven][4] and the [Android SDK][5] must be installed in your development environment.
 In addition you will need to set the `ANDROID_HOME` environment variable to the location of your SDK:
 
-    export ANDROID_HOME=/home/user/tools/android-sdk
+    `export ANDROID_HOME=/home/user/tools/android-sdk`
 
 * You must also install the latest support-v4 library in you Maven repository
 
-    cd ${ANDROID_HOME}/extras/android/support/v4
-    mvn install:install-file -Dfile=./android-support-v4.jar -DgroupId=com.google.android -DartifactId=support-v4 -Dversion=r11 -Dpackaging=jar
+    `cd ${ANDROID_HOME}/extras/android/support/v4`
+    `mvn install:install-file -Dfile=./android-support-v4.jar -DgroupId=com.google.android -DartifactId=support-v4 -Dversion=r12 -Dpackaging=jar`
 
 
 ### Building with Maven only

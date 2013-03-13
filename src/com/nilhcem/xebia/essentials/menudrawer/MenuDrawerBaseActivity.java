@@ -1,9 +1,7 @@
 package com.nilhcem.xebia.essentials.menudrawer;
 
-import net.simonvt.widget.MenuDrawer;
-import net.simonvt.widget.MenuDrawerManager;
+import net.simonvt.menudrawer.MenuDrawer;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -16,15 +14,17 @@ import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.nilhcem.xebia.essentials.R;
-import com.nilhcem.xebia.essentials.core.*;
+import com.nilhcem.xebia.essentials.core.BaseActivity;
+import com.nilhcem.xebia.essentials.core.Compatibility;
 import com.nilhcem.xebia.essentials.core.model.Category;
 import com.nilhcem.xebia.essentials.qrcode.QRCodeScanner;
 
 @EActivity
 public abstract class MenuDrawerBaseActivity extends BaseActivity {
-	private static final String EXTRA_STATE_MENUDRAWER = "MenuDrawerBaseActivity:stateMenuDrawer";
+	private static final int DRAWER_MAX_SIZE_DP = 320;
+	private static final int DRAWER_MARGIN_DP = 10;
 
-	private MenuDrawerManager mMenuDrawer;
+	private MenuDrawer mMenuDrawer;
 	private ListView mCategoriesListView;
 
 	@Bean
@@ -38,18 +38,6 @@ public abstract class MenuDrawerBaseActivity extends BaseActivity {
 		// This override is only needed when using MENU_DRAG_CONTENT.
 		mMenuDrawer.setContentView(layoutResID);
 		onContentChanged();
-	}
-
-	@Override
-	protected void onRestoreInstanceState(Bundle savedInstanceState) {
-		super.onRestoreInstanceState(savedInstanceState);
-		mMenuDrawer.onRestoreDrawerState(savedInstanceState.getParcelable(EXTRA_STATE_MENUDRAWER));
-	}
-
-	@Override
-	protected void onSaveInstanceState(Bundle outState) {
-		super.onSaveInstanceState(outState);
-		outState.putParcelable(EXTRA_STATE_MENUDRAWER, mMenuDrawer.onSaveDrawerState());
 	}
 
 	@AfterInject
@@ -72,9 +60,17 @@ public abstract class MenuDrawerBaseActivity extends BaseActivity {
 
 	@AfterInject
 	protected void initMenuDrawer() {
-		mMenuDrawer = new MenuDrawerManager(this, MenuDrawer.MENU_DRAG_CONTENT);
+		mMenuDrawer = MenuDrawer.attach(this, MenuDrawer.MENU_DRAG_CONTENT);
 		mMenuDrawer.setMenuView(R.layout.menudrawer);
-		mMenuDrawer.getMenuDrawer().setOffsetMenuEnabled(false);
+		mMenuDrawer.setOffsetMenuEnabled(false);
+
+		// Set drawer's size
+		int marginSize = Math.round(Compatibility.convertDpToPixel(DRAWER_MARGIN_DP, this));
+		int maxDrawerSize = Math.round(Compatibility.convertDpToPixel(DRAWER_MAX_SIZE_DP, this));
+		int screenWidth = Compatibility.getScreenDimensions(this).x;
+		if (screenWidth > (maxDrawerSize + marginSize)) {
+			mMenuDrawer.setMenuSize(maxDrawerSize);
+		}
 	}
 
 	@AfterViews
