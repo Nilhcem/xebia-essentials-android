@@ -15,7 +15,8 @@ import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.nilhcem.xebia.essentials.R;
-import com.nilhcem.xebia.essentials.core.*;
+import com.nilhcem.xebia.essentials.core.BaseActivity;
+import com.nilhcem.xebia.essentials.core.Compatibility;
 import com.nilhcem.xebia.essentials.core.model.Category;
 import com.nilhcem.xebia.essentials.qrcode.QRCodeScanner;
 
@@ -78,6 +79,7 @@ public abstract class MenuDrawerBaseActivity extends BaseActivity implements OnD
 	protected void initMenuDrawerList() {
 		mCategoriesListView = (ListView) findViewById(R.id.menudrawerCategoriesList);
 		mCategoriesListView.setAdapter(mCategoriesListAdapter);
+		onDrawerStateChange(MenuDrawer.STATE_CLOSED, MenuDrawer.STATE_CLOSED);
 
 		mCategoriesListView.setOnItemClickListener(new OnItemClickListener() {
 			@Override
