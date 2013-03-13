@@ -1,6 +1,7 @@
 package com.nilhcem.xebia.essentials.menudrawer;
 
 import net.simonvt.menudrawer.MenuDrawer;
+import net.simonvt.menudrawer.MenuDrawer.OnDrawerStateChangeListener;
 import android.content.Intent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -14,13 +15,12 @@ import com.googlecode.androidannotations.annotations.AfterViews;
 import com.googlecode.androidannotations.annotations.Bean;
 import com.googlecode.androidannotations.annotations.EActivity;
 import com.nilhcem.xebia.essentials.R;
-import com.nilhcem.xebia.essentials.core.BaseActivity;
-import com.nilhcem.xebia.essentials.core.Compatibility;
+import com.nilhcem.xebia.essentials.core.*;
 import com.nilhcem.xebia.essentials.core.model.Category;
 import com.nilhcem.xebia.essentials.qrcode.QRCodeScanner;
 
 @EActivity
-public abstract class MenuDrawerBaseActivity extends BaseActivity {
+public abstract class MenuDrawerBaseActivity extends BaseActivity implements OnDrawerStateChangeListener {
 	private static final int DRAWER_MAX_SIZE_DP = 320;
 	private static final int DRAWER_MARGIN_DP = 10;
 
@@ -63,6 +63,7 @@ public abstract class MenuDrawerBaseActivity extends BaseActivity {
 		mMenuDrawer = MenuDrawer.attach(this, MenuDrawer.MENU_DRAG_CONTENT);
 		mMenuDrawer.setMenuView(R.layout.menudrawer);
 		mMenuDrawer.setOffsetMenuEnabled(false);
+		mMenuDrawer.setOnDrawerStateChangeListener(this);
 
 		// Set drawer's size
 		int marginSize = Math.round(Compatibility.convertDpToPixel(DRAWER_MARGIN_DP, this));
@@ -115,6 +116,19 @@ public abstract class MenuDrawerBaseActivity extends BaseActivity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+	@Override
+	public void onDrawerStateChange(int oldState, int newState) {
+		int visibility;
+
+		// Hide the drawer content when closed, to improve navigation on non-touchscreen devices
+		if (newState == MenuDrawer.STATE_CLOSED) {
+			visibility = View.GONE;
+		} else {
+			visibility = View.VISIBLE;
+		}
+		mCategoriesListView.setVisibility(visibility);
 	}
 
 	protected boolean isMenuDrawerClosedOrClosing() {
