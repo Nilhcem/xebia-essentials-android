@@ -57,7 +57,7 @@ After satisfying those requirements, the build is pretty simple:
 * Download [SimonVT's android-menudrawer][7] and import it to your Eclipse workspace using `File > Import > Existing Maven Projects`
 * Import Xebia-essentials to your Eclipse workspace the same way (`File > Import > Existing Maven Projects`)
 * Right click on xebia-essentials > `Properties > Android` and add actionbarsherlock + android-menudrawer library references
-* If you have many error (`Class_ cannot be resolved to a type`), right click on xebia-essentials > `Properties > Java Compiler > Annotation Processing`. Untick "Enable project specific settings", click on apply, and tick again. Select yes when eclipse will ask you to rebuild the project
+* If you have many error (`Class_ cannot be resolved to a type`), right click on xebia-essentials > `Properties > Java Compiler > Annotation Processing`. Untick "Enable project specific settings", click on apply, and tick again. Select yes when eclipse asks you to rebuild the project
 * Then refresh, clean, and rebuild all projects.
 
 
