@@ -10,6 +10,7 @@ import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.preference.PreferenceManager;
 import android.text.Html;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
@@ -185,11 +186,16 @@ public class CardsFlipFragment extends AbstractCardFragment {
 
 	@Background
 	protected void generateQrCode(int size) {
-		int qrCodeSize = size * 3; // otherwise QR code is too small
-		String toConvert = String.format(Locale.US, "%s%s", mBitlyPrefix, mCard.getBitly());
-		Bitmap qrCode = mQRCodeGenerator.generate(toConvert, qrCodeSize);
-		if (qrCode != null) {
-			setQrCode(qrCode);
+		if (TextUtils.isEmpty(mCard.getBitly())) {
+			mQrCodeLayout.setVisibility(View.GONE);
+		} else {
+			int qrCodeSize = size * 3; // otherwise QR code is too small
+			String toConvert = String.format(Locale.US, "%s%s", mBitlyPrefix, mCard.getBitly());
+			Bitmap qrCode = mQRCodeGenerator.generate(toConvert, qrCodeSize);
+			if (qrCode != null) {
+				setQrCode(qrCode);
+			}
+			mQrCodeLayout.setVisibility(View.VISIBLE);
 		}
 	}
 
