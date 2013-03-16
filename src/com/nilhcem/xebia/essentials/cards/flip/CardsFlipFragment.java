@@ -70,6 +70,9 @@ public class CardsFlipFragment extends AbstractCardFragment {
 	@ViewById(R.id.cardsFlipSummary)
 	protected TextView mSummary;
 
+	@ViewById(R.id.cardsFlipPrefix)
+	protected TextView mUrlPrefix;
+
 	@ViewById(R.id.cardsFlipUrl)
 	protected TextView mUrl;
 
@@ -153,7 +156,14 @@ public class CardsFlipFragment extends AbstractCardFragment {
 		}
 
 		mTitle.setText(mCard.getTitle());
-		mUrl.setText(mCard.getUrl());
+
+		if (TextUtils.isEmpty(mCard.getUrl())) {
+			mUrlPrefix.setVisibility(View.GONE);
+		} else {
+			mUrlPrefix.setVisibility(View.VISIBLE);
+			mUrl.setText(mCard.getUrl());
+		}
+
 		String summary = mCard.getSummary();
 		if (summary == null) {
 			summary = "";

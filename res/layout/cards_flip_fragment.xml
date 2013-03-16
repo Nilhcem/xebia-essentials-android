@@ -45,6 +45,7 @@
 
         <!-- Card prefix URL -->
         <TextView
+            android:id="@+id/cardsFlipPrefix"
             style="@style/CardsFlipUrl"
             android:layout_above="@+id/cardsFlipUrl"
             android:layout_alignLeft="@+id/cardsFlipUrl"
