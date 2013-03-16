@@ -1,6 +1,7 @@
 package com.nilhcem.xebia.essentials.cards.html;
 
 import android.text.Html;
+import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -37,7 +38,16 @@ public class CardsHtmlFragment extends AbstractCardFragment {
 		}
 
 		mTitle.setText(mCard.getTitle());
-		mContent.setText(Html.fromHtml(mCard.getContent()));
+
+		String content = mCard.getContent();
+		if (TextUtils.isEmpty(content)) {
+			content = mCard.getSummary();
+		}
+		if (content == null) {
+			content = "";
+		}
+
+		mContent.setText(Html.fromHtml(content));
 		mContent.setMovementMethod(LinkMovementMethod.getInstance()); // make links clickable
 	}
 }
