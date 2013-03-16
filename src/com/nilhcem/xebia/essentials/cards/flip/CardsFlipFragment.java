@@ -153,6 +153,10 @@ public class CardsFlipFragment extends AbstractCardFragment {
 
 		mTitle.setText(mCard.getTitle());
 		mUrl.setText(mCard.getUrl());
+		String summary = mCard.getSummary();
+		if (summary == null) {
+			summary = "";
+		}
 		mSummary.setText(Html.fromHtml(mCard.getSummary()));
 
 		// Set QR code size - Adjust depending on screen size
