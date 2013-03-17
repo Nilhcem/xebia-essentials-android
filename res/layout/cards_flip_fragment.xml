@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ViewFlipper xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cardsFlipViewFlipper"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
@@ -8,7 +9,8 @@
     android:addStatesFromChildren="true"
     android:background="@color/cards_flip_bg"
     android:focusable="true"
-    android:gravity="center" >
+    android:gravity="center"
+    tools:ignore="Overdraw" >
 
     <!-- Card - first side -->
     <RelativeLayout
@@ -18,7 +20,8 @@
         <!-- Category title -->
         <TextView
             android:id="@+id/cardsFlipCategory1"
-            style="@style/CardsFlipCategoryTitle" />
+            style="@style/CardsFlipCategoryTitle"
+            android:textIsSelectable="false" />
 
         <!-- Category divider -->
         <View
@@ -40,7 +43,8 @@
                 android:id="@+id/cardsFlipTitle"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textIsSelectable="true" />
         </ScrollView>
 
         <!-- Card prefix URL -->
@@ -56,7 +60,8 @@
             android:id="@+id/cardsFlipUrl"
             style="@style/CardsFlipUrl"
             android:layout_above="@+id/cardsFlipDivider2"
-            android:layout_alignLeft="@+id/cardsFlipDivider2" />
+            android:layout_alignLeft="@+id/cardsFlipDivider2"
+            android:textIsSelectable="false" />
 
         <!-- Url divider -->
         <View
@@ -98,7 +103,8 @@
         <!-- Category title -->
         <TextView
             android:id="@+id/cardsFlipCategory2"
-            style="@style/CardsFlipCategoryTitle" />
+            style="@style/CardsFlipCategoryTitle"
+            android:textIsSelectable="false" />
 
         <!-- Top divider -->
         <View
@@ -120,8 +126,10 @@
                 android:id="@+id/cardsFlipSummary"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:autoLink="all"
                 android:paddingTop="4dp"
-                android:textColor="@color/white" />
+                android:textColor="@color/white"
+                android:textIsSelectable="true" />
         </ScrollView>
 
         <!-- Bottom divider -->

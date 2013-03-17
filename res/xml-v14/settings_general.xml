@@ -7,7 +7,7 @@
         <!-- Enable cards flip animation -->
         <SwitchPreference
             android:defaultValue="true"
-            android:icon="@drawable/photos"
+            android:icon="@drawable/settings_photos"
             android:key="cards_animation"
             android:title="@string/settings_cards_animation" />
     </PreferenceCategory>

@@ -6,25 +6,25 @@
 
         <!-- About Xebia -->
         <Preference
-            android:icon="@drawable/group"
+            android:icon="@drawable/settings_group"
             android:key="xebia"
             android:title="@string/settings_xebia" />
 
         <!-- About the cards -->
         <Preference
-            android:icon="@drawable/shoebox"
+            android:icon="@drawable/settings_shoebox"
             android:key="cards"
             android:title="@string/settings_cards" />
 
         <!-- Licenses -->
         <Preference
-            android:icon="@drawable/notepad"
+            android:icon="@drawable/settings_notepad"
             android:key="licenses"
             android:title="@string/settings_licenses" />
 
         <!-- GitHub -->
         <Preference
-            android:icon="@drawable/wrench"
+            android:icon="@drawable/settings_wrench"
             android:key="github"
             android:title="@string/settings_github" />
     </PreferenceCategory>

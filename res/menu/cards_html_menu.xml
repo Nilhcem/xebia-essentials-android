@@ -21,6 +21,6 @@
         android:actionProviderClass="com.actionbarsherlock.widget.ShareActionProvider"
         android:icon="@android:drawable/ic_menu_share"
         android:showAsAction="ifRoom"
-        android:title="share" />
+        android:title="@string/menu_share" />
 
 </menu>

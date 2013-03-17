@@ -21,6 +21,7 @@
         android:paddingLeft="6dp"
         android:paddingTop="16dp"
         android:singleLine="true"
+        android:textIsSelectable="false"
         android:textSize="18sp" />
 
 </LinearLayout>

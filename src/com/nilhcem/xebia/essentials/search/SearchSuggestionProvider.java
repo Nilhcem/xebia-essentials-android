@@ -3,6 +3,7 @@ package com.nilhcem.xebia.essentials.search;
 import java.sql.SQLException;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.app.SearchManager;
 import android.content.ContentProvider;
 import android.content.ContentValues;
@@ -20,6 +21,7 @@ import com.nilhcem.xebia.essentials.core.DatabaseHelper;
 import com.nilhcem.xebia.essentials.core.dao.CardDao;
 import com.nilhcem.xebia.essentials.core.model.Card;
 
+@SuppressLint("Registered")
 @EProvider
 public class SearchSuggestionProvider extends ContentProvider {
 	private static final String TAG = "SearchProvider";

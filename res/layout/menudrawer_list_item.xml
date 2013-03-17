@@ -26,6 +26,7 @@
         android:layout_centerVertical="true"
         android:layout_toRightOf="@+id/menudrawerItemIcon"
         android:textColor="?android:attr/textColorPrimaryInverse"
+        android:textIsSelectable="false"
         android:textSize="18sp" />
 
 </RelativeLayout>

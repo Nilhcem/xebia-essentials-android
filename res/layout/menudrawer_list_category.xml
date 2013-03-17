@@ -13,6 +13,7 @@
         android:paddingLeft="16dp"
         android:singleLine="true"
         android:textColor="?android:attr/textColorSecondaryInverse"
+        android:textIsSelectable="false"
         android:textSize="14sp"
         android:textStyle="bold" />
 

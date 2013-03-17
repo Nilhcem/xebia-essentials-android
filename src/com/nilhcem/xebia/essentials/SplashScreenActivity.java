@@ -7,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.SearchManager;
 import android.content.Intent;
@@ -34,6 +35,7 @@ import com.nilhcem.xebia.essentials.qrcode.QRCodeScanner;
 import com.nilhcem.xebia.essentials.xml.XmlData;
 import com.nilhcem.xebia.essentials.xml.XmlParser;
 
+@SuppressLint("Registered")
 @EActivity(R.layout.splash_screen)
 public class SplashScreenActivity extends Activity {
 	private static final String TAG = "SplashScreenActivity";

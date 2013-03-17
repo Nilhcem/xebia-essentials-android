@@ -16,7 +16,7 @@
      limitations under the License.
 -->
 
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="Theme.xebia" parent="@style/Theme.Sherlock.Light.DarkActionBar">
         <item name="actionBarItemBackground">@drawable/selectable_background_xebia</item>
@@ -26,17 +26,17 @@
         <item name="actionDropDownStyle">@style/xebia_DropDownNav</item>
         <item name="actionBarStyle">@style/xebia_solid_ActionBar</item>
 
-        <item name="android:actionBarItemBackground">@drawable/selectable_background_xebia</item>
-        <item name="android:popupMenuStyle">@style/xebia_PopupMenu</item>
+        <item name="android:actionBarItemBackground" tools:targetApi="14">@drawable/selectable_background_xebia</item>
+        <item name="android:popupMenuStyle" tools:targetApi="11">@style/xebia_PopupMenu</item>
         <item name="android:dropDownListViewStyle">@style/xebia_DropDownListView</item>
-        <item name="android:actionBarTabStyle">@style/xebia_ActionBarTabStyle</item>
-        <item name="android:actionDropDownStyle">@style/xebia_DropDownNav</item>
-        <item name="android:actionBarStyle">@style/xebia_solid_ActionBar</item>
+        <item name="android:actionBarTabStyle" tools:targetApi="11">@style/xebia_ActionBarTabStyle</item>
+        <item name="android:actionDropDownStyle" tools:targetApi="11">@style/xebia_DropDownNav</item>
+        <item name="android:actionBarStyle" tools:targetApi="11">@style/xebia_solid_ActionBar</item>
         <item name="android:panelBackground">@drawable/menu_hardkey_panel_xebia</item>
 
         <!-- Light.DarkActionBar specific -->
         <item name="actionBarWidgetTheme">@style/Theme.xebia.widget</item>
-        <item name="android:actionBarWidgetTheme">@style/Theme.xebia.widget</item>
+        <item name="android:actionBarWidgetTheme" tools:targetApi="14">@style/Theme.xebia.widget</item>
     </style>
 
     <style name="xebia_solid_ActionBar" parent="@style/Widget.Sherlock.Light.ActionBar.Solid.Inverse">
@@ -46,8 +46,8 @@
         <item name="progressBarStyle">@style/xebia_ProgressBar</item>
 
         <item name="android:background">@drawable/ab_solid_xebia</item>
-        <item name="android:backgroundStacked">@drawable/ab_stacked_solid_xebia</item>
-        <item name="android:backgroundSplit">@drawable/ab_bottom_solid_xebia</item>
+        <item name="android:backgroundStacked" tools:targetApi="14">@drawable/ab_stacked_solid_xebia</item>
+        <item name="android:backgroundSplit" tools:targetApi="14">@drawable/ab_bottom_solid_xebia</item>
         <item name="android:progressBarStyle">@style/xebia_ProgressBar</item>
     </style>
 
@@ -90,7 +90,7 @@
         <item name="popupMenuStyle">@style/xebia_PopupMenu</item>
         <item name="dropDownListViewStyle">@style/xebia_DropDownListView</item>
 
-        <item name="android:popupMenuStyle">@style/xebia_PopupMenu</item>
+        <item name="android:popupMenuStyle" tools:targetApi="11">@style/xebia_PopupMenu</item>
         <item name="android:dropDownListViewStyle">@style/xebia_DropDownListView</item>
     </style>
 

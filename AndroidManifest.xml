@@ -1,4 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.nilhcem.xebia.essentials"
     android:installLocation="preferExternal"
     android:versionCode="2"
@@ -42,6 +43,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.SEARCH" />
             </intent-filter>
+
             <meta-data
                 android:name="android.app.searchable"
                 android:resource="@xml/searchable" />
@@ -61,10 +63,12 @@
         <meta-data
             android:name="android.app.default_searchable"
             android:value=".SplashScreenActivity_" />
+
         <provider
             android:name=".search.SearchSuggestionProvider_"
-            android:authorities="com.nilhcem.xebia.essentials.search.SearchSuggestionProvider_" />
-
+            android:authorities="com.nilhcem.xebia.essentials.search.SearchSuggestionProvider_"
+            android:exported="true"
+            tools:ignore="ExportedContentProvider" />
     </application>
 
 </manifest>
