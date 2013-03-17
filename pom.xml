@@ -5,7 +5,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.nilhcem.xebia.essentials</groupId>
 	<artifactId>xebia-essentials-android</artifactId>
-	<version>1.0.0-SNAPSHOT</version>
+	<version>1.1.0-SNAPSHOT</version>
 	<packaging>apk</packaging>
 	<name>Xebia Essentials</name>
 
