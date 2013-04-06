@@ -50,11 +50,11 @@ public class QRCodeScanner {
 		IntentResult scanResult = IntentIntegrator.parseActivityResult(
 				requestCode, resultCode, intent);
 		if (scanResult != null) {
-			Card card = null;
 			String content = scanResult.getContents();
 			if (!TextUtils.isEmpty(content)) {
 				Log.d(TAG, "QR code found: " + content);
 
+				Card card = null;
 				if (content.startsWith(mBitlyPrefix)) {
 					String bitly = content.substring(mBitlyPrefix.length());
 					card = mCardDao.getByBitly(bitly);
@@ -65,13 +65,13 @@ public class QRCodeScanner {
 						card = mCardDao.getByUrl(url);
 					}
 				}
-			}
 
-			if (card == null) {
-				Toast.makeText(activity, mNoCardFound, Toast.LENGTH_SHORT).show();
-			} else {
-				Intent cardIntent = createIntent(activity, card);
-				activity.startActivity(cardIntent);
+				if (card == null) {
+					Toast.makeText(activity, mNoCardFound, Toast.LENGTH_SHORT).show();
+				} else {
+					Intent cardIntent = createIntent(activity, card);
+					activity.startActivity(cardIntent);
+				}
 			}
 		}
 	}
