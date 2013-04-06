@@ -166,8 +166,16 @@ public class SplashScreenActivity extends Activity {
 					if (data != null) {
 						List<String> params = data.getPathSegments();
 						if (params != null && params.size() == 1) {
-							String cardUrl = params.get(0);
-							Card card = mCardDao.getByUrl(cardUrl);
+							Card card = null;
+							String intentData = params.get(0);
+							try {
+								// Search
+								Long cardId = Long.parseLong(intentData);
+								card = mCardDao.getById(cardId);
+							} catch (NumberFormatException e) {
+								// External QR code scanner
+								card = mCardDao.getByUrl(intentData);
+							}
 							if (card != null) {
 								cards = new ArrayList<Card>();
 								cards.add(card);

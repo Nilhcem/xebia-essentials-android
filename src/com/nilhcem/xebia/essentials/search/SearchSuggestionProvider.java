@@ -54,7 +54,7 @@ public class SearchSuggestionProvider extends ContentProvider {
 				mc.addRow(new Object[] {
 					card.getId(),
 					card.getTitle(),
-					card.getUrl()
+					card.getId()
 				});
 			}
 		}
