@@ -87,7 +87,7 @@ is listed in the [app's POM file][12]
 
 ## License
 
-    Copyright (c) 2012, Gautier <Nilhcem> MECHLING
+    Copyright (c) 2012-2013, Gautier <Nilhcem> MECHLING
     All rights reserved.
     
     Redistribution and use in source and binary forms, with or without modification, are permitted provided that the following conditions are met:
