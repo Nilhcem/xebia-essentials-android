@@ -33,13 +33,13 @@ Testing
 
 You can get the latest Robotium + Spoon test report here : [Web][5] - [TV][6]
 
-To run the tests, you can directly use:
+To run the tests, you can directly run:
 
 ```bash
 ./scripts/run-tests-spoon.sh
 ```
 
-To run monkey tests, use:
+To run monkey tests, launch:
 
 ```bash
 ./scripts/run-tests-monkey.sh
