@@ -1,47 +1,44 @@
-# Built application files
-*.apk
-*.ap_
+# temporary files
+*~
+\#*#
+tmp/
 
-# Files for the dex VM
+# build directory
+build/
+
+# output directory
+output/
+
+# android
+#*.apk
+*.ap_
 *.dex
 
-# Java class files
+# java
 *.class
-
-# Generated files
-bin/
-gen/
-
-# Maven output folder
-target/
 
 # Local configuration file (sdk path, etc)
 local.properties
 project.properties
 
-# Eclipse project files
+# eclipse project files
 .classpath
 .project
 .metadata
 .settings/
 .apt_generated/
+proguard/
 
-# IntelliJ files
-.idea
+# intelliJ IDEA
+.idea/
 *.iml
+*.iws
+*.ipr
+gen-external-apklibs/
 
-# OSX files
+# mac / windows
 .DS_Store
-
-# Windows files
 Thumbs.db
 
-# Vi swap files
-*.swp
-
-# Emacs temp / backup files
-*~
-\#*#
-
-# Backup files
-*.bak
+# gradle
+.gradle/

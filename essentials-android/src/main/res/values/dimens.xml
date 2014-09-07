@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Navigation drawer -->
+    <dimen name="menu_drawer">240dp</dimen>
+    <dimen name="menu_drawer_icon">26dp</dimen>
+
+    <!-- Card info -->
+    <dimen name="card_info_content">16sp</dimen>
+
+    <!-- Card flip -->
+    <dimen name="card_flip_title">30sp</dimen>
+    <dimen name="card_flip_summary">15sp</dimen>
+    <dimen name="card_flip_category">10sp</dimen>
+    <dimen name="card_flip_url">10sp</dimen>
+    <dimen name="card_flip_white_border">11dp</dimen>
+    <dimen name="card_flip_qrcode_size">64dp</dimen>
+</resources>

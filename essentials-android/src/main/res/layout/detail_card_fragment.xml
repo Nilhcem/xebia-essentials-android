@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
+
+    <!-- Card container (size is set programmatically) -->
+    <LinearLayout
+        android:id="@+id/detail_card_container"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        tools:background="@color/xebia_blue"
+        tools:layout_gravity="center"
+        tools:layout_height="240dp"
+        tools:layout_margin="20dp"
+        tools:layout_width="match_parent"
+        tools:paddingBottom="2dp"
+        tools:paddingLeft="6dp"
+        tools:paddingRight="6dp"
+        tools:paddingTop="2dp">
+
+        <!-- Category name -->
+        <TextView
+            android:id="@+id/detail_card_category"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="1dp"
+            android:includeFontPadding="false"
+            android:singleLine="true"
+            android:textColor="@color/xebia_white"
+            android:textIsSelectable="false"
+            android:textSize="@dimen/card_flip_category"
+            tools:text="Realisation"/>
+
+        <!-- Top divider -->
+        <View
+            android:id="@+id/detail_card_top_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/xebia_white"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingBottom="4dp"
+            android:paddingTop="4dp">
+
+            <!-- Front -->
+            <include
+                android:id="@+id/detail_card_front"
+                layout="@layout/detail_card_fragment_front"
+                android:visibility="visible"/>
+
+            <!-- Back -->
+            <include
+                android:id="@+id/detail_card_back"
+                layout="@layout/detail_card_fragment_back"
+                android:visibility="gone"/>
+        </FrameLayout>
+
+        <!-- Bottom divider -->
+        <View
+            android:id="@+id/detail_card_bottom_divider"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginBottom="12dp"
+            android:background="@color/xebia_white"/>
+
+    </LinearLayout>
+</FrameLayout>

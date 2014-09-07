@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingBottom="14dp"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="14dp">
+
+    <!-- Icon -->
+    <ImageView
+        android:id="@+id/drawer_entry_icon"
+        android:layout_width="@dimen/menu_drawer_icon"
+        android:layout_height="@dimen/menu_drawer_icon"
+        android:layout_gravity="center_vertical"
+        android:layout_marginRight="10dp"
+        android:contentDescription="@string/drawer_icon_desc"
+        tools:background="@drawable/ic_launcher"/>
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/drawer_entry_title"
+        fontPath="fonts/Roboto-Light.ttf"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:ellipsize="end"
+        android:gravity="center_vertical"
+        android:textColor="#404040"
+        android:textIsSelectable="false"
+        android:textSize="18sp"
+        tools:text="CATEGORIES"/>
+</LinearLayout>

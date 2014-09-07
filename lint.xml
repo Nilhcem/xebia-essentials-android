@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<lint>
-    <issue id="IconDensities" severity="ignore" />
-    <issue id="Registered">
-        <ignore path="src/com/nilhcem/xebia/essentials/SplashScreenActivity.java" />
-        <ignore path="src/com/nilhcem/xebia/essentials/search/SearchSuggestionProvider.java" />
-    </issue>
-</lint>

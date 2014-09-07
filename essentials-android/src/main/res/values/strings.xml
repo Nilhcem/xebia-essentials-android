@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Core -->
+    <string name="app_name">Xebia Essentials</string>
+
+    <!-- Navigation Drawer -->
+    <string name="drawer_open">Open navigation drawer</string>
+    <string name="drawer_close">Close navigation drawer</string>
+    <string name="drawer_header_categories">CATEGORIES</string>
+    <string name="drawer_header_other">OTHER</string>
+    <string name="drawer_section_all">All categories</string>
+    <string name="drawer_section_scan">Scan card</string>
+    <string name="drawer_section_search">Search</string>
+    <string name="drawer_section_about">About</string>
+    <string name="drawer_icon_desc">Icon</string>
+
+    <!-- ActionBar Menu -->
+    <string name="menu_see_card">" See card"</string>
+    <string name="menu_see_details">" See details"</string>
+    <string name="menu_random_card">" Random"</string>
+    <string name="menu_share">Share</string>
+
+    <!-- Intent (Card scanner - search) -->
+    <string name="intent_no_card_found">No card found</string>
+
+    <!-- Search -->
+    <string name="search_hint">Search card(s)</string>
+    <string name="search_label">@string/search_hint</string>
+
+    <!-- About -->
+    <string name="about_cards_title">GOOD SOFTWARE DOES NOT COME ABOUT JUST LIKE THAT; BY MERE COINCIDENCE…</string>
+    <string name="about_cards_content"><![CDATA[<p>Inside a streamlined and well-executed software development process, there are many patterns for success. Some of them extend well beyond what is traditionally considered to be the realm of the software developer. Inside our organization, many of these patterns were applied either consciously or subconsciously.</p><p>We felt the need to bring these patterns into the clear light of day for everyone\'s awareness. After months of gathering, slicing, dicing and eventual distilling with the team, we arrived in 2010 at what we considered to be the \'<b>Essentials</b>\'.</p><p>When we revised the deck for this second edition, we found that our initial selection has stood the test of time well. This new deck of cards expands on the previous, bringing the number of cards to 74.</p><p>In many cases it involves ideas, or expressions thereof, for which we cannot take credit ourselves. In those cases, we have strived to grant credit to the originators, being fully aware that greatness can only be achieved by standing on the shoulders of giants.</p><p>There is no single, prescribed way to use this deck. As Einstein said, \"<i>imagination is more important than knowledge</i>\", and thus we encourage you to rely on your imagination. At the very least, these cards are a promise for a conversation. These conversations are a breeding ground for new ideas. We are convinced it is many of these ideas that will further improve our craft.</p><p><i>If you have any questions, remarks or suggestions, feel free to send an email to: <a href=\"mailto:essentials@xebia.com\">essentials@xebia.com</a></p>]]></string>
+    <string name="about_get_title">GET THE CARDS</string>
+    <string name="about_get_content"><![CDATA[<p>If you\'d like the Xebia Essentials for your team, you can get your own deck of Essentials cards in the <a href=\"http://xebia.com/books/xebia-essentials\">Xebia store</a>, or on the <a href=\"http://blog.xebia.fr/xebia-essentials/\">French Xebia website</a></p>]]></string>
+    <string name="about_xebia_title">ABOUT XEBIA</string>
+    <string name="about_xebia_content"><![CDATA[<p>Xebia is a specialist in Agile, Software Development and Enterprise Architecture. Craftsmanship, our mission of being an authority in our fields of expertise and our company values – People First, Sharing Knowledge, Quality without Compromise and Customer Intimacy – are what makes us tick.</p><p>Xebia was founded in 2001 and has grown into a company of more than 350 employees in the Netherlands, France, India and the US, with a separate product company for deployment automation, XebiaLabs and our Big Data and Data Science company called Go Data Driven.</p><p>The secret of Xebia’s success lies in the dedicated, vigorous, smart and enthusiastic people that commit themselves to the company and its customers. These craftsmen and -women eagerly share their knowledge and work towards a common goal: Software Development Done Right. Xebia commits itself to support their ambitions in an inspiring working environment where there is boundless room for personal development.</p>]]></string>
+    <string name="about_xebia_logo_desc">Xebia: Software Development Done Right</string>
+
+    <!-- Detail -->
+    <string name="detail_qrcode_desc">QR code</string>
+    <string name="detail_logo_desc">Xebia logo</string>
+
+</resources>

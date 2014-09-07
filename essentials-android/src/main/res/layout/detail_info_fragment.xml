@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/xebia_white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- Title -->
+        <TextView
+            android:id="@+id/detail_info_title"
+            fontPath="fonts/Roboto-Light.ttf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp"
+            android:paddingLeft="18dp"
+            android:paddingRight="18dp"
+            android:paddingTop="26dp"
+            android:textColor="@color/xebia_white"
+            android:textIsSelectable="true"
+            android:textSize="36sp"
+            tools:background="@color/xebia_purple"
+            tools:text="No multitasking"/>
+
+        <!-- Category -->
+        <TextView
+            android:id="@+id/detail_info_category"
+            fontPath="fonts/Roboto-Bold.ttf"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:paddingBottom="4dp"
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textColor="@color/xebia_white"
+            android:textIsSelectable="true"
+            android:textSize="13sp"
+            tools:background="@color/xebia_purple"
+            tools:text="Craftsmanship"/>
+
+        <!-- Content -->
+        <TextView
+            android:id="@+id/detail_info_text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="14dp"
+            android:paddingRight="14dp"
+            android:paddingTop="14dp"
+            android:textColor="@color/xebia_dark"
+            android:textSize="@dimen/card_info_content"
+            tools:text="details\ndetails details details\ndetails details\ndetails details details"/>
+    </LinearLayout>
+</ScrollView>

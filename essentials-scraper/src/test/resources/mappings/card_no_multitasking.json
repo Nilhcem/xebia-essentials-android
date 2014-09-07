@@ -1,0 +1,13 @@
+{
+    "request": {
+        "method": "GET",
+        "url": "/no-multitasking/"
+    },
+    "response": {
+        "status": 200,
+        "headers": {
+            "Content-Type": "text/html"
+        },
+        "bodyFileName": "site/card_no_multitasking.html"
+    }
+}

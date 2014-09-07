@@ -1,0 +1,40 @@
+apply plugin: 'java'
+apply plugin: 'application'
+
+mainClassName = 'com.nilhcem.xebia.essentials.scraper.App'
+
+defaultTasks = ['scraper']
+
+task scraper(dependsOn: ['clean', 'test', 'jar', 'run'])
+
+// create a fat-jar
+jar {
+    baseName = 'scraper'
+    version = '0.1.0'
+
+    from {
+        configurations.compile.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+        configurations.runtime.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+
+    manifest {
+        attributes 'Main-Class': mainClassName
+    }
+}
+
+dependencies {
+    compile 'org.slf4j:slf4j-api:1.7.7'
+    compile 'ch.qos.logback:logback-classic:1.1.2'
+    compile 'com.google.inject:guice:3.0'
+    compile 'org.jsoup:jsoup:1.7.3'
+    compile 'org.simpleframework:simple-xml:2.7.1'
+
+    testCompile 'junit:junit:4.11'
+    testCompile 'org.easytesting:fest-assert:1.4'
+    testCompile 'org.mockito:mockito-all:1.9.5'
+    testCompile 'com.github.tomakehurst:wiremock:1.47:standalone'
+}

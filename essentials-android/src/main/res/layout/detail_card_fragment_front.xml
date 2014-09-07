@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:background="@color/xebia_blue">
+
+    <!-- Card title -->
+    <com.nilhcem.xebia.essentials.ui.widgets.AutoResizeTextView
+        android:id="@+id/detail_card_front_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/detail_card_front_qrcode"
+        android:layout_alignParentTop="true"
+        android:paddingLeft="4dp"
+        android:paddingRight="4dp"
+        android:textColor="@color/xebia_white"
+        android:textIsSelectable="false"
+        android:textSize="@dimen/card_flip_title"
+        tools:text="If something is too complex to understand, it must be wrong"/>
+
+    <!-- Card URL -->
+    <TextView
+        android:id="@+id/detail_card_front_url"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@+id/detail_card_front_qrcode"
+        android:includeFontPadding="false"
+        android:textColor="@color/xebia_white"
+        android:textIsSelectable="false"
+        android:textSize="@dimen/card_flip_url"
+        tools:text="http://essentials.xebia.com/poutma-principle"/>
+
+    <!-- QR code -->
+    <com.nilhcem.xebia.essentials.ui.cards.detail.card.DetailCardQrCodeView
+        android:id="@+id/detail_card_front_qrcode"
+        android:layout_width="@dimen/card_flip_qrcode_size"
+        android:layout_height="@dimen/card_flip_qrcode_size"
+        android:layout_alignBottom="@+id/detail_card_front_url"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="4dp"/>
+</RelativeLayout>

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Theme.Xebia" parent="@style/Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:actionBarStyle">@style/ActionBar.Solid.Xebia</item>
+    </style>
+
+    <style name="ActionBar.Solid.Xebia" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
+        <item name="android:background">@drawable/ab_solid_xebia</item>
+        <item name="android:titleTextStyle">@style/ActionBarTitle</item>
+    </style>
+</resources>

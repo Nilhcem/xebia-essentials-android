@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:background="@color/xebia_blue">
+
+    <!-- Card description -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/detail_card_back_logo"
+        android:fillViewport="true">
+
+        <TextView
+            android:id="@+id/detail_card_back_summary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:autoLink="all"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:paddingTop="4dp"
+            android:textColor="@color/xebia_white"
+            android:textIsSelectable="false"
+            android:textSize="@dimen/card_flip_summary"
+            tools:text="...and it's your job to prove it wrong.\nAlso known as the 'Poutsma Principle'."/>
+    </ScrollView>
+
+    <!-- Xebia logo -->
+    <ImageView
+        android:id="@+id/detail_card_back_logo"
+        android:layout_width="36dp"
+        android:layout_height="12dp"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:contentDescription="@string/detail_logo_desc"
+        android:src="@drawable/xebia_logo_small"/>
+</RelativeLayout>

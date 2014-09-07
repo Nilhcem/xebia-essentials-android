@@ -1,0 +1,11 @@
+apply plugin: 'sonar-runner'
+
+sonarRunner {
+    sonarProperties {
+        property 'sonar.projectVersion', appProject.android.defaultConfig.versionName
+
+        property 'sonar.dynamicAnalysis', 'reuseReports'
+        property 'sonar.core.codeCoveragePlugin', 'jacoco'
+        properties["sonar.sources"] = appProject.android.sourceSets.main.java.srcDirs
+    }
+}

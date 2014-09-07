@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent"
+             android:background="@color/xebia_white">
+
+    <ImageView
+        android:id="@+id/detail_card_front_qrcode_image"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/detail_qrcode_desc"
+        android:scaleType="fitXY"/>
+
+    <ProgressBar
+        android:id="@+id/detail_card_front_qrcode_loading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"/>
+</FrameLayout>

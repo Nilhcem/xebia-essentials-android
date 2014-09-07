@@ -1,0 +1,13 @@
+{
+    "request": {
+        "method": "GET",
+        "url": "/cards"
+    },
+    "response": {
+        "status": 200,
+        "headers": {
+            "Content-Type": "text/html"
+        },
+        "bodyFileName": "site/cards.html"
+    }
+}
