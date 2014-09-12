@@ -447,8 +447,7 @@ public String getFoo() {
 <br /> • Prioritize work to deal with the risks
 <br /> • Make it visible. Having a calendar on the wall that clearly highlights the risks and the moment in time we expected to have dealt with it might help.
 <br />
-<br />
-<h3>References</h3>]]></description>
+<br />]]></description>
          <category>4</category>
       </card>
       <card>
@@ -594,8 +593,7 @@ public class ExternalDisplay {
 <h3>Motivation</h3>
 <p>Having fun in work is a big deal when it comes to the creative process that is software engineering (or engineering in general). There will always be tasks that are less fun. Performing those tasks first will make you look forward to the fun tasks.</p>
 <h3>Applicability</h3>
-<p>This rule is applicable at work as well as in your private life.</p>
-<h3>References</h3>]]></description>
+<p>This rule is applicable at work as well as in your private life.</p>]]></description>
          <category>2</category>
       </card>
       <card>
@@ -730,7 +728,6 @@ public class ExternalDisplay {
 <h3>Motivation</h3>
 <p>We distinguish on the validity of the ideas, not on roles, authority or location.</p>
 <p>Every member of a team has special skills that add to the success of the project or product. Werther it be the analytical skills of the business analyst, the out of the box way of thinking of the tester or the tool knowledge of the programmer.</p>
-<h3>Application</h3>
 <h3>Consequences</h3>
 <p>Learn from each other. Respect each others opinions.</p>]]></description>
          <category>2</category>
@@ -749,9 +746,7 @@ public class ExternalDisplay {
 <p>Don't wait for a pile of warnings before you start cleaning up. The moment the warnings are seen, deal with them to ensure that they don't turn up into noise very soon.</p>
 <h3>Consequences</h3>
 <p>Warnings from the build are useful. To get the focus on to the warnings, it is essential to get rid of the noise. If the build has little or no noise, it is easy to spot a new warning easily.</p>
-<p>It is easier for someone to take over my work, if the build is clean. He doesn't have to scratch his head to figure out if the warning is to be ignored or fixed.</p>
-<h3>Samples</h3>
-<h3>References</h3>]]></description>
+<p>It is easier for someone to take over my work, if the build is clean. He doesn't have to scratch his head to figure out if the warning is to be ignored or fixed.</p>]]></description>
          <category>1</category>
       </card>
       <card>
@@ -857,7 +852,6 @@ public class ExternalDisplay {
 <br /> • Raphael: if neither Google nor Protovis support the kind of diagrams you want to generate, Raphael is your next best option.
 <br />
 <br />
-<h3>Samples</h3>
 <h3>References</h3> • The Back of a Napkin, Dan Roam
 <br /> • Gapminder,
 <a href="http://www.gapminder.org/">http://www.gapminder.org/</a>
@@ -1136,9 +1130,7 @@ public class ExternalDisplay {
 <h3>Application</h3>
 <p>Remove unused variables, methods etc., any code commented-out without an accompanying explanation (e.g. a temporary workaround for a blocking issue), any tests ignored without explanation and any outdated comments or documentation from your source code and update your SCM system. Also, remind your colleagues that these items should be removed.</p>
 <h3>Consequences</h3>
-<p>The HEAD of your project will reflect the current state of your code, not an arbitrary mix or current code any stuff hanging around because nobody is 100% sure whether it is in use or not.</p>
-<h3>Samples</h3>
-<h3>References</h3>]]></description>
+<p>The HEAD of your project will reflect the current state of your code, not an arbitrary mix or current code any stuff hanging around because nobody is 100% sure whether it is in use or not.</p>]]></description>
          <category>1</category>
       </card>
       <card>
@@ -1189,7 +1181,6 @@ public class ExternalDisplay {
 <br /> • increased use of non digital tooling (whiteboards, paper, gesturing, role play)
 <br />
 <br />
-<h3>Samples</h3>
 <h3>References</h3> •
 <a href="http://essentials.xebia.com/pair-programming">Pair Programming</a>
 <br /> •
@@ -1278,8 +1269,7 @@ public class ExternalDisplay {
 <h3>Consequences</h3>
 <p>A shared understanding of the design will help people understand the consequences of their actions. Not having a shared understanding of the design will quickly cause people to claim a certain portion of the code base they understand, which eventually will result in a fragmented code base without any conceptual integrity at all.</p>
 <p>Having design meetings of course is expensive. Having some preparation might help, but pictures drawn during the meeting normally have a longer lasting effect. And you should keep in mind that ideas captured during preparation might turn out to be invalid during the discussion.</p>
-<p>The advice is not to have design discussions during the stand-up, but perhaps right after it. Somebody should take the responsibility to make sure the results are captured on the wall.</p>
-<h3>References</h3>]]></description>
+<p>The advice is not to have design discussions during the stand-up, but perhaps right after it. Somebody should take the responsibility to make sure the results are captured on the wall.</p>]]></description>
          <category>3</category>
       </card>
       <card>
@@ -1296,7 +1286,6 @@ public class ExternalDisplay {
 <h3>Consequences</h3>
 <p>If you have a broken build (and certainly if you were responsible for it breaking!) you should feel bad if you're working on anything other than fixing it. If your team starts ignoring build failure notifications - or even starts setting up mail filters for them! - consider if the build setup is still relevant to your project's needs. For instance, there's no point in having a quality build that fails continuously because it is verifying style rules the team is no longer using.</p>
 <p>If your failing build(s) are still relevant to your project and the team is ignoring them anyway, raise the alarm.</p>
-<h3>Samples</h3>
 <h3>References</h3>
 <p>There are also a number of &quot;build league tables&quot; and other plugins for many continuous build tools that can make keeping the build green a bit more fun and exciting.</p>]]></description>
          <category>2</category>
@@ -1312,9 +1301,7 @@ public class ExternalDisplay {
 <h3>Application</h3>
 <p>Question yourself before you leave a context if the methods/functions are not too complex or too scattered.</p>
 <h3>Consequences</h3>
-<p>You should see more consistent method sizes and more readable code after you've applied this as a team for a while.</p>
-<h3>Samples</h3>
-<h3>References</h3>]]></description>
+<p>You should see more consistent method sizes and more readable code after you've applied this as a team for a while.</p>]]></description>
          <category>3</category>
       </card>
       <card>
@@ -1346,8 +1333,7 @@ public class ExternalDisplay {
       <card>
          <title>Take time to tackle tech debt</title>
          <url>time-for-tech-debt</url>
-         <description><![CDATA[<p>Also known as</p>
-<h3>Motivation</h3>
+         <description><![CDATA[<h3>Motivation</h3>
 <p>If you can't make time to tackle tech debt it will just keep on growing, and once the ball of mud is big enough, nobody can move anymore.</p>
 <h3>Applicability</h3>
 <p>Most teams have quite a good idea of how much tech debt they are accumulating in their code. But since it can be hard to convince some Product Owners of the need to work on such &quot;purely technical&quot; issues that do not deliver any features, and there is always one more workaround one can apply, it often accumulates.</p>
@@ -1358,7 +1344,6 @@ public class ExternalDisplay {
 <p>Otherwise, a Product Owner will never see the strangling influence of tech debt on the team's ability to deliver features.</p>
 <h3>Consequences</h3>
 <p>With luck, you should arrive at a situation where tech debt is monitored and kept within levels that are deemed manageable within the context of your project - levels that have been agreed by the team and the PO.</p>
-<h3>Samples</h3>
 <h3>References</h3> •
 <a href="http://essentials.xebia.com/dare-to-say-no">Dare To Say No</a>
 <br />
@@ -1368,7 +1353,7 @@ public class ExternalDisplay {
       <card>
          <title>Test Driven Development shapes design</title>
          <url>tdd-shapes-design</url>
-         <description><![CDATA[<p>Also known as</p>
+         <description><![CDATA[<h3>Also known as</h3>
 <p>Red-Green-Refactor.</p>
 <h3>Motivation</h3>
 <p>There are many ways to start a software project. Why not start with requirements. No, we're not back in the 80's!</p>
@@ -1384,7 +1369,6 @@ public class ExternalDisplay {
 <p>There are a few corner cases where this approach is less applicable: when you're learning yourself a new library, for example. In those cases you have no idea how the library behaves and you're basically just testing the library.</p>
 <h3>Consequences</h3>
 <p>You'll find out that you have to write less tests and code in general. Since all you're implementing are the features that you describe in your test cases, the code is as good as the test cases. Therefore it's important to have clear, readable tests. Nothing is more confusing than a test whose intention is unclear.</p>
-<h3>Samples</h3>
 <h3>References</h3>
 <p><a href="http://www.amazon.com/Growing-Object-Oriented-Software-Guided-Tests/dp/0321503627/">Freeman, Price: Growing Object-Oriented Software, Guided by Tests</a></p>]]></description>
          <category>4</category>
@@ -1398,9 +1382,7 @@ public class ExternalDisplay {
       <card>
          <title>Tests are Specifications</title>
          <url>tests-are-specs</url>
-         <description><![CDATA[<h3>Also known as</h3>
-<p>Tests are Specifications</p>
-<h3>Motivation</h3>
+         <description><![CDATA[<h3>Motivation</h3>
 <p>A good test describes a certain aspect of your system on a functional level. In this sense, a test is not much different from a specification. While traditionally specifications have been written up-front and tests afterwards, this trend has changed.</p>
 <p>A <a href="http://essentials.xebia.com/acceptance-criteria">specification written at the beginning of a project</a> needs to be continuously maintained to stay relevant in rapidly-changing environments - and today, all environments change rapidly. As such, the specification has become a living part of the product, just like production code and tests.</p>
 <p>Conversely, with software being developed and deployed iteratively, tests are written earlier in the process, sometimes <a href="http://essentials.xebia.com/definition-of-ready">before the actual features are implemented</a>. This is a good thing.</p>
@@ -1417,8 +1399,7 @@ public class ExternalDisplay {
       <card>
          <title>Tests should be fast, reliable and independent</title>
          <url>independent-tests</url>
-         <description><![CDATA[<p>Tests should be fast, reliable and independent</p>
-<h3>Also known as</h3>
+         <description><![CDATA[<h3>Also known as</h3>
 <p>Listen to your tests.</p>
 <h3>Motivation</h3>
 <p>Make sure tests run independent and do not rely on external factors in order to succeed. In doing so, tests can be executed in isolation (for example with a debugger) as well as in sets. You're also relying less on the execution engine, which can be considered a good thing.</p>
@@ -1442,7 +1423,6 @@ public class ExternalDisplay {
 <p>Start with this when writing your code. Start with a test, TDD style: describe what an entity should do. Implement it and describe the next feature. Keep a piece of paper next to you to write down notes while implementing. In doing so, you drive the code through tests. Tests are the most concrete way to describe a piece of functionality: since they're written in a programming language, they can only be interpreted in one way. No ambiguity.</p>
 <h3>Consequences</h3>
 <p>You wouldn't believe what proper tests can do to code.</p>
-<h3>Samples</h3>
 <h3>References</h3> •
 <a href="http://essentials.xebia.com/tdd-shapes-design">TDD Shapes Design</a>
 <br />
@@ -1495,9 +1475,7 @@ public class ExternalDisplay {
 <p>Identify the first step towards the solution to the problem. Put a fixed amount of time to be invested for the first step. At the end of that time frame, revisit the problem with the experience you have gained and decide the next step.</p>
 <p>The fixed amount of time should not be too large. Try not to have it longer than two weeks.</p>
 <h3>Consequences</h3>
-<p>This kind of approach helps you to get started with tasks whose solutions are not known upfront. It prevents us from shooting in the dark for large periods of time. It is one of the approaches to fail-fast.</p>
-<h3>Samples</h3>
-<h3>References</h3>]]></description>
+<p>This kind of approach helps you to get started with tasks whose solutions are not known upfront. It prevents us from shooting in the dark for large periods of time. It is one of the approaches to fail-fast.</p>]]></description>
          <category>2</category>
       </card>
       <card>
@@ -1510,8 +1488,7 @@ public class ExternalDisplay {
 <h3>Application</h3>
 <p>The simplest way to track if tests are executed, is by creating a test-task for every user story. Testing should be done by, or in cooperation with, people who focus on functionality. They can either be functional testers or domain experts, such as the product owners or business analysts.</p>
 <p>To ensure that testing doesn't become a bottleneck in your process, testing should have focus throughout the sprint.</p>
-<p>In order to prevent testing results in a mini-waterfall (with testing right at the end of every sprint), testing must be done in advance, as part of the definition of ready for a user story. When modeling the acceptance criteria in executable specifications, these can be referenced by the developers and used for Acceptance Test Driven Development. The modeling of the test automation should be done in collaboration between testers and developers. This collaboration results in shared understanding of the functionality and it ensures user stories get extra attention on testability and completeness, before development starts. During the development phase the initial tests (that have been created upfront) can be extended with variations and corner cases. This approach results in the shortest possible feedback cycle and as an additional advantage it boosts communication between team members and stakeholders, but most important it results in fully tested user stories, within the sprint.</p>
-<h3>References</h3>]]></description>
+<p>In order to prevent testing results in a mini-waterfall (with testing right at the end of every sprint), testing must be done in advance, as part of the definition of ready for a user story. When modeling the acceptance criteria in executable specifications, these can be referenced by the developers and used for Acceptance Test Driven Development. The modeling of the test automation should be done in collaboration between testers and developers. This collaboration results in shared understanding of the functionality and it ensures user stories get extra attention on testability and completeness, before development starts. During the development phase the initial tests (that have been created upfront) can be extended with variations and corner cases. This approach results in the shortest possible feedback cycle and as an additional advantage it boosts communication between team members and stakeholders, but most important it results in fully tested user stories, within the sprint.</p>]]></description>
          <category>4</category>
       </card>
       <card>
@@ -1560,7 +1537,7 @@ public class ExternalDisplay {
       <card>
          <title>Write code that humans can easily understand</title>
          <url>readable-code</url>
-         <description><![CDATA[<p>Also known as</p>
+         <description><![CDATA[<h3>Also known as</h3>
 <p>Beautiful code is simple code that humans can understand easily.</p>
 <h3>Motivation</h3>
 <p>We want to keep our systems maintainable over time, with clean, simple, testable code, keeping the speed of development high throughout the lifetime of the system.</p>
@@ -1576,7 +1553,6 @@ public class ExternalDisplay {
 <p>Writing a simple readable code forces you to think straight in terms of overall design and the flow of the code.</p>
 <p>People will form opinions about you based on the code that they see. If those opinions are constantly negative, you will get less from your career than you hoped. Take care of your career, of your clients, and of your users with every line of code.</p>
 <p>The overall speed of the development of the project gradually increases if everyone starts caring about the code.</p>
-<h3>Samples</h3>
 <h3>References</h3>
 <p>Any fool can write code that a computer can understand. Good programmers write code that humans can understand. - <a href="http://www.softwarequotes.com/showquotes.aspx?id=573&amp;name=Fowler,Martin">Martin Fowler</a>, Refactoring: Improving the Design of Existing Code by Martin Fowler, Kent Beck (Contributor), John Brant (Contributor), William Opdyke, don Roberts, ISBN: 0201485672</p>
 <p>Beauty of style and harmony and grace and good rhythm depends on simplicity. — Plato</p>
@@ -1618,7 +1594,6 @@ public class ExternalDisplay {
 <p>Often development teams are totally unaware on how their software behaves in production and what the effect is on the end users. All problems are experienced by the operations department and any complaints are handled by first and second line support. The pain of low quality software is not felt by the developers.</p>
 <h3>Application</h3>
 <p>Create autonomous systems and build multidisciplinary teams around them that are responsible for the system in production.</p>
-<h3>Consequences</h3>
 <h3>References</h3>
 <p>The principle &quot;you build it, you run it&quot;. was used by Werner Vogels to explain the organisation of the development teams at Amazon.</p>]]></description>
          <category>2</category>
