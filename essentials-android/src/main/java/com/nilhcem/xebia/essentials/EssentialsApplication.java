@@ -42,7 +42,7 @@ public class EssentialsApplication extends Application {
     @DebugLog
     private void importData() {
         // We should definitively review this someday.
-        // Too much work there is clearly bad, but is a splash screen better?
+        // Too much work there is clearly bad, but a splash screen is not a good solution either
         mObjectGraph.get(JsonDataImporter.class).initialize();
     }
 
