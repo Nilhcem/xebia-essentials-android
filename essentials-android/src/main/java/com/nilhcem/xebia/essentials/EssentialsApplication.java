@@ -4,7 +4,7 @@ import android.app.Application;
 import android.content.Context;
 
 import com.activeandroid.ActiveAndroid;
-import com.nilhcem.xebia.essentials.core.data.importer.XmlDataImporter;
+import com.nilhcem.xebia.essentials.core.data.importer.JsonDataImporter;
 import com.nilhcem.xebia.essentials.core.logging.ReleaseLogTree;
 
 import dagger.ObjectGraph;
@@ -43,7 +43,7 @@ public class EssentialsApplication extends Application {
     private void importData() {
         // We should definitively review this someday.
         // Too much work there is clearly bad, but is a splash screen better?
-        mObjectGraph.get(XmlDataImporter.class).initialize();
+        mObjectGraph.get(JsonDataImporter.class).initialize();
     }
 
     public void inject(Object target) {

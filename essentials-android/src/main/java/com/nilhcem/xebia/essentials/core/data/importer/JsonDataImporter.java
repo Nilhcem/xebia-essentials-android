@@ -9,17 +9,18 @@ import android.util.SparseArray;
 
 import com.activeandroid.ActiveAndroid;
 import com.activeandroid.query.Delete;
+import com.google.gson.Gson;
 import com.nilhcem.xebia.essentials.R;
 import com.nilhcem.xebia.essentials.core.data.provider.DataProvider;
 import com.nilhcem.xebia.essentials.core.data.provider.dao.CardsDao;
 import com.nilhcem.xebia.essentials.model.Card;
 import com.nilhcem.xebia.essentials.model.Category;
 
-import org.simpleframework.xml.Serializer;
-import org.simpleframework.xml.core.Persister;
-
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.Reader;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -28,7 +29,7 @@ import javax.inject.Singleton;
 import timber.log.Timber;
 
 @Singleton
-public class XmlDataImporter {
+public class JsonDataImporter {
 
     private static final String PREFS_KEY_VERSION = "version_code";
 
@@ -39,7 +40,7 @@ public class XmlDataImporter {
 
     public void initialize() {
         if (shouldImportData()) {
-            XmlData data = getDataFromXmlFile(mApplication);
+            JsonData data = getDataFromJsonFile(mApplication);
             saveToDatabase(data);
         }
         mDataProvider.initData();
@@ -71,28 +72,25 @@ public class XmlDataImporter {
         return importData;
     }
 
-    private XmlData getDataFromXmlFile(Context context) {
-        Timber.d("Importing data from XML");
+    private JsonData getDataFromJsonFile(Context context) {
+        Timber.d("Importing data from JSON");
         InputStream is = context.getResources().openRawResource(R.raw.cards_data);
-
         try {
-            Serializer serializer = new Persister();
-            return serializer.read(XmlData.class, is);
-        } catch (Exception e) {
-            Timber.e(e, "");
+            Reader reader = new BufferedReader(new InputStreamReader(is, "UTF-8"));
+            return new Gson().fromJson(reader, JsonData.class);
+        } catch (IOException e) {
+            Timber.e(e, "Error getting data from Json");
         } finally {
-            if (is != null) {
-                try {
-                    is.close();
-                } catch (IOException e) {
-                    Timber.e(e, "");
-                }
+            try {
+                is.close();
+            } catch (IOException e) {
+                Timber.e(e, "Error closing inputstream");
             }
         }
         return null;
     }
 
-    private void saveToDatabase(XmlData xmlData) {
+    private void saveToDatabase(JsonData jsonData) {
         ActiveAndroid.beginTransaction();
         try {
             new Delete().from(Card.class).execute();
@@ -100,16 +98,16 @@ public class XmlDataImporter {
 
             SparseArray<Category> dbCategories = new SparseArray<>();
 
-            List<XmlCategory> xmlCategories = xmlData.getCategories();
-            for (XmlCategory xmlCategory : xmlCategories) {
-                Category dbCategory = new Category(xmlCategory);
-                dbCategories.put(xmlCategory.getId(), dbCategory);
+            List<JsonCategory> jsonCategories = jsonData.getCategories();
+            for (JsonCategory jsonCategory : jsonCategories) {
+                Category dbCategory = new Category(jsonCategory);
+                dbCategories.put(jsonCategory.getId(), dbCategory);
                 dbCategory.save();
             }
 
-            List<XmlCard> xmlCards = xmlData.getCards();
-            for (XmlCard xmlCard : xmlCards) {
-                Card dbCard = new Card(xmlCard, dbCategories.get(xmlCard.getCategoryId()));
+            List<JsonCard> jsonCards = jsonData.getCards();
+            for (JsonCard jsonCard : jsonCards) {
+                Card dbCard = new Card(jsonCard, dbCategories.get(jsonCard.getCategory()));
                 dbCard.save();
             }
             ActiveAndroid.setTransactionSuccessful();

@@ -55,7 +55,7 @@
       "bitly": "ejk4l4"
     },
     {
-      "title": "Automate the entire release and deployment process.",
+      "title": "Automate the entire release and deployment process",
       "url": "automate-everything",
       "summary": "The release and deployment process should be fast, reliable and repeatable several times a day.",
       "description": "<h3>Motivation</h3> <p>Software release and deployment processes are often riddled with manual steps and hand offs. This makes the release process slow, error prone and expensive.</p> <h3>Applicability</h3> <p>Whenever there are manual processing steps or hand-offs involved in your release and deployment process, you should automate it.</p> <h3>Application</h3> • automate the build process with CI servers like Jenkins or Bamboo<br /> • automate the deployment process with Application Release Automation products like Deployit<br /> • automate the acceptance testing with products like Jbehave and Cucumber<br /> • automate the system integration tests with Fitnesse and Selenium<br /> • automate the installation and configuration of machines and middleware with products like Puppet and Chef.<br /><br /> <h3>Consequences</h3> <p>Once your software delivery process is automated, you will be able to deploy new versions of your application faster, more frequently with less errors and man power.</p>",
@@ -281,7 +281,7 @@
       "bitly": "h8r0nQ"
     },
     {
-      "title": "Learn a new language every year.",
+      "title": "Learn a new language every year",
       "url": "learn-a-new-language",
       "summary": "Learning a new language teaches you new concepts that will benefit you when programming in your main language.",
       "description": "<h3>Motivation</h3> <p>Each programming language is different. There are the obvious differences in language family, such as Object Oriented or Functional, but even within families, the differences are large: Objective C looks nothing like Java and the difference goes well beyond the superficial. Every programming language you learn teaches you new ways of reasoning about the task at hand. This experience carries over into other programming language, strengthening your ability in all of them. And it's fun!</p> <h3>Application</h3> <p>To learn a language, you need to go beyond &quot;Hello, World!&quot;, but rewriting your day job from scratch may be a bit optimistic. Build Conway's game of life or a Sudoku solver. Build a TODO tracker or Twitter client. Contribute to an open source project.</p>",
@@ -292,7 +292,7 @@
       "url": "boy-scout-rule",
       "summary": "Also known as the <b>Boy Scout Rule</b>, after the Boy Scouts of America.<br />Applied to programming: Always check in code in a cleaner state than when you checked it out.",
       "description": "<h3>Motivation</h3> <p>Known as the Boy Scout Rule, (possibly) first introduced by the Boy Scouts of America. This simple rule that works great for camping in nature can also be applied to programming: when you're done with a task, always check in code in a cleaner state than when you checked it out.</p> <h3>Applicability</h3> <p>This should be daily routine for a software engineer. Make sure you do not pollute your regular commits with clean up actions.</p> <h3>See also</h3> • <a href=\"http://essentials.xebia.com/one-change-at-a-time\">one-change-at-a-time</a><br /> • <a href=\"http://essentials.xebia.com/no-museum\">no-museum</a><br /><br />",
-      "category": 3,
+      "category": 1,
       "bitly": "hIOozD"
     },
     {
@@ -552,7 +552,7 @@
       "bitly": "g5LPEg"
     },
     {
-      "title": "Work on stories when they're ready.",
+      "title": "Work on stories when they're ready",
       "url": "definition-of-ready",
       "summary": "Have a Definition of <b>READY</b> to judge whether a user story is fit to go into a sprint.<br /><br /> • Do the team members understand the story?<br /> • Is the story sized correctly?<br /> • Have the acceptance criteria been defined?<br /> • Are the external dependencies in place?<br /> • How will the demo look?",
       "description": "<h3>Motivation</h3> <p>Definition of Ready aims to define an acceptance criteria that a User Story must pass in order to become eligible to be considered for inclusion in Ready sprint backlog.</p> <h3>Applicability</h3> <p>Definition of Ready is an important tool that can be used by a scrum team to judge whether a user story is ready to be taken up for discussion in a sprint planning.</p> <h3>Application</h3> <p>While planning a sprint, a User Story must pass the following criteria in order to become eligible for inclusion in a sprint.</p> • A User Story must define an acceptance criteria which is testable.<br /> • A User Story must also share information on why is it required, giving the team a bigger context on the importance of the story.<br /> • Team should be able to estimate it; In other words there should be a loose implementation strategy associated with it.<br /><br /> <h3>Consequences</h3> <p>By including a story in the sprint that is not READY, the team risks building something that is not fully defined; This may lead to re-work. Another consequence could be expanding/shrinking scope of the problem of the story while the sprint is in progress.</p> <h3>References</h3> • Serge's Blog: <a href=\"http://blog.xebia.com/2009/06/19/the-definition-of-ready/\">http://blog.xebia.com/2009/06/19/the-definition-of-ready/</a><br /> • <a href=\"http://www.nomad8.com/files/0787c369f92e9581d8ccf145ec62181b-15.php\">Another Interesting Blog From a Scrum Coach on DOR</a><br /><br />",

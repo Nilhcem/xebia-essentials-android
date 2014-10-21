@@ -2,40 +2,37 @@ package com.nilhcem.xebia.essentials.core.data.importer;
 
 import android.graphics.Color;
 
-import org.simpleframework.xml.Attribute;
-import org.simpleframework.xml.Root;
-import org.simpleframework.xml.Text;
+import com.google.gson.annotations.SerializedName;
 
 import timber.log.Timber;
 
-@Root(name = "category")
-public class XmlCategory {
+public class JsonCategory {
 
-    @Attribute(name = "id")
+    @SerializedName("id")
     int mId;
 
-    @Attribute(name = "color")
+    @SerializedName("color")
     String mColor;
 
-    @Text
+    @SerializedName("name")
     String mName;
 
     public int getId() {
         return mId;
     }
 
-    public String getName() {
-        return mName;
+    public String getColor() {
+        return mColor;
     }
 
-    private String getColor() {
-        return mColor;
+    public String getName() {
+        return mName;
     }
 
     public int getIntColor() {
         int intColor;
         try {
-            intColor = Color.parseColor(getColor());
+            intColor = Color.parseColor(mColor);
         } catch (IllegalArgumentException e) {
             Timber.w(e, "Error parsing color");
             intColor = 0;

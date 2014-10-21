@@ -4,7 +4,7 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.nilhcem.xebia.essentials.core.data.importer.XmlDataImporter;
+import com.nilhcem.xebia.essentials.core.data.importer.JsonDataImporter;
 import com.nilhcem.xebia.essentials.core.data.provider.DataProvider;
 import com.nilhcem.xebia.essentials.core.search.SearchSuggestionProvider;
 import com.nilhcem.xebia.essentials.ui.cards.CardsActivity;
@@ -28,7 +28,7 @@ import de.greenrobot.event.EventBus;
 @Module(
         injects = {
                 EssentialsApplication.class,
-                XmlDataImporter.class,
+                JsonDataImporter.class,
                 DataProvider.class,
 
                 SearchResultActivity.class,

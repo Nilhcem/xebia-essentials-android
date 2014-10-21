@@ -72,10 +72,7 @@ dependencies {
     compile 'com.squareup.dagger:dagger:1.2.2'
     provided 'com.squareup.dagger:dagger-compiler:1.2.2'
 
-    compile('org.simpleframework:simple-xml:2.7.1') {
-        exclude group: 'stax', module: 'stax-api'
-        exclude group: 'xpp3', module: 'xpp3'
-    }
+    compile 'com.google.code.gson:gson:2.3'
 
     compile 'com.google.zxing:core:3.1.0'
     compile('com.google.zxing:android-integration:3.1.0') {

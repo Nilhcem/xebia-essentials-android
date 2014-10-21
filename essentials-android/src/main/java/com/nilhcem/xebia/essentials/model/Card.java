@@ -6,7 +6,7 @@ import android.os.Parcelable;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.activeandroid.annotation.Table;
-import com.nilhcem.xebia.essentials.core.data.importer.XmlCard;
+import com.nilhcem.xebia.essentials.core.data.importer.JsonCard;
 
 @Table(name = "cards")
 public class Card extends Model implements Parcelable {
@@ -46,14 +46,14 @@ public class Card extends Model implements Parcelable {
         super();
     }
 
-    public Card(XmlCard xmlCard, Category category) {
+    public Card(JsonCard jsonCard, Category category) {
         super();
-        mTitle = xmlCard.getTitle();
-        mUrl = xmlCard.getUrlId();
-        mSummary = xmlCard.getSummary();
-        mDescription = xmlCard.getDescription();
-        mBitly = xmlCard.getBitlyId();
-        mDeprecated = xmlCard.isDeprecated();
+        mTitle = jsonCard.getTitle();
+        mUrl = jsonCard.getUrl();
+        mSummary = jsonCard.getSummary();
+        mDescription = jsonCard.getDescription();
+        mBitly = jsonCard.getBitly();
+        mDeprecated = jsonCard.isDeprecated();
         mCategory = category;
     }
 
