@@ -67,7 +67,7 @@ public class JsonDataImporter {
 
         // Force importing data if database does not contain any items
         if (!importData) {
-            importData = mCardsDao.hasCards();
+            importData = !mCardsDao.hasCards();
         }
         return importData;
     }
