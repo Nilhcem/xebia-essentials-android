@@ -77,7 +77,7 @@ public final class ScraperTest {
 
         // Then
         assertThat(card).isNotNull();
-        assertThat(card.category).isEqualTo(Category.CRAFTSMANSHIP);
+        assertThat(card.category).isEqualTo(Category.CRAFTSMANSHIP.ordinal() + 1);
         assertThat(card.id).isEqualTo("no-multitasking");
         assertThat(card.title).isEqualTo("No multitasking");
         assertThat(card.description)

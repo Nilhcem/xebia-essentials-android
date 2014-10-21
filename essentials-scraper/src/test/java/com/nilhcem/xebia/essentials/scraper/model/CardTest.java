@@ -15,7 +15,7 @@ public class CardTest {
         card = new Card("", "", "", CRAFTSMANSHIP);
 
         // When
-        int id = card.getCategoryId();
+        int id = card.category;
 
         // Then
         Assertions.assertThat(id).isEqualTo(CRAFTSMANSHIP.ordinal() + 1);

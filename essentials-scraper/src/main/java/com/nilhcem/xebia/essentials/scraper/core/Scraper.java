@@ -104,7 +104,7 @@ public class Scraper {
                 link.attr("href", String.format("%s/%s", cardsUrlPrefix, href));
             }
         }
-        desc = doc.select("body").html();
+        desc = doc.select("body").html().replaceAll("[\n\r]", "");
 
         return desc;
     }

@@ -2,6 +2,7 @@ package com.nilhcem.xebia.essentials.scraper.core;
 
 import com.nilhcem.xebia.essentials.scraper.model.Category;
 import com.nilhcem.xebia.essentials.scraper.model.Output;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -84,6 +85,7 @@ public class OutputGeneratorTest {
 
         // When
         File outputFile = generator.createOutputFile();
+        outputFile.deleteOnExit();
 
         // Then
         assertThat(outputFile.getName()).isEqualTo(expectedName);

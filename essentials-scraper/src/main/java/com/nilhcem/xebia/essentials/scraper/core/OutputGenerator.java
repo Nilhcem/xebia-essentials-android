@@ -1,17 +1,21 @@
 package com.nilhcem.xebia.essentials.scraper.core;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.nilhcem.xebia.essentials.scraper.model.Card;
 import com.nilhcem.xebia.essentials.scraper.model.Category;
 import com.nilhcem.xebia.essentials.scraper.model.Output;
-import org.simpleframework.xml.Serializer;
-import org.simpleframework.xml.core.Persister;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import javax.inject.Inject;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 public class OutputGenerator {
 
@@ -30,22 +34,41 @@ public class OutputGenerator {
 
     public void generate() {
         Output output = new Output(getAllCategories(), getAllCards());
+        Gson gson = new GsonBuilder().disableHtmlEscaping().setPrettyPrinting().create();
+        String json = gson.toJson(output);
 
-        Serializer serializer = new Persister();
+        FileOutputStream out = null;
+
         try {
-            serializer.write(output, createOutputFile());
-        } catch (Exception e) {
-            LOG.error("", e);
+            out = new FileOutputStream(createOutputFile());
+            out.write(json.getBytes());
+            out.close();
+        } catch (IOException e) {
+            LOG.error("Error saving JSON to file", e);
+        } finally {
+            if (out != null) {
+                try {
+                    out.close();
+                } catch (IOException e) {
+                    LOG.error("Error closing FileOutputStream", e);
+                }
+            }
         }
     }
 
     File createOutputFile() {
-        File file = new File(config.get(OUTPUT_FILE_KEY));
+        String path = config.get(OUTPUT_FILE_KEY);
+        File file = new File(path);
+        try {
+            file.createNewFile();
+        } catch (IOException e) {
+            LOG.error("Error creating new file: {}", path, e);
+        }
         return file;
     }
 
     List<Output.OutputCategory> getAllCategories() {
-        List<Output.OutputCategory> outputCategories = new ArrayList<Output.OutputCategory>();
+        List<Output.OutputCategory> outputCategories = new ArrayList<>();
 
         for (Category category : Category.values()) {
             outputCategories.add(new Output.OutputCategory(category.ordinal() + 1, capitalizeFirstLetterOnly(category.name()), category.getColor()));
@@ -58,7 +81,7 @@ public class OutputGenerator {
         List<String> cardsIds = scraper.getCardsIds();
         LOG.debug("Found {} cards", cardsIds.size());
 
-        List<Card> cards = new ArrayList<Card>();
+        List<Card> cards = new ArrayList<>();
         for (String cardId : cardsIds) {
             sleep();
             LOG.debug("Scrape card {}", cardId);
@@ -78,7 +101,7 @@ public class OutputGenerator {
         try {
             Thread.sleep(SLEEP_TIME_MS_BETWEEN_EACH_QUERY);
         } catch (InterruptedException e) {
-            LOG.error("", e);
+            LOG.error("Sleep error", e);
         }
     }
 }

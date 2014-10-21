@@ -5,4 +5,4 @@ export JAVA_TOOL_OPTIONS='-Djava.awt.headless=true'
 
 ./gradlew :essentials-scraper:clean :essentials-scraper:scraper
 
-echo "output: $(pwd)/essentials-scraper/cards.xml"
+echo "output: $(pwd)/essentials-scraper/cards.json"
