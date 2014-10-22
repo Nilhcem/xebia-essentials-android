@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 
 import static android.os.Build.VERSION_CODES.JELLY_BEAN;
+import static android.os.Build.VERSION_CODES.LOLLIPOP;
 
 public final class Compatibility {
 
@@ -34,6 +35,18 @@ public final class Compatibility {
             view.setBackground(drawable);
         } else {
             view.setBackgroundDrawable(drawable);
+        }
+    }
+
+    /**
+     * Sets an elevation to a view.
+     */
+    @TargetApi(LOLLIPOP)
+    public static void setElevation(View view, float elevation) {
+        if (Compatibility.isCompatible(LOLLIPOP)) {
+            view.setElevation(elevation);
+        } else {
+            // Do nothing, no elevation pre-lollipop.
         }
     }
 
