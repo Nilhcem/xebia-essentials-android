@@ -1,12 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.Xebia" parent="@style/Theme.AppCompat.Light.DarkActionBar">
-        <item name="actionBarStyle">@style/ActionBar.Solid.Xebia</item>
-    </style>
+    <style name="Theme.Xebia" parent="Theme.AppCompat.Light">
 
-    <style name="ActionBar.Solid.Xebia" parent="@style/Widget.AppCompat.Light.ActionBar.Solid.Inverse">
-        <item name="background">@drawable/ab_solid_xebia</item>
-        <item name="titleTextStyle">@style/ActionBarTitle</item>
+        <!-- Action Bar color -->
+        <item name="colorPrimary">@color/xebia_purple</item>
+
+        <!-- Status Bar color -->
+        <item name="colorPrimaryDark">@color/xebia_purple_dark</item>
+
+        <!-- Tint color -->
+        <item name="colorAccent">@color/xebia_purple</item>
+
+        <!-- Action Bar text + icons color -->
+        <item name="android:textColorPrimary">@color/actionbar_content</item>
     </style>
 </resources>

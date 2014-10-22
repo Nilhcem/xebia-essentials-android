@@ -3,11 +3,12 @@
     <!-- Core -->
     <color name="xebia_white">#ffffffff</color>
     <color name="xebia_purple">#ff4c2f5c</color>
+    <color name="xebia_purple_dark">@color/xebia_purple</color>
     <color name="xebia_dark">#ff101010</color>
     <color name="xebia_blue">#ff107fd5</color>
 
     <!-- Action bar -->
-    <color name="actionbar_content">#ffdbd5de</color>
+    <color name="actionbar_content">@color/xebia_white</color>
 
     <!-- Navigation drawer -->
     <color name="drawer_background">#fff0f0f0</color>
