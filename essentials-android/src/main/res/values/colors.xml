@@ -3,7 +3,7 @@
     <!-- Core -->
     <color name="xebia_white">#ffffffff</color>
     <color name="xebia_purple">#ff4c2f5c</color>
-    <color name="xebia_purple_dark">@color/xebia_purple</color>
+    <color name="xebia_purple_dark">#ff3c2649</color>
     <color name="xebia_dark">#ff101010</color>
     <color name="xebia_blue">#ff107fd5</color>
 
