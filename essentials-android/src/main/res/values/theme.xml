@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.Xebia" parent="Theme.AppCompat.Light">
+    <style name="Theme.Xebia" parent="Theme.AppCompat.Light.DarkActionBar">
 
         <!-- Action Bar color -->
         <item name="colorPrimary">@color/xebia_purple</item>
