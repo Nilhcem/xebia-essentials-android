@@ -1,6 +1,5 @@
 package com.nilhcem.xebia.essentials.ui.drawer;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.GravityCompat;
@@ -112,6 +111,7 @@ public abstract class MenuDrawerActivity extends BaseActivity implements Adapter
 
     @DebugLog
     public void onEventMainThread(CategoryChangedEvent event) {
+        updateActionBarColor();
         mDrawerAdapter.notifyDataSetChanged();
     }
 

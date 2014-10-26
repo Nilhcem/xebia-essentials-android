@@ -1,12 +1,16 @@
 package com.nilhcem.xebia.essentials.ui.base;
 
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 
 import com.nilhcem.xebia.essentials.EssentialsApplication;
 import com.nilhcem.xebia.essentials.R;
 import com.nilhcem.xebia.essentials.core.data.provider.DataProvider;
+import com.nilhcem.xebia.essentials.core.data.provider.dao.CategoriesDao;
+import com.nilhcem.xebia.essentials.core.utils.ColorUtils;
+import com.nilhcem.xebia.essentials.model.Category;
 
 import javax.inject.Inject;
 
@@ -18,6 +22,7 @@ public abstract class BaseActivity extends ActionBarActivity {
 
     @Inject protected EventBus mEventBus;
     @Inject protected DataProvider mDataProvider;
+    @Inject CategoriesDao mCategoriesDao;
 
     private final boolean mUseEventBus;
     private final int mLayoutResId;
@@ -41,6 +46,7 @@ public abstract class BaseActivity extends ActionBarActivity {
             setContentView(R.layout.menudrawer_layout);
             ButterKnife.inject(this);
         }
+        updateActionBarColor();
     }
 
     @Override
@@ -57,5 +63,16 @@ public abstract class BaseActivity extends ActionBarActivity {
             mEventBus.unregister(this);
         }
         super.onPause();
+    }
+
+    protected void updateActionBarColor() {
+        final int color;
+        Category category = mCategoriesDao.getCategoryById(mDataProvider.getCurrentCategoryId());
+        if (category == null) {
+            color = getResources().getColor(R.color.actionbar_color);
+        } else {
+            color = category.getColor();
+        }
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(ColorUtils.darker(color, 0.9f)));
     }
 }
