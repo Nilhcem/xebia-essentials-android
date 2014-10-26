@@ -6,8 +6,8 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:paddingBottom="14dp"
-    android:paddingLeft="10dp"
-    android:paddingRight="10dp"
+    android:paddingLeft="@dimen/menu_drawer_padding"
+    android:paddingRight="@dimen/menu_drawer_padding"
     android:paddingTop="14dp">
 
     <!-- Icon -->
@@ -16,7 +16,7 @@
         android:layout_width="@dimen/menu_drawer_icon"
         android:layout_height="@dimen/menu_drawer_icon"
         android:layout_gravity="center_vertical"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="@dimen/menu_drawer_padding"
         android:contentDescription="@string/drawer_icon_desc"
         tools:background="@drawable/ic_launcher"/>
 

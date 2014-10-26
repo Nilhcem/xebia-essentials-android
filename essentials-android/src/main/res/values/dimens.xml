@@ -2,8 +2,9 @@
 <resources>
 
     <!-- Navigation drawer -->
-    <dimen name="menu_drawer">240dp</dimen>
+    <dimen name="menu_drawer">280dp</dimen>
     <dimen name="menu_drawer_icon">26dp</dimen>
+    <dimen name="menu_drawer_padding">20dp</dimen>
 
     <!-- Card info -->
     <dimen name="card_info_content">16sp</dimen>
