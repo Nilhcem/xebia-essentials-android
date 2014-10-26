@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
               android:orientation="horizontal"
@@ -10,7 +11,8 @@
         android:name="com.nilhcem.xebia.essentials.ui.cards.listing.ListingFragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="35"/>
+        android:layout_weight="35"
+        tools:layout="@android:layout/list_content"/>
 
     <View
         android:layout_width="1dp"
@@ -22,5 +24,6 @@
         android:name="com.nilhcem.xebia.essentials.ui.cards.detail.pager.DetailPagerFragment"
         android:layout_width="0dp"
         android:layout_height="match_parent"
-        android:layout_weight="65"/>
+        android:layout_weight="65"
+        tools:layout="@layout/detail_info_fragment"/>
 </LinearLayout>

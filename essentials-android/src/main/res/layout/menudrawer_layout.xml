@@ -2,6 +2,7 @@
 <android.support.v4.widget.DrawerLayout
     android:id="@+id/drawer_layout"
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -21,5 +22,6 @@
         android:cacheColorHint="@android:color/transparent"
         android:choiceMode="singleChoice"
         android:divider="@null"
-        android:dividerHeight="0px"/>
+        android:dividerHeight="0px"
+        tools:listitem="@layout/menudrawer_entry_item"/>
 </android.support.v4.widget.DrawerLayout>
