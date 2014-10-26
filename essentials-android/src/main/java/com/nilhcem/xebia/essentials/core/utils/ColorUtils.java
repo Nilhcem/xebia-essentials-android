@@ -2,10 +2,23 @@ package com.nilhcem.xebia.essentials.core.utils;
 
 import android.graphics.Color;
 
+import timber.log.Timber;
+
 public final class ColorUtils {
 
     private ColorUtils() {
         throw new UnsupportedOperationException();
+    }
+
+    public static int parseColor(String color) {
+        int intColor;
+        try {
+            intColor = Color.parseColor(color);
+        } catch (IllegalArgumentException e) {
+            Timber.w(e, "Error parsing color %s", color);
+            intColor = 0;
+        }
+        return intColor;
     }
 
     public static int darker(int color, float factor) {

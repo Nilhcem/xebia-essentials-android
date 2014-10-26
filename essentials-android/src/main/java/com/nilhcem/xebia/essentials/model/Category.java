@@ -6,6 +6,7 @@ import android.os.Parcelable;
 import com.activeandroid.Model;
 import com.activeandroid.annotation.Column;
 import com.nilhcem.xebia.essentials.core.data.importer.JsonCategory;
+import com.nilhcem.xebia.essentials.core.utils.ColorUtils;
 
 public class Category extends Model implements Parcelable {
 
@@ -38,7 +39,7 @@ public class Category extends Model implements Parcelable {
 
     public Category(JsonCategory json) {
         super();
-        mColor = json.getIntColor();
+        mColor = ColorUtils.parseColor(json.getColor());
         mName = json.getName();
     }
 
