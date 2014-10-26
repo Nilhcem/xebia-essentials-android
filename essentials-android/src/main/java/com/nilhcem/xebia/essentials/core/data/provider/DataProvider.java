@@ -44,6 +44,10 @@ public class DataProvider {
         return mVisibleCards;
     }
 
+    public Card getCardAt(int location) {
+        return mVisibleCards.get(location);
+    }
+
     public int getCurrentCardPosition(boolean includeUnsetValue) {
         int position = mCurrentCardPosition.get();
         if (!includeUnsetValue && position == CARD_POSITION_UNSET) {

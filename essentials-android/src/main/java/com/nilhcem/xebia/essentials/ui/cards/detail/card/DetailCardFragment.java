@@ -166,7 +166,7 @@ public class DetailCardFragment extends BaseDetailFragment implements View.OnCli
         bg.setStroke(mCardBorderSize, getResources().getColor(R.color.xebia_white));
         bg.setCornerRadii(new float[]{radius, radius, radius, radius, radius, radius, radius, radius});
         Compatibility.setBackground(mCardContainer, bg);
-        Compatibility.setElevation(mCardContainer, Compatibility.convertDpToPixel(40f, getActivity()));
+        Compatibility.setElevation(mCardContainer, Compatibility.convertDpToPixel(8f, getActivity()));
     }
 
     @Override

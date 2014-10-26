@@ -17,6 +17,11 @@ public class DetailPagerTransformer implements ViewPager.PageTransformer {
     @Inject DataProvider mDataProvider;
 
     private boolean mEnableTransformations = true;
+    private OnPageTransformedListener mPageTransformedListener;
+
+    public interface OnPageTransformedListener {
+        void onPageTransformed(View view, float position);
+    }
 
     /**
      * Apply a property transformation to the given page. For most use cases, this method should not be overridden.
@@ -51,6 +56,10 @@ public class DetailPagerTransformer implements ViewPager.PageTransformer {
         view.setPivotX(width * 0.5f);
         view.setPivotY(height);
         view.setRotation(rotation);
+
+        if (mPageTransformedListener != null) {
+            mPageTransformedListener.onPageTransformed(view, position);
+        }
     }
 
     /**
@@ -78,5 +87,9 @@ public class DetailPagerTransformer implements ViewPager.PageTransformer {
 
     public void setEnableTransformations(boolean enableTransformations) {
         mEnableTransformations = enableTransformations;
+    }
+
+    public void setPageTransformedListener(OnPageTransformedListener listener) {
+        mPageTransformedListener = listener;
     }
 }

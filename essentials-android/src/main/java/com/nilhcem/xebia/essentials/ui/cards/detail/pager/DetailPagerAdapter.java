@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+import android.view.View;
 
 import com.nilhcem.xebia.essentials.EssentialsApplication;
 import com.nilhcem.xebia.essentials.core.data.provider.DataProvider;
@@ -40,6 +41,14 @@ public class DetailPagerAdapter extends FragmentStatePagerAdapter {
     public int getItemPosition(Object object) {
         // http://stackoverflow.com/questions/10849552/android-viewpager-cant-update-dynamically
         return POSITION_NONE;
+    }
+
+    @Override
+    public boolean isViewFromObject(View view, Object object) {
+        // Keep the card id in the view (tag). Used in DetailPagerFragment.
+        BaseDetailFragment fragment = (BaseDetailFragment) object;
+        view.setTag(fragment.getCard().getId());
+        return super.isViewFromObject(view, object);
     }
 
     public void updateItems(List<Card> cards) {

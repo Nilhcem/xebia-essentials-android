@@ -10,7 +10,6 @@ import com.nilhcem.xebia.essentials.R;
 import com.nilhcem.xebia.essentials.core.data.provider.DataProvider;
 import com.nilhcem.xebia.essentials.core.data.provider.dao.CategoriesDao;
 import com.nilhcem.xebia.essentials.core.utils.ColorUtils;
-import com.nilhcem.xebia.essentials.model.Category;
 
 import javax.inject.Inject;
 
@@ -65,14 +64,8 @@ public abstract class BaseActivity extends ActionBarActivity {
         super.onPause();
     }
 
-    protected void updateActionBarColor() {
-        final int color;
-        Category category = mCategoriesDao.getCategoryById(mDataProvider.getCurrentCategoryId());
-        if (category == null) {
-            color = getResources().getColor(R.color.actionbar_color);
-        } else {
-            color = category.getColor();
-        }
+    public void updateActionBarColor() {
+        int color = mCategoriesDao.getCategoryColor(mDataProvider.getCurrentCategoryId(), getResources());
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(ColorUtils.darker(color, 0.9f)));
     }
 }

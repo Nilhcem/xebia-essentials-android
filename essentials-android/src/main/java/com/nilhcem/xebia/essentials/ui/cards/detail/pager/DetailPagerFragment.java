@@ -18,9 +18,12 @@ import com.joanzapata.android.iconify.IconDrawable;
 import com.joanzapata.android.iconify.Iconify;
 import com.nilhcem.xebia.essentials.R;
 import com.nilhcem.xebia.essentials.core.data.provider.dao.CardsDao;
+import com.nilhcem.xebia.essentials.core.data.provider.dao.CategoriesDao;
+import com.nilhcem.xebia.essentials.core.utils.ColorUtils;
 import com.nilhcem.xebia.essentials.events.CardChangedEvent;
 import com.nilhcem.xebia.essentials.events.CategoryChangedEvent;
 import com.nilhcem.xebia.essentials.model.Card;
+import com.nilhcem.xebia.essentials.model.Category;
 import com.nilhcem.xebia.essentials.ui.base.BaseFragment;
 import com.nilhcem.xebia.essentials.ui.cards.random.RandomMenuHelper;
 
@@ -35,7 +38,7 @@ import timber.log.Timber;
 
 import static com.nilhcem.xebia.essentials.core.data.provider.DataProvider.CARD_POSITION_UNSET;
 
-public class DetailPagerFragment extends BaseFragment implements ViewPager.OnPageChangeListener {
+public class DetailPagerFragment extends BaseFragment implements ViewPager.OnPageChangeListener, DetailPagerTransformer.OnPageTransformedListener {
 
     public static final String TAG = DetailPagerFragment.class.getSimpleName();
     private static final String ARG_CARD = "mCard";
@@ -45,6 +48,7 @@ public class DetailPagerFragment extends BaseFragment implements ViewPager.OnPag
 
     @Inject RandomMenuHelper mRandomMenuHelper;
     @Inject DetailPagerTransformer mDetailPagerTransformer;
+    @Inject CategoriesDao mCategoriesDao;
 
     @InjectView(R.id.detail_pager) ViewPager mViewPager;
     private DetailPagerAdapter mAdapter;
@@ -77,15 +81,19 @@ public class DetailPagerFragment extends BaseFragment implements ViewPager.OnPag
         mAdapter = new DetailPagerAdapter(getActivity(), getChildFragmentManager());
         mViewPager.setAdapter(mAdapter);
         mViewPager.setPageTransformer(true, mDetailPagerTransformer);
+        mDetailPagerTransformer.setPageTransformedListener(this);
 
         Bundle arguments = getArguments();
         if (arguments == null) {
-            mAdapter.updateItems(mDataProvider.getCards());
+            List<Card> cards = mDataProvider.getCards();
+            mAdapter.updateItems(cards);
             mViewPager.setCurrentItem(mDataProvider.getCurrentCardPosition(false), false);
+            setViewPagerBackground(cards.get(0).getCategory().getColor());
         } else {
             mCard = arguments.getParcelable(ARG_CARD);
             mAdapter.updateItems(Arrays.asList(mCard));
             mViewPager.setCurrentItem(0, false);
+            setViewPagerBackground(mCard.getCategory().getColor());
         }
 
         mViewPager.setOnPageChangeListener(this);
@@ -179,14 +187,20 @@ public class DetailPagerFragment extends BaseFragment implements ViewPager.OnPag
                 mDetailPagerTransformer.setEnableTransformations(true);
             }
             setShareIntent();
+            setViewPagerBackground(mDataProvider.getCardAt(position).getCategory().getColor());
         }
     }
 
     public void onEventMainThread(CategoryChangedEvent event) {
         Timber.d("onEventMainThread(CategoryChangedEvent=%s)", event);
+        setViewPagerBackground(mCategoriesDao.getCategoryColor(event.categoryId, getResources()));
         mViewPager.setCurrentItem(0, false);
         mAdapter.updateItems(mDataProvider.getCards());
         setShareIntent();
+    }
+
+    public void setViewPagerBackground(int color) {
+        mViewPager.setBackgroundColor(ColorUtils.darker(color, 0.30f));
     }
 
     private void setShareIntent() {
@@ -208,6 +222,26 @@ public class DetailPagerFragment extends BaseFragment implements ViewPager.OnPag
             shareIntent.putExtra(Intent.EXTRA_TEXT, String.format(Locale.US, "%s%s",
                     CardsDao.BASE_URL_ESSENTIALS, currentCard.getUrlId()));
             mShareActionProvider.setShareIntent(shareIntent);
+        }
+    }
+
+    /**
+     * The following will change (and fade) the viewpager background color depending on the
+     * current and next cards colors.
+     */
+    @Override
+    public void onPageTransformed(View view, float position) {
+        int category = mDataProvider.getCurrentCategoryId();
+        if (category == Category.CATEGORY_ID_ALL || category == Category.CATEGORY_ID_SEARCH) {
+            int currentItem = mViewPager.getCurrentItem();
+            int nextItem = currentItem + (position == 0 ? 0 : (position < 0 ? 1 : -1));
+
+            if (mDataProvider.getCardAt(currentItem).getId().equals(view.getTag())) {
+                int curColor = mDataProvider.getCardAt(currentItem).getCategory().getColor();
+                int nextColor = mDataProvider.getCardAt(nextItem).getCategory().getColor();
+                int newColor = ColorUtils.mixColors(nextColor, curColor, Math.abs(position));
+                setViewPagerBackground(newColor);
+            }
         }
     }
 }
