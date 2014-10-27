@@ -33,11 +33,9 @@ public class DetailPagerTransformer implements ViewPager.PageTransformer {
      */
     @Override
     public void transformPage(View page, float position) {
-        if (mDataProvider.shouldDisplayCardView()) {
-            onPreTransform(page);
-            if (mEnableTransformations) {
-                onTransform(page, position);
-            }
+        onPreTransform(page);
+        if (mEnableTransformations) {
+            onTransform(page, position);
         }
     }
 
@@ -49,13 +47,15 @@ public class DetailPagerTransformer implements ViewPager.PageTransformer {
      *                 center. 1 is one full page position to the right, and -1 is one page position to the left.
      */
     private void onTransform(View view, float position) {
-        final float width = view.getWidth();
-        final float height = view.getHeight();
-        final float rotation = ROT_MOD * position * -1.25f;
+        if (mDataProvider.shouldDisplayCardView()) {
+            final float width = view.getWidth();
+            final float height = view.getHeight();
+            final float rotation = ROT_MOD * position * -1.25f;
 
-        view.setPivotX(width * 0.5f);
-        view.setPivotY(height);
-        view.setRotation(rotation);
+            view.setPivotX(width * 0.5f);
+            view.setPivotY(height);
+            view.setRotation(rotation);
+        }
 
         if (mPageTransformedListener != null) {
             mPageTransformedListener.onPageTransformed(view, position);
@@ -73,16 +73,18 @@ public class DetailPagerTransformer implements ViewPager.PageTransformer {
      * @param page Apply the transformation to this page
      */
     protected void onPreTransform(View page) {
-        page.setRotationX(0);
-        page.setRotationY(0);
-        page.setRotation(0);
-        page.setScaleX(1);
-        page.setScaleY(1);
-        page.setPivotX(0);
-        page.setPivotY(0);
-        page.setTranslationY(0);
-        page.setTranslationX(0);
-        page.setAlpha(1);
+        if (mDataProvider.shouldDisplayCardView()) {
+            page.setRotationX(0);
+            page.setRotationY(0);
+            page.setRotation(0);
+            page.setScaleX(1);
+            page.setScaleY(1);
+            page.setPivotX(0);
+            page.setPivotY(0);
+            page.setTranslationY(0);
+            page.setTranslationX(0);
+            page.setAlpha(1);
+        }
     }
 
     public void setEnableTransformations(boolean enableTransformations) {

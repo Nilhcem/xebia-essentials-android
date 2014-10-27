@@ -9,13 +9,15 @@ import com.nilhcem.xebia.essentials.EssentialsApplication;
 import com.nilhcem.xebia.essentials.R;
 import com.nilhcem.xebia.essentials.core.data.provider.DataProvider;
 import com.nilhcem.xebia.essentials.core.data.provider.dao.CategoriesDao;
-import com.nilhcem.xebia.essentials.core.utils.ColorUtils;
+import com.nilhcem.xebia.essentials.core.utils.Compatibility;
 
 import javax.inject.Inject;
 
 import butterknife.ButterKnife;
 import de.greenrobot.event.EventBus;
 import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
+
+import static com.nilhcem.xebia.essentials.core.utils.ColorUtils.darker;
 
 public abstract class BaseActivity extends ActionBarActivity {
 
@@ -65,7 +67,13 @@ public abstract class BaseActivity extends ActionBarActivity {
     }
 
     public void updateActionBarColor() {
-        int color = mCategoriesDao.getCategoryColor(mDataProvider.getCurrentCategoryId(), getResources());
-        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(ColorUtils.darker(color, 0.9f)));
+        updateActionBarColor(mCategoriesDao.getCategoryColor(mDataProvider.getCurrentCategoryId(), getResources()));
+    }
+
+    public void updateActionBarColor(int color) {
+        int actionBarColor = darker(color, 0.8f);
+        int statusBarColor = darker(color, 0.65f);
+        getSupportActionBar().setBackgroundDrawable(new ColorDrawable(actionBarColor));
+        Compatibility.colorizeWindow(this, actionBarColor, statusBarColor);
     }
 }

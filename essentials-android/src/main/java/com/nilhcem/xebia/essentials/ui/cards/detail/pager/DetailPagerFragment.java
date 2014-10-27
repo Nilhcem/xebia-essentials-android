@@ -24,6 +24,7 @@ import com.nilhcem.xebia.essentials.events.CardChangedEvent;
 import com.nilhcem.xebia.essentials.events.CategoryChangedEvent;
 import com.nilhcem.xebia.essentials.model.Card;
 import com.nilhcem.xebia.essentials.model.Category;
+import com.nilhcem.xebia.essentials.ui.base.BaseActivity;
 import com.nilhcem.xebia.essentials.ui.base.BaseFragment;
 import com.nilhcem.xebia.essentials.ui.cards.random.RandomMenuHelper;
 
@@ -88,12 +89,16 @@ public class DetailPagerFragment extends BaseFragment implements ViewPager.OnPag
             List<Card> cards = mDataProvider.getCards();
             mAdapter.updateItems(cards);
             mViewPager.setCurrentItem(mDataProvider.getCurrentCardPosition(false), false);
-            setViewPagerBackground(cards.get(0).getCategory().getColor());
+            int color = cards.get(mDataProvider.getCurrentCardPosition(false)).getCategory().getColor();
+            setViewPagerBackground(color);
+            setActionBarColor(color);
         } else {
             mCard = arguments.getParcelable(ARG_CARD);
             mAdapter.updateItems(Arrays.asList(mCard));
             mViewPager.setCurrentItem(0, false);
-            setViewPagerBackground(mCard.getCategory().getColor());
+            int color = mCard.getCategory().getColor();
+            setViewPagerBackground(color);
+            setActionBarColor(color);
         }
 
         mViewPager.setOnPageChangeListener(this);
@@ -187,8 +192,13 @@ public class DetailPagerFragment extends BaseFragment implements ViewPager.OnPag
                 mDetailPagerTransformer.setEnableTransformations(true);
             }
             setShareIntent();
-            setViewPagerBackground(mDataProvider.getCardAt(position).getCategory().getColor());
         }
+        setActionBarColor(mDataProvider.getCardAt(position).getCategory().getColor());
+    }
+
+    private void setActionBarColor(int color) {
+        setViewPagerBackground(color);
+        ((BaseActivity) getActivity()).updateActionBarColor(color);
     }
 
     public void onEventMainThread(CategoryChangedEvent event) {
@@ -241,6 +251,7 @@ public class DetailPagerFragment extends BaseFragment implements ViewPager.OnPag
                 int nextColor = mDataProvider.getCardAt(nextItem).getCategory().getColor();
                 int newColor = ColorUtils.mixColors(nextColor, curColor, Math.abs(position));
                 setViewPagerBackground(newColor);
+                ((BaseActivity) getActivity()).updateActionBarColor(newColor);
             }
         }
     }

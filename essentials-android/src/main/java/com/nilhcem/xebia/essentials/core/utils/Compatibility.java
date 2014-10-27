@@ -1,11 +1,13 @@
 package com.nilhcem.xebia.essentials.core.utils;
 
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewTreeObserver;
+import android.view.Window;
 
 import static android.os.Build.VERSION_CODES.JELLY_BEAN;
 import static android.os.Build.VERSION_CODES.LOLLIPOP;
@@ -77,6 +79,15 @@ public final class Compatibility {
             viewTreeObserver.removeOnGlobalLayoutListener(listener);
         } else {
             viewTreeObserver.removeGlobalOnLayoutListener(listener);
+        }
+    }
+
+    @TargetApi(LOLLIPOP)
+    public static void colorizeWindow(Activity activity, int mainColor, int darkColor) {
+        if (Compatibility.isCompatible(LOLLIPOP)) {
+            Window window = activity.getWindow();
+            window.setNavigationBarColor(mainColor);
+            window.setStatusBarColor(darkColor);
         }
     }
 }

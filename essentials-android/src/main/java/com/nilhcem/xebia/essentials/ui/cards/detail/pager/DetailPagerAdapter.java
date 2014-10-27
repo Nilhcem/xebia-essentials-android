@@ -47,7 +47,12 @@ public class DetailPagerAdapter extends FragmentStatePagerAdapter {
     public boolean isViewFromObject(View view, Object object) {
         // Keep the card id in the view (tag). Used in DetailPagerFragment.
         BaseDetailFragment fragment = (BaseDetailFragment) object;
-        view.setTag(fragment.getCard().getId());
+        if (view != null && fragment != null) {
+            Card card = fragment.getCard();
+            if (card != null) {
+                view.setTag(card.getId());
+            }
+        }
         return super.isViewFromObject(view, object);
     }
 
