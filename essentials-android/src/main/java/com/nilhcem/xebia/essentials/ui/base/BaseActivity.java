@@ -74,6 +74,6 @@ public abstract class BaseActivity extends ActionBarActivity {
         int actionBarColor = darker(color, 0.8f);
         int statusBarColor = darker(color, 0.65f);
         getSupportActionBar().setBackgroundDrawable(new ColorDrawable(actionBarColor));
-        Compatibility.colorizeWindow(this, actionBarColor, statusBarColor);
+        Compatibility.setStatusBarColor(this, statusBarColor);
     }
 }

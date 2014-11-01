@@ -7,7 +7,6 @@ import android.graphics.drawable.Drawable;
 import android.util.TypedValue;
 import android.view.View;
 import android.view.ViewTreeObserver;
-import android.view.Window;
 
 import static android.os.Build.VERSION_CODES.JELLY_BEAN;
 import static android.os.Build.VERSION_CODES.LOLLIPOP;
@@ -83,11 +82,9 @@ public final class Compatibility {
     }
 
     @TargetApi(LOLLIPOP)
-    public static void colorizeWindow(Activity activity, int mainColor, int darkColor) {
+    public static void setStatusBarColor(Activity activity, int color) {
         if (Compatibility.isCompatible(LOLLIPOP)) {
-            Window window = activity.getWindow();
-            window.setNavigationBarColor(mainColor);
-            window.setStatusBarColor(darkColor);
+            activity.getWindow().setStatusBarColor(color);
         }
     }
 }
