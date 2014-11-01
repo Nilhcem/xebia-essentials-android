@@ -3,7 +3,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.13.3'
+        classpath 'com.android.tools.build:gradle:0.14.0'
         classpath 'com.jakewharton.hugo:hugo-plugin:1.1.0'
         classpath 'com.stanfy.spoon:spoon-gradle-plugin:0.10.0'
     }
@@ -22,7 +22,7 @@ configurations {
 
 android {
     compileSdkVersion 21
-    buildToolsVersion "21.0.2"
+    buildToolsVersion "21.1.0"
 
     defaultConfig {
         applicationId "com.nilhcem.xebia.essentials"
@@ -44,7 +44,7 @@ android {
 
     buildTypes {
         release {
-            runProguard false
+            minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -81,7 +81,7 @@ dependencies {
 
     compile 'uk.co.chrisjenx:calligraphy:1.2.0'
     compile 'com.joanzapata.android:android-iconify:1.0.6'
-    compile 'com.jakewharton:butterknife:5.1.2'
+    compile 'com.jakewharton:butterknife:6.0.0'
     compile 'com.jakewharton.timber:timber:2.4.1'
     compile 'de.greenrobot:eventbus:2.2.1'
 
