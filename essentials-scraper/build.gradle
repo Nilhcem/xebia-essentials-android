@@ -30,11 +30,11 @@ dependencies {
     compile 'org.slf4j:slf4j-api:1.7.7'
     compile 'ch.qos.logback:logback-classic:1.1.2'
     compile 'com.google.inject:guice:3.0'
-    compile 'org.jsoup:jsoup:1.7.3'
-    compile 'com.google.code.gson:gson:2.3'
+    compile 'org.jsoup:jsoup:1.8.1'
+    compile 'com.google.code.gson:gson:2.3.1'
 
-    testCompile 'junit:junit:4.11'
+    testCompile 'junit:junit:4.12'
     testCompile 'org.easytesting:fest-assert:1.4'
-    testCompile 'org.mockito:mockito-all:1.9.5'
-    testCompile 'com.github.tomakehurst:wiremock:1.47:standalone'
+    testCompile 'org.mockito:mockito-all:1.10.8'
+    testCompile 'com.github.tomakehurst:wiremock:1.52:standalone'
 }

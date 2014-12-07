@@ -3,9 +3,11 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:0.14.0'
+        classpath 'com.android.tools.build:gradle:1.0.0-rc4'
         classpath 'com.jakewharton.hugo:hugo-plugin:1.1.0'
-        classpath 'com.stanfy.spoon:spoon-gradle-plugin:0.10.0'
+        classpath('com.stanfy.spoon:spoon-gradle-plugin:0.14.1') {
+            exclude module: 'guava'
+        }
     }
 }
 
@@ -13,7 +15,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'hugo'
 
 apply from: 'sonar.gradle'
-apply from: 'spoon.gradle'
+apply from: 'tests.gradle'
 
 configurations {
     androidTestCompile.exclude module: 'support-v4'
@@ -22,15 +24,15 @@ configurations {
 
 android {
     compileSdkVersion 21
-    buildToolsVersion "21.1.0"
+    buildToolsVersion '21.1.1'
 
     defaultConfig {
-        applicationId "com.nilhcem.xebia.essentials"
+        applicationId 'com.nilhcem.xebia.essentials'
         minSdkVersion 9
         targetSdkVersion 21
         versionCode 5
-        versionName "2.1"
-        resConfig "en"
+        versionName '2.1'
+        resConfig 'en'
 
         testInstrumentationRunner 'android.test.InstrumentationTestRunner'
         testHandleProfiling true
@@ -66,13 +68,13 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:21.0.0'
-    compile 'com.android.support:appcompat-v7:21.0.0'
+    compile 'com.android.support:support-v4:21.0.2'
+    compile 'com.android.support:appcompat-v7:21.0.2'
 
     compile 'com.squareup.dagger:dagger:1.2.2'
     provided 'com.squareup.dagger:dagger-compiler:1.2.2'
 
-    compile 'com.google.code.gson:gson:2.3'
+    compile 'com.google.code.gson:gson:2.3.1'
 
     compile 'com.google.zxing:core:3.1.0'
     compile('com.google.zxing:android-integration:3.1.0') {
@@ -80,10 +82,10 @@ dependencies {
     }
 
     compile 'uk.co.chrisjenx:calligraphy:1.2.0'
-    compile 'com.joanzapata.android:android-iconify:1.0.6'
+    compile 'com.joanzapata.android:android-iconify:1.0.8'
     compile 'com.jakewharton:butterknife:6.0.0'
-    compile 'com.jakewharton.timber:timber:2.4.1'
-    compile 'de.greenrobot:eventbus:2.2.1'
+    compile 'com.jakewharton.timber:timber:2.5.0'
+    compile 'de.greenrobot:eventbus:2.4.0'
 
     compile files('libs/active-android-3.0.jar')
 }

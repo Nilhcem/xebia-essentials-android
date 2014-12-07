@@ -91,9 +91,9 @@ public class Scraper {
                 .replaceAll("<ul>", "")
                 .replaceAll("<ol>", "")
                 .replaceAll("<li>", "• ")
-                .replaceAll("</li>", "<br />")
-                .replaceAll("</ul>", "<br />")
-                .replaceAll("</ol>", "<br />");
+                .replaceAll("</li>", "<br>")
+                .replaceAll("</ul>", "<br>")
+                .replaceAll("</ol>", "<br>");
 
         // Rewrite cards links
         Document doc = Jsoup.parse(desc);
