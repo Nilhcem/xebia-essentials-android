@@ -17,7 +17,7 @@
         android:layout_height="@dimen/menu_drawer_icon"
         android:layout_gravity="center_vertical"
         android:layout_marginRight="@dimen/menu_drawer_padding"
-        android:contentDescription="@string/drawer_icon_desc"
+        android:contentDescription="@null"
         tools:background="@drawable/ic_launcher"/>
 
     <!-- Title -->
