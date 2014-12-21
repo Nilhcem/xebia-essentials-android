@@ -3,7 +3,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.0.0-rc4'
+        classpath 'com.android.tools.build:gradle:1.0.0'
         classpath 'com.jakewharton.hugo:hugo-plugin:1.1.0'
         classpath('com.stanfy.spoon:spoon-gradle-plugin:0.14.1') {
             exclude module: 'guava'
@@ -24,7 +24,7 @@ configurations {
 
 android {
     compileSdkVersion 21
-    buildToolsVersion '21.1.1'
+    buildToolsVersion '21.1.2'
 
     defaultConfig {
         applicationId 'com.nilhcem.xebia.essentials'
@@ -51,25 +51,14 @@ android {
         }
     }
 
-    packagingOptions {
-        exclude 'LICENSE.txt'
-        exclude 'META-INF/LICENSE'
-        exclude 'META-INF/LICENSE.txt'
-        exclude 'META-INF/license.txt'
-        exclude 'META-INF/NOTICE'
-        exclude 'META-INF/NOTICE.txt'
-        exclude 'META-INF/notice.txt'
-        exclude 'META-INF/ASL2.0'
-    }
-
     lintOptions {
         abortOnError false
     }
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:21.0.2'
-    compile 'com.android.support:appcompat-v7:21.0.2'
+    compile 'com.android.support:support-v4:21.0.3'
+    compile 'com.android.support:appcompat-v7:21.0.3'
 
     compile 'com.squareup.dagger:dagger:1.2.2'
     provided 'com.squareup.dagger:dagger-compiler:1.2.2'
