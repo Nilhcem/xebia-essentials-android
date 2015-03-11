@@ -5,7 +5,6 @@ import android.content.Context;
 
 import com.activeandroid.ActiveAndroid;
 import com.nilhcem.xebia.essentials.core.data.importer.JsonDataImporter;
-import com.nilhcem.xebia.essentials.core.logging.ReleaseLogTree;
 
 import dagger.ObjectGraph;
 import hugo.weaving.DebugLog;
@@ -23,14 +22,14 @@ public class EssentialsApplication extends Application {
         ActiveAndroid.initialize(this);
         buildObjectGraphAndInject();
         importData();
-        CalligraphyConfig.initDefault(R.attr.fontPath);
+        CalligraphyConfig.initDefault(new CalligraphyConfig.Builder()
+                .setFontAttrId(R.attr.fontPath)
+                .build());
     }
 
     private void initLogger() {
         if (BuildConfig.DEBUG) {
             Timber.plant(new Timber.DebugTree());
-        } else {
-            Timber.plant(new ReleaseLogTree());
         }
     }
 

@@ -4,7 +4,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:1.1.0'
-        classpath 'com.jakewharton.hugo:hugo-plugin:1.1.0'
+        classpath 'com.jakewharton.hugo:hugo-plugin:1.2.1'
         classpath('com.stanfy.spoon:spoon-gradle-plugin:0.14.1') {
             exclude module: 'guava'
         }
@@ -57,24 +57,23 @@ android {
 }
 
 dependencies {
-    compile 'com.android.support:support-v4:21.0.3'
-    compile 'com.android.support:appcompat-v7:21.0.3'
+    compile('com.android.support:support-v4:21.0.3',
+            'com.android.support:appcompat-v7:21.0.3',
+            'com.google.code.gson:gson:2.3.1',
+            'uk.co.chrisjenx:calligraphy:2.0.2',
+            'com.joanzapata.android:android-iconify:1.0.9',
+            'com.jakewharton:butterknife:6.1.0',
+            'com.jakewharton.timber:timber:2.7.1',
+            'de.greenrobot:eventbus:2.4.0'
+    )
 
     compile 'com.squareup.dagger:dagger:1.2.2'
     provided 'com.squareup.dagger:dagger-compiler:1.2.2'
 
-    compile 'com.google.code.gson:gson:2.3.1'
-
-    compile 'com.google.zxing:core:3.1.0'
-    compile('com.google.zxing:android-integration:3.1.0') {
+    compile 'com.google.zxing:core:3.2.0'
+    compile('com.google.zxing:android-integration:3.2.0') {
         exclude group: 'com.google.android'
     }
-
-    compile 'uk.co.chrisjenx:calligraphy:1.2.0'
-    compile 'com.joanzapata.android:android-iconify:1.0.8'
-    compile 'com.jakewharton:butterknife:6.0.0'
-    compile 'com.jakewharton.timber:timber:2.5.0'
-    compile 'de.greenrobot:eventbus:2.4.0'
 
     compile files('libs/active-android-3.0.jar')
 }
