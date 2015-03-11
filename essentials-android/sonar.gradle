@@ -2,6 +2,8 @@ apply plugin: 'sonar-runner'
 
 sonarRunner {
     sonarProperties {
+        def appProject = project(':essentials-android')
+
         property 'sonar.projectKey', 'essentials-android'
         property 'sonar.projectName', 'Xebia Essentials (Android)'
         property 'sonar.projectVersion', appProject.android.defaultConfig.versionName

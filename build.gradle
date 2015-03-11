@@ -11,7 +11,3 @@ allprojects {
         jcenter()
     }
 }
-
-ext {
-    appProject = project(':essentials-android')
-}
