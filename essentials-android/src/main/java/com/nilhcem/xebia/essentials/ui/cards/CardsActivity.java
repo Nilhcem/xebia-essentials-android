@@ -6,8 +6,6 @@ import android.os.Bundle;
 import com.nilhcem.xebia.essentials.R;
 import com.nilhcem.xebia.essentials.events.CardChangedEvent;
 import com.nilhcem.xebia.essentials.ui.cards.detail.DetailActivity;
-import com.nilhcem.xebia.essentials.ui.cards.detail.pager.DetailPagerFragment;
-import com.nilhcem.xebia.essentials.ui.cards.listing.ListingFragment;
 import com.nilhcem.xebia.essentials.ui.drawer.MenuDrawerActivity;
 
 import hugo.weaving.DebugLog;
@@ -20,9 +18,6 @@ public class CardsActivity extends MenuDrawerActivity {
     // Whether or not we are in dual-pane mode
     private boolean mIsDualPane;
 
-    private ListingFragment mListingFragment;
-    private DetailPagerFragment mDetailFragment;
-
     public CardsActivity() {
         super(R.layout.main_layout);
     }
@@ -31,10 +26,6 @@ public class CardsActivity extends MenuDrawerActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         mIsDualPane = getResources().getBoolean(R.bool.has_two_panes);
-
-        // find our fragments
-        mListingFragment = (ListingFragment) getSupportFragmentManager().findFragmentById(R.id.main_listing_fragment);
-        mDetailFragment = (DetailPagerFragment) getSupportFragmentManager().findFragmentById(R.id.main_detail_fragment);
     }
 
     @Override

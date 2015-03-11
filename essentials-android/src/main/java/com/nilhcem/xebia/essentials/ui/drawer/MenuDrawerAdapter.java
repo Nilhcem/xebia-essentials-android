@@ -65,7 +65,7 @@ public class MenuDrawerAdapter extends BaseAdapter {
             return ((Category) obj).getIntId();
         }
         // adding mItems.size() to avoid collisions with real categories ids
-        return mItems.size() + position;
+        return (long) mItems.size() + position;
     }
 
     @Override
