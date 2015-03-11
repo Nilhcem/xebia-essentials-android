@@ -2,7 +2,7 @@ apply plugin: 'spoon'
 
 dependencies {
     androidTestCompile 'com.squareup.spoon:spoon-client:1.1.2'
-    androidTestCompile 'com.jayway.android.robotium:robotium-solo:5.2.1'
+    androidTestCompile 'com.jayway.android.robotium:robotium-solo:5.3.1'
     androidTestCompile('com.squareup:fest-android:1.0.8') { exclude module: 'support-v4' }
 }
 
