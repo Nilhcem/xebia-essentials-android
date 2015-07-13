@@ -12,19 +12,25 @@ import com.nilhcem.xebia.essentials.core.utils.Compatibility;
 import com.nilhcem.xebia.essentials.model.Card;
 import com.nilhcem.xebia.essentials.model.Category;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 public class ListingEntryView extends RelativeLayout {
 
-    @InjectView(R.id.listing_text) TextView mText;
-    @InjectView(R.id.listing_category_color) View mCategoryColor;
+    @Bind(R.id.listing_text) TextView mText;
+    @Bind(R.id.listing_category_color) View mCategoryColor;
 
     public ListingEntryView(Context context) {
         super(context);
         LayoutInflater.from(context).inflate(R.layout.listing_entry, this, true);
-        ButterKnife.inject(this, this);
+        ButterKnife.bind(this, this);
         EssentialsApplication.get(context).inject(this);
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        ButterKnife.unbind(this);
+        super.finalize();
     }
 
     public void bindData(Card card, boolean highlightItem) {

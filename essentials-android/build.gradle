@@ -3,7 +3,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.1.0'
+        classpath 'com.android.tools.build:gradle:1.2.3'
         classpath 'com.jakewharton.hugo:hugo-plugin:1.2.1'
         classpath('com.stanfy.spoon:spoon-gradle-plugin:0.14.1') {
             exclude module: 'guava'
@@ -24,7 +24,7 @@ configurations {
 
 android {
     compileSdkVersion 22
-    buildToolsVersion '22.0.0'
+    buildToolsVersion '22.0.1'
 
     defaultConfig {
         applicationId 'com.nilhcem.xebia.essentials'
@@ -57,13 +57,13 @@ android {
 }
 
 dependencies {
-    compile('com.android.support:support-v4:22.0.0',
-            'com.android.support:appcompat-v7:22.0.0',
+    compile('com.android.support:support-v4:22.2.0',
+            'com.android.support:appcompat-v7:22.2.0',
             'com.google.code.gson:gson:2.3.1',
-            'uk.co.chrisjenx:calligraphy:2.0.2',
+            'uk.co.chrisjenx:calligraphy:2.1.0',
             'com.joanzapata.android:android-iconify:1.0.9',
-            'com.jakewharton:butterknife:6.1.0',
-            'com.jakewharton.timber:timber:2.7.1',
+            'com.jakewharton:butterknife:7.0.1',
+            'com.jakewharton.timber:timber:3.1.0',
             'de.greenrobot:eventbus:2.4.0'
     )
 

@@ -14,13 +14,13 @@ import com.nilhcem.xebia.essentials.R;
 import com.nilhcem.xebia.essentials.core.utils.Compatibility;
 import com.nilhcem.xebia.essentials.model.Category;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 public class MenuDrawerEntryItemView extends RelativeLayout {
 
-    @InjectView(R.id.drawer_entry_icon) ImageView mIcon;
-    @InjectView(R.id.drawer_entry_title) TextView mTitle;
+    @Bind(R.id.drawer_entry_icon) ImageView mIcon;
+    @Bind(R.id.drawer_entry_title) TextView mTitle;
 
     private final float[] mOuterRadii;
 
@@ -30,7 +30,13 @@ public class MenuDrawerEntryItemView extends RelativeLayout {
         mOuterRadii = new float[]{f, f, f, f, f, f, f, f};
 
         LayoutInflater.from(context).inflate(R.layout.menudrawer_entry_item, this, true);
-        ButterKnife.inject(this, this);
+        ButterKnife.bind(this, this);
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        ButterKnife.unbind(this);
+        super.finalize();
     }
 
     public void bindData(Category category, boolean highlight) {

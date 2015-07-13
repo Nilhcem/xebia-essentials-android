@@ -15,16 +15,16 @@ import android.widget.TextView;
 
 import com.nilhcem.xebia.essentials.R;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 public class AboutDialogFragment extends DialogFragment {
 
     public static final String TAG = AboutDialogFragment.class.getSimpleName();
 
-    @InjectView(R.id.about_dialog_card_content) TextView mCardContent;
-    @InjectView(R.id.about_dialog_get_content) TextView mGetContent;
-    @InjectView(R.id.about_dialog_xebia_content) TextView mXebiaContent;
+    @Bind(R.id.about_dialog_card_content) TextView mCardContent;
+    @Bind(R.id.about_dialog_get_content) TextView mGetContent;
+    @Bind(R.id.about_dialog_xebia_content) TextView mXebiaContent;
 
     @NonNull
     @Override
@@ -37,7 +37,7 @@ public class AboutDialogFragment extends DialogFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View layout = inflater.inflate(R.layout.about_dialog_fragment, container, false);
-        ButterKnife.inject(this, layout);
+        ButterKnife.bind(this, layout);
 
         mCardContent.setText(Html.fromHtml(getString(R.string.about_cards_content)));
         mCardContent.setMovementMethod(LinkMovementMethod.getInstance());
@@ -55,5 +55,11 @@ public class AboutDialogFragment extends DialogFragment {
         if (dialog != null) {
             dialog.getWindow().setLayout(FrameLayout.LayoutParams.MATCH_PARENT, FrameLayout.LayoutParams.WRAP_CONTENT);
         }
+    }
+
+    @Override
+    public void onDestroyView() {
+        ButterKnife.unbind(this);
+        super.onDestroyView();
     }
 }

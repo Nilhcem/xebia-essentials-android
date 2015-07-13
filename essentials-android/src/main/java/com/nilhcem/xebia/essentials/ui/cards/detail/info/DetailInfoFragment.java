@@ -13,15 +13,15 @@ import com.nilhcem.xebia.essentials.model.Card;
 import com.nilhcem.xebia.essentials.model.Category;
 import com.nilhcem.xebia.essentials.ui.cards.detail.BaseDetailFragment;
 
-import butterknife.InjectView;
+import butterknife.Bind;
 
 import static android.os.Build.VERSION_CODES.HONEYCOMB;
 
 public class DetailInfoFragment extends BaseDetailFragment {
 
-    @InjectView(R.id.detail_info_title) TextView mTitle;
-    @InjectView(R.id.detail_info_category) TextView mCategory;
-    @InjectView(R.id.detail_info_text) TextView mDescription;
+    @Bind(R.id.detail_info_title) TextView mTitle;
+    @Bind(R.id.detail_info_category) TextView mCategory;
+    @Bind(R.id.detail_info_text) TextView mDescription;
 
     public DetailInfoFragment() {
         super(R.layout.detail_info_fragment);

@@ -22,21 +22,21 @@ import com.nilhcem.xebia.essentials.ui.cards.detail.BaseDetailFragment;
 
 import java.util.Locale;
 
-import butterknife.InjectView;
+import butterknife.Bind;
 import timber.log.Timber;
 
 public class DetailCardFragment extends BaseDetailFragment implements View.OnClickListener, DetailCardFlipperAnimator.OnCardFlipListener {
 
-    @InjectView(R.id.detail_card_container) ViewGroup mCardContainer;
-    @InjectView(R.id.detail_card_category) TextView mCardCategory;
-    @InjectView(R.id.detail_card_front) View mCardFront;
-    @InjectView(R.id.detail_card_back) View mCardBack;
+    @Bind(R.id.detail_card_container) ViewGroup mCardContainer;
+    @Bind(R.id.detail_card_category) TextView mCardCategory;
+    @Bind(R.id.detail_card_front) View mCardFront;
+    @Bind(R.id.detail_card_back) View mCardBack;
 
-    @InjectView(R.id.detail_card_front_title) TextView mCardTitle;
-    @InjectView(R.id.detail_card_front_url) TextView mCardUrl;
-    @InjectView(R.id.detail_card_back_summary) TextView mCardSummary;
+    @Bind(R.id.detail_card_front_title) TextView mCardTitle;
+    @Bind(R.id.detail_card_front_url) TextView mCardUrl;
+    @Bind(R.id.detail_card_back_summary) TextView mCardSummary;
 
-    @InjectView(R.id.detail_card_front_qrcode) DetailCardQrCodeView mQrCode;
+    @Bind(R.id.detail_card_front_qrcode) DetailCardQrCodeView mQrCode;
 
     private View mLayout;
     private int mCardBorderSize;

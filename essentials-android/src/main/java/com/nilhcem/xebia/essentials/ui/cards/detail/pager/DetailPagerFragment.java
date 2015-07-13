@@ -34,7 +34,7 @@ import java.util.Locale;
 
 import javax.inject.Inject;
 
-import butterknife.InjectView;
+import butterknife.Bind;
 import timber.log.Timber;
 
 import static com.nilhcem.xebia.essentials.core.data.provider.DataProvider.CARD_POSITION_UNSET;
@@ -51,7 +51,7 @@ public class DetailPagerFragment extends BaseFragment implements ViewPager.OnPag
     @Inject DetailPagerTransformer mDetailPagerTransformer;
     @Inject CategoriesDao mCategoriesDao;
 
-    @InjectView(R.id.detail_pager) ViewPager mViewPager;
+    @Bind(R.id.detail_pager) ViewPager mViewPager;
     private DetailPagerAdapter mAdapter;
 
     private ShareActionProvider mShareActionProvider;

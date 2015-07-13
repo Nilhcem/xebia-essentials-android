@@ -13,21 +13,27 @@ import android.widget.ProgressBar;
 import com.nilhcem.xebia.essentials.R;
 import com.nilhcem.xebia.essentials.core.qrcode.QrCodeGenerator;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 public class DetailCardQrCodeView extends FrameLayout {
 
-    @InjectView(R.id.detail_card_front_qrcode_image) ImageView mQrCode;
-    @InjectView(R.id.detail_card_front_qrcode_loading) ProgressBar mProgress;
+    @Bind(R.id.detail_card_front_qrcode_image) ImageView mQrCode;
+    @Bind(R.id.detail_card_front_qrcode_loading) ProgressBar mProgress;
 
     private final int mQrCodeSize;
 
     public DetailCardQrCodeView(Context context, AttributeSet attrs) {
         super(context, attrs);
         LayoutInflater.from(context).inflate(R.layout.detail_card_fragment_qrcode, this, true);
-        ButterKnife.inject(this, this);
+        ButterKnife.bind(this, this);
         mQrCodeSize = context.getResources().getDimensionPixelSize(R.dimen.card_flip_qrcode_size);
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        ButterKnife.unbind(this);
+        super.finalize();
     }
 
     public void bindData(String url) {

@@ -8,12 +8,12 @@ import android.widget.TextView;
 import com.nilhcem.xebia.essentials.R;
 import com.nilhcem.xebia.essentials.core.utils.Compatibility;
 
+import butterknife.Bind;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
 
 public class MenuDrawerEntryHeaderView extends LinearLayout {
 
-    @InjectView(R.id.drawer_entry_header) TextView mText;
+    @Bind(R.id.drawer_entry_header) TextView mText;
 
     private final int mSmallTopMargin;
     private final int mLargeTopMargin;
@@ -25,7 +25,13 @@ public class MenuDrawerEntryHeaderView extends LinearLayout {
         mLargeTopMargin = Compatibility.convertDpToIntPixel(12f, context);
 
         LayoutInflater.from(context).inflate(R.layout.menudrawer_entry_header, this, true);
-        ButterKnife.inject(this, this);
+        ButterKnife.bind(this, this);
+    }
+
+    @Override
+    protected void finalize() throws Throwable {
+        ButterKnife.unbind(this);
+        super.finalize();
     }
 
     public void bindData(String header, boolean withTopMargin) {

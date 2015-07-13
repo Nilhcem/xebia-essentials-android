@@ -39,7 +39,7 @@ public abstract class BaseFragment extends Fragment {
 
         if (mLayoutResId != 0) {
             view = inflater.inflate(mLayoutResId, container, false);
-            ButterKnife.inject(this, view);
+            ButterKnife.bind(this, view);
         }
         return view;
     }
@@ -63,7 +63,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public void onDestroyView() {
         if (mLayoutResId != 0) {
-            ButterKnife.reset(this);
+            ButterKnife.unbind(this);
         }
         super.onDestroyView();
     }

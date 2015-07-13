@@ -23,7 +23,7 @@ import com.nilhcem.xebia.essentials.ui.cards.detail.DetailActivity;
 
 import javax.inject.Inject;
 
-import butterknife.InjectView;
+import butterknife.Bind;
 import hugo.weaving.DebugLog;
 
 import static com.nilhcem.xebia.essentials.model.Category.CATEGORY_ID_ABOUT;
@@ -33,11 +33,11 @@ import static com.nilhcem.xebia.essentials.model.Category.CATEGORY_ID_SEARCH;
 
 public abstract class MenuDrawerActivity extends BaseActivity implements AdapterView.OnItemClickListener {
 
-    @InjectView(R.id.content_frame) FrameLayout mMainLayoutContainer;
-    @InjectView(R.id.drawer_layout) DrawerLayout mDrawerLayout;
-    @InjectView(R.id.left_drawer) ListView mDrawerList;
-
     @Inject ZxingIntegrator mQrCode;
+
+    @Bind(R.id.content_frame) FrameLayout mMainLayoutContainer;
+    @Bind(R.id.drawer_layout) DrawerLayout mDrawerLayout;
+    @Bind(R.id.left_drawer) ListView mDrawerList;
 
     private final int mSubLayoutResId;
     private ActionBarDrawerToggle mDrawerToggle;

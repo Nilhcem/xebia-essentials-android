@@ -3,7 +3,7 @@ package com.nilhcem.xebia.essentials.ui.base;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 
 import com.nilhcem.xebia.essentials.EssentialsApplication;
 import com.nilhcem.xebia.essentials.R;
@@ -19,7 +19,7 @@ import uk.co.chrisjenx.calligraphy.CalligraphyContextWrapper;
 
 import static com.nilhcem.xebia.essentials.core.utils.ColorUtils.darker;
 
-public abstract class BaseActivity extends ActionBarActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
     @Inject protected EventBus mEventBus;
     @Inject protected DataProvider mDataProvider;
@@ -45,7 +45,7 @@ public abstract class BaseActivity extends ActionBarActivity {
 
         if (mLayoutResId != 0) {
             setContentView(R.layout.menudrawer_layout);
-            ButterKnife.inject(this);
+            ButterKnife.bind(this);
         }
         updateActionBarColor();
     }
@@ -64,6 +64,14 @@ public abstract class BaseActivity extends ActionBarActivity {
             mEventBus.unregister(this);
         }
         super.onPause();
+    }
+
+    @Override
+    protected void onDestroy() {
+        if (mLayoutResId != 0) {
+            ButterKnife.unbind(this);
+        }
+        super.onDestroy();
     }
 
     public void updateActionBarColor() {
