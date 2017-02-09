@@ -31,8 +31,6 @@ Import with Android Studio, or use gradle directly.
 Testing
 -------
 
-You can get the latest Robotium + Spoon test report here : [Web][5] - [TV][6]
-
 To run the tests, you can directly run:
 
 ```bash
@@ -283,8 +281,6 @@ The Android source code, excluding cards data (proprietary), is under an Apache 
 </pre>
 
 [1]: https://play.google.com/store/apps/details?id=com.nilhcem.xebia.essentials
-[2]: http://nilhcem.github.com/screenshots/xebia-essentials.png
+[2]: https://raw.githubusercontent.com/Nilhcem/xebia-essentials-android/master/screenshot.png
 [3]: http://essentials.xebia.com
 [4]: http://xebia.com/books/xebia-essentials
-[5]: http://nilhcem.github.com/spoon/xebia-essentials/index.html
-[6]: http://nilhcem.github.com/spoon/xebia-essentials/tv.html
